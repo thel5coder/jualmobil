@@ -35,7 +35,7 @@ class NewUserRegistered
             'name'=>$name
         ];
         Mail::send(['html'=>'mail.newuserregister'],['data'=>$data], function ($message) use ($email){
-            $message->from(env('MAIL_FROM'),'Jual Mobil');
+            $message->from(env('MAIL_USERNAME'),'Jual Mobil');
             $message->to($email)->subject('Confirmation Email');
         });
     }
