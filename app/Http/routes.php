@@ -17,7 +17,7 @@ Route::get('/', function () {
 Route::get('/login','UserController@login');
 Route::post('/login','UserController@doLogin');
 Route::get('/register','UserController@register');
-Route::post('/register',['uses' =>'UserController@doRegister','as' => 'register']);
+Route::post('/user-register',['uses' =>'UserController@doRegister','as' => 'register']);
 
 Route::get('daftarmobil', function () {
     return view('daftarmobil');
