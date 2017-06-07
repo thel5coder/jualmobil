@@ -14,7 +14,7 @@
                     <div class="cs-register">
                         <h4>Register</h4>
                         <div class="row">
-                            <form method="post" action="{{url('/register')}}">
+                            <form method="post" action="{{route('register')}}">
                                 <div class="cs-field-holder">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <label>Daftar Sebagai</label>
