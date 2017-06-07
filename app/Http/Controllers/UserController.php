@@ -44,7 +44,7 @@ class UserController extends Controller
         $result = $this->userService->Register(Input::all());
         if($result->isSuccess())
         {
-            return redirect('/');
+            //return redirect('/');
         }
         else{
             return $result->getErrorMessages();

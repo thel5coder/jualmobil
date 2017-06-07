@@ -4,32 +4,6 @@
     <list default="true" id="d0b8c4c5-7285-46c5-a72e-e80e25495369" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.env" afterPath="$PROJECT_DIR$/.env" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Listeners/NewUserRegistered.php" afterPath="$PROJECT_DIR$/app/Listeners/NewUserRegistered.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Providers/AppRepositoryProvider.php" afterPath="$PROJECT_DIR$/app/Providers/AppRepositoryProvider.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" afterPath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Actions/ImagesLmRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Actions/ImagesLmRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Actions/LokasiRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Actions/LokasiRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Actions/MerkRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Actions/MerkRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Actions/ModelRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Actions/ModelRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Actions/TipeRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Actions/TipeRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Actions/UserRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Actions/UserRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Contracts/IBaseRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Contracts/IBaseRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Contracts/IImagesLmRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Contracts/IImagesLmRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Contracts/IListingMobilRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Contracts/IListingMobilRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Contracts/ILokasiRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Contracts/ILokasiRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Contracts/IMerkRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Contracts/IMerkRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Contracts/IModelRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Contracts/IModelRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Contracts/ITipeRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Contracts/ITipeRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Contracts/IUserRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/Contracts/IUserRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Contracts/Pagination/PaginationParam.php" afterPath="$PROJECT_DIR$/app/Repositories/Contracts/Pagination/PaginationParam.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/Contracts/Pagination/PaginationResult.php" afterPath="$PROJECT_DIR$/app/Repositories/Contracts/Pagination/PaginationResult.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Services/BaseService.php" afterPath="$PROJECT_DIR$/app/Services/BaseService.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Services/UserService.php" afterPath="$PROJECT_DIR$/app/Services/UserService.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/login.blade.php" afterPath="$PROJECT_DIR$/resources/views/login.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/mail/newuserregister.blade.php" afterPath="$PROJECT_DIR$/resources/views/mail/newuserregister.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/partials/header.blade.php" afterPath="$PROJECT_DIR$/resources/views/partials/header.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/register.blade.php" afterPath="$PROJECT_DIR$/resources/views/register.blade.php" />
     </list>
     <ignored path="jualmobil.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -70,21 +44,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".env" pinned="false" current-in-tab="false">
+      <file leaf-file-name=".env" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.env">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+            <state relative-caret-position="248">
+              <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NewUserRegistered.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NewUserRegistered.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Listeners/NewUserRegistered.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="36" column="58" selection-start-line="36" selection-start-column="54" selection-end-line="36" selection-end-column="58" />
+            <state relative-caret-position="153">
+              <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
               <folding>
                 <element signature="e#33#61#0#PHP" expanded="true" />
               </folding>
@@ -107,8 +81,8 @@
       <file leaf-file-name="UserController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="52" column="33" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="33" />
+            <state relative-caret-position="273">
+              <caret line="47" column="9" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
               <folding>
                 <element signature="e#40#69#0#PHP" expanded="true" />
               </folding>
@@ -182,12 +156,12 @@
         <option value="$PROJECT_DIR$/app/Repositories/Actions/UserRepository.php" />
         <option value="$PROJECT_DIR$/app/Services/UserService.php" />
         <option value="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/UserController.php" />
-        <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/app/Listeners/NewUserRegistered.php" />
         <option value="$PROJECT_DIR$/resources/views/mail/newuserregister.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/routes.php" />
         <option value="$PROJECT_DIR$/resources/views/register.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/UserController.php" />
+        <option value="$PROJECT_DIR$/.env" />
       </list>
     </option>
   </component>
@@ -397,12 +371,12 @@
       <workItem from="1496739138609" duration="3273000" />
       <workItem from="1496755914249" duration="7087000" />
       <workItem from="1496809925276" duration="16878000" />
-      <workItem from="1496842652568" duration="9474000" />
+      <workItem from="1496842652568" duration="10210000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46864000" />
+    <option name="totallyTimeSpent" value="47600000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -810,24 +784,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="52" column="33" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="33" />
-          <folding>
-            <element signature="e#40#69#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/mail/newuserregister.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="59">
@@ -857,11 +813,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Listeners/NewUserRegistered.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="36" column="58" selection-start-line="36" selection-start-column="54" selection-end-line="36" selection-end-column="58" />
+        <state relative-caret-position="153">
+          <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
           <folding>
             <element signature="e#33#61#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="47" column="9" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
+          <folding>
+            <element signature="e#40#69#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
