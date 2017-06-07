@@ -14,6 +14,24 @@
 Route::get('/', function () {
     return view('index');
 });
-Route::get('listiklan', function () {
-    return view('listiklan');
+Route::get('login','UserController@login');
+Route::get('register', function () {
+    return view('register');
 });
+Route::get('daftarmobil', function () {
+    return view('daftarmobil');
+});
+Route::get('buatiklan', function () {
+    return view('buatiklan');
+});
+Route::get('tambahmerk', function () {
+    return view('tambahmerk');
+});
+Route::get('tambahmodel', function () {
+    return view('tambahmodel');
+});
+Route::get('tambahtipe', function () {
+    return view('tambahtipe');
+});
+
+Route::get('/user-confirmation/{token}',[]);
