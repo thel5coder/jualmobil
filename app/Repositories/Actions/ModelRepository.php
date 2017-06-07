@@ -6,8 +6,12 @@
  * Date: 06/06/2017
  * Time: 16:48
  */
+namespace App\Repositories\Actions;
+
 use App\Models\JmModel;
-class ModelRepository implements \App\Repository\Contract\Pagination\IModelRepository
+use App\Repositories\Contracts\IModelRepository;
+
+class ModelRepository implements IModelRepository
 {
 
     public function create($input)
@@ -40,7 +44,7 @@ class ModelRepository implements \App\Repository\Contract\Pagination\IModelRepos
         return JmMerk::all();
     }
 
-    public function paginationData(\App\Repository\Contract\Pagination\PaginationParam $param)
+    public function paginationData(\App\Repositories\Contracts\Pagination\PaginationParam $param)
     {
         // TODO: Implement paginationData() method.
     }

@@ -6,8 +6,7 @@
  * Time: 16:23
  */
 
-namespace App\Repository\Contract;
-
+namespace App\Repositories\Contracts;
 
 interface IMerkRepository extends IBaseRepository
 {

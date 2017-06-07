@@ -6,9 +6,12 @@
  * Date: 06/06/2017
  * Time: 16:21
  */
+namespace App\Repositories\Actions;
 
 use App\Models\JmLokasi;
-class LokasiRepository implements \App\Repository\Contract\ILokasiRepository
+use App\Repositories\Contracts\ILokasiRepository;
+
+class LokasiRepository implements ILokasiRepository
 {
 
     public function create($input)
@@ -41,7 +44,7 @@ class LokasiRepository implements \App\Repository\Contract\ILokasiRepository
         return JmLokasi::all();
     }
 
-    public function paginationData(\App\Repository\Contract\Pagination\PaginationParam $param)
+    public function paginationData(\App\Repositories\Contracts\Pagination\PaginationParam $param)
     {
         // TODO: Implement paginationData() method.
     }

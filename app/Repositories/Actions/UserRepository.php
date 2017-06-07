@@ -1,7 +1,10 @@
 <?php
+namespace App\Repositories\Actions;
 
 use App\Models\User;
-class UserRepository implements \App\Repository\Contract\IUserRepository
+use App\Repositories\Contracts\IUserRepository;
+
+class UserRepository implements IUserRepository
 {
     public function create($input)
     {
@@ -9,8 +12,6 @@ class UserRepository implements \App\Repository\Contract\IUserRepository
         $create->name = $input['name'];
         $create->email = $input['email'];
         $create->password = $input['password'];
-        $create->phone = $input['phone'];
-        $create->image = $input['image'];
         $create->tipe_user = $input['tipeUser'];
         return $create->save();
     }
@@ -41,7 +42,7 @@ class UserRepository implements \App\Repository\Contract\IUserRepository
         return User::all();
     }
 
-    public function paginationData(\App\Repository\Contract\Pagination\PaginationParam $param)
+    public function paginationData(\App\Repositories\Contracts\Pagination\PaginationParam $param)
     {
         // TODO: Implement paginationData() method.
     }

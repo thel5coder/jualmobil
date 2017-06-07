@@ -6,7 +6,7 @@
  * Time: 16:16
  */
 
-namespace App\Repository\Contract;
+namespace App\Repositories\Contracts;
 
 
 interface ITipeRepository extends IBaseRepository

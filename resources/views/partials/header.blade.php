@@ -34,15 +34,8 @@
                             <li class="cs-user-option">
                                 <div class="cs-login">
                                     <div class="cs-login-dropdown"> <a href="#"><i class="icon-user2"></i> Kaiser <i class="icon-chevron-down2"></i></a>
-                                        <div class="cs-user-dropdown"> <strong>Post a new Ad</strong>
-                                            <ul>
-                                                <li><a href="user-genral-setting.html">General Setting<span class="cs-bgcolor">3</span></a></li>
-                                                <li><a href="user-car-listing.html">My Posted Cars <span class="cs-bgcolor">23</span></a></li>
-                                                <li><a href="user-post-new-vehicles.html">Post New Car</a></li>
-                                                <li><a href="user-car-shortlist.html">Shortlisted</a></li>
-                                                <li><a href="user-payments.html">Payment</a></li>
-                                                <li><a href="user-packages.html">Packages</a></li>
-                                            </ul>
+                                        <div class="cs-user-dropdown"> <strong>Buat Iklan Baru</strong>
+                                                @include('partials.dashboardmenu')
                                             <a class="btn-sign-out" href="#">Logout</a> </div>
                                     </div>
                                     <a class="cs-bgcolor btn-form" data-toggle="modal" href="remote.html" data-target="#user-sign-up" aria-hidden="true"><i class="icon-plus"></i> Sell Car</a>

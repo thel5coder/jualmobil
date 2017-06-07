@@ -6,8 +6,12 @@
  * Date: 07/06/2017
  * Time: 13:16
  */
+namespace App\Repositories\Actions;
+
 use App\Models\JmImagesLM;
-class ImagesLmRepository implements \App\Repository\Contract\Pagination\IImagesLmRepository
+use App\Repositories\Contracts\IImagesLmRepository;
+
+class ImagesLmRepository implements IImagesLmRepository
 {
 
     public function create($input)
@@ -40,7 +44,7 @@ class ImagesLmRepository implements \App\Repository\Contract\Pagination\IImagesL
         // TODO: Implement showAll() method.
     }
 
-    public function paginationData(\App\Repository\Contract\Pagination\PaginationParam $param)
+    public function paginationData(\App\Repositories\Contracts\Pagination\PaginationParam $param)
     {
         // TODO: Implement paginationData() method.
     }

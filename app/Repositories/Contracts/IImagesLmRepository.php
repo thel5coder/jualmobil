@@ -6,10 +6,7 @@
  * Time: 16:20
  */
 
-namespace App\Repository\Contract\Pagination;
-
-
-use App\Repository\Contract\IBaseRepository;
+namespace App\Repositories\Contracts;
 
 interface IImagesLmRepository extends IBaseRepository
 {

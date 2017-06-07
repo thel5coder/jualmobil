@@ -14,7 +14,7 @@
                 <div class="cs-signin">
                     <h4>LOGIN</h4>
                     <div class="row">
-                        <form>
+                        <form method="post" action="{{url('doLogin')}}">
                             <div class="cs-field-holder">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label>Email</label>
@@ -39,6 +39,7 @@
                                     <a href="#" class="cs-forgot-password" data-toggle="modal" data-target="#user-forgot-pass" data-dismiss="modal"><i class="cs-color icon-help-with-circle"></i>Forgot password?</a>
                                 </div>
                             </div>
+                            {{ csrf_field() }}
                             <div class="cs-field-holder">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="cs-checkbox">

@@ -6,7 +6,7 @@
  * Time: 16:18
  */
 
-namespace App\Repository\Contract;
+namespace App\Repositories\Contracts;
 
 
 interface IListingMobil extends IBaseRepository

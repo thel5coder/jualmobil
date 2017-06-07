@@ -6,8 +6,12 @@
  * Date: 06/06/2017
  * Time: 16:50
  */
+namespace App\Repositories\Actions;
+
 use App\Models\JmTipe;
-class TipeRepository implements \App\Repository\Contract\ITipeRepository
+use App\Repositories\Contracts\ITipeRepository;
+
+class TipeRepository implements ITipeRepository
 {
 
     public function create($input)

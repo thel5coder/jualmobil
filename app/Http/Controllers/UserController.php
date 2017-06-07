@@ -29,15 +29,29 @@ class UserController extends Controller
 
     public function doLogin()
     {
-        $response = $this->userService->Autentikasi(Input::get('email'),Input::get('password'));
-
-        return $this->getJsonResponse($response);
+        $result = $this->userService->Autentikasi(Input::get('email'),Input::get('password'));
+        if($result->isSuccess())
+        {
+            return reedirect('/');
+        }
+        else{
+            return $result->getErrorMessages();
+        }
     }
 
     public function doRegister()
     {
-        $response = $this->userService->Register(Input::all());
-
+        $result = $this->userService->Register(Input::all());
+        if($result->isSuccess())
+        {
+            return redirect('/');
+        }
+        else{
+            return $result->getErrorMessages();
+        }
+    }
+    public function  confirmation()
+    {
 
     }
 }

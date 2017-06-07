@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\UserRegister;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class NewUserRegistered
 {
@@ -27,10 +28,13 @@ class NewUserRegistered
     public function handle(UserRegister $event)
     {
         $email = $event->getEmail();
-        $nama = $event->getName();
+        $name = $event->getName();
         $encodedEmail = base64_encode($email);
-
-        Mail::send(['html'=>'mail.newuserregister'],['token'=>$encodedEmail] ,['nama' => $nama], function ($message) use ($email){
+        $data = [
+            'token'=>$encodedEmail,
+            'name'=>$name
+        ];
+        Mail::send(['html'=>'mail.newuserregister'],['data'=>$data], function ($message) use ($email){
             $message->from(env('MAIL_USERNAME'),'Jual Mobil');
             $message->to($email)->subject('Confirmation Email');
         });

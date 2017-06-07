@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Providers;
-
 use Illuminate\Support\ServiceProvider;
 
 class AppRepositoryProvider extends ServiceProvider
@@ -13,7 +12,7 @@ class AppRepositoryProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind('App\\Repository\\Contract\\IUserRepository', 'App\\Repository\\Action\UserRepository');
+        $this->app->bind('App\\Repositories\\Contracts\\IUserRepository', 'App\\Repositories\\Actions\UserRepository');
     }
 
     /**

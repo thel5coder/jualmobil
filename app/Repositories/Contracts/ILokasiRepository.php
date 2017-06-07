@@ -6,7 +6,7 @@
  * Time: 16:15
  */
 
-namespace App\Repository\Contract;
+namespace App\Repositories\Contracts;
 
 
 interface ILokasiRepository extends IBaseRepository

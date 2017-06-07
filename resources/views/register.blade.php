@@ -14,7 +14,7 @@
                     <div class="cs-register">
                         <h4>Register</h4>
                         <div class="row">
-                            <form>
+                            <form method="post" action="{{url('/register')}}">
                                 <div class="cs-field-holder">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <label>Daftar Sebagai</label>
@@ -22,6 +22,7 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="cs-field">
                                             <select data-placeholder="Sebagai" tabindex="1" class="chosen-select" name="tipeUser">
+                                                <option value="admin">admin</option>
                                                 <option value="individual">Individual</option>
                                                 <option value="sales">Sales Dealer Resmin</option>
                                                 <option value="showroom">Showroom</option>
@@ -59,9 +60,10 @@
                                         <label>Retype Password *</label>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <input type="password" name="password" placeholder="" />
+                                        <input type="password" name="passwordcheck" placeholder="" />
                                     </div>
                                 </div>
+                                {{csrf_field()}}
                                 <div class="cs-field-holder">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="cs-btn-submit">

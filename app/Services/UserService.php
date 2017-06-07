@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 use App\Events\UserRegister;
-use App\Repository\Contract\IUserRepository;
+use App\Repositories\Contracts\IUserRepository;
 use App\Services\Response\ServiceResponseDto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
@@ -60,30 +60,35 @@ class UserService extends BaseService
     public function Register($input)
     {
         $response = new ServiceResponseDto();
-        $isEmailExist = $this->isEmailExist($input['email']);
-        if ($isEmailExist->getResult())
+        if($input['password'] == $input['passwordcheck'])
         {
-            $message = ['Email Sudah Digunakan'];
-            $response->addErrorMessage($message);
-        }else{
-            $fileImage = $this->uploadingFile('images')->getResult();
-            $param=[
-                'name'      => $input['username'],
-                'password'  => $input['password'],
-                'email'     => $input['email'],
-                'phone'     => $input['phone'],
-                'images'    => $fileImage,
-                'tipe_user' => $input['tipeUser'],
-                'is_active' => '0'
-            ];
-             if($this->userRepository->create($param)){
-                 Event::fire(new UserRegister($input['email']));
-             }
-             else{
-                 $message = ['Gagal Mengirim Validasi Email'];
-                 $response->addErrorMessage($message);
-             }
+            $isEmailExist = $this->isEmailExist($input['email']);
+            if ($isEmailExist->getResult())
+            {
+                $message = ['Email Sudah Digunakan'];
+                $response->addErrorMessage($message);
+            }else{
+                $param=[
+                    'name'      => $input['name'],
+                    'password'  => bcrypt($input['password']),
+                    'email'     => $input['email'],
+                    'tipeUser' => $input['tipeUser'],
+                    'is_active' => '0'
+                ];
+                if($this->userRepository->create($param)){
+                    Event::fire(new UserRegister($input['email'],$input['name']));
+                }
+                else{
+                    $message = ['Gagal Mengirim Validasi Email'];
+                    $response->addErrorMessage($message);
+                }
+            }
         }
+        else{
+            $message = 'Password Tidak Sama.';
+            $response->addErrorMessage($message);
+        }
+
         return $response;
     }
 
@@ -111,6 +116,7 @@ class UserService extends BaseService
 
     public function delete($id)
     {
-        return $this->deleteObject($this->userRepository,$id);
+        return $this->deleteObject($this->userRepository, $id);
     }
+
 }

@@ -12,12 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('mail.newuserregister');
 });
-Route::get('login','UserController@login');
-Route::get('register', function () {
-    return view('register');
-});
+Route::get('/login','UserController@login');
+Route::post('/login','UserController@doLogin');
+Route::get('/register','UserController@register');
+Route::post('/register','UserController@doRegister');
+
 Route::get('daftarmobil', function () {
     return view('daftarmobil');
 });
@@ -34,4 +35,4 @@ Route::get('tambahtipe', function () {
     return view('tambahtipe');
 });
 
-Route::get('/user-confirmation/{token}',[]);
+Route::get('/user-confirmation/{token}',['uses' => 'UserController@confirmation' , 'as' => 'confirmation']);
