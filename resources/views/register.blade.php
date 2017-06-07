@@ -17,7 +17,7 @@
                             <form method="post" action="{{url('/user-register')}}">
                                 <div class="cs-field-holder">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <label>Daftar Sebagais</label>
+                                        <label>Daftar Sebagai</label>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="cs-field">
