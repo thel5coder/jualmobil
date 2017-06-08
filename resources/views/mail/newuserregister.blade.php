@@ -319,12 +319,11 @@ Sizes: [
                                                         that's entirely separate from the structural
                                                         framework of the email.
                                                     -->
-                                                    {{var_dump($data)}}
                                                     <table border="0" cellpadding="30" cellspacing="0" width="100%">
                                                         <tr>
                                                             <td align="center" valign="top" class="textContent">
                                                                 <h1 style="color:#FFFFFF;line-height:100%;font-family:Helvetica,Arial,sans-serif;font-size:35px;font-weight:normal;margin-bottom:5px;text-align:center;">Mobil Tren</h1>
-                                                                <h2 style="text-align:center;font-weight:normal;font-family:Helvetica,Arial,sans-serif;font-size:23px;margin-bottom:10px;color:#205478;line-height:135%;">Selamat </h2>
+                                                                <h2 style="text-align:center;font-weight:normal;font-family:Helvetica,Arial,sans-serif;font-size:23px;margin-bottom:10px;color:#205478;line-height:135%;">Selamat {{$data['name']}}</h2>
                                                                 <div style="text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#FFFFFF;line-height:135%;">
                                                                     Tinggal 1 langkah lagi Silhkan klik Tombol Konfirmasi dibawah untuk vertifikasi akun anda
                                                                 </div>
@@ -407,7 +406,7 @@ Sizes: [
                                                     <table border="0" cellpadding="0" cellspacing="0" width="50%" class="emailButton" style="background-color: #3498DB;">
                                                         <tr>
                                                             <td align="center" valign="middle" class="buttonContent" style="padding-top:15px;padding-bottom:15px;padding-right:15px;padding-left:15px;">
-                                                                <a style="color:#FFFFFF;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:20px;line-height:135%;" href="#" target="_blank" href="{{route('confirmation',['token' => $data['token']])}}">Konfirmasi</a>
+                                                                <a style="color:#FFFFFF;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:20px;line-height:135%;"  target="_blank" href="{{route('confirmation',['token' => $data['token'],'id' => $data['id']])}}">Konfirmasi</a>
                                                             </td>
                                                         </tr>
                                                     </table>

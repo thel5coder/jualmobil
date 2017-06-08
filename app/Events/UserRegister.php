@@ -11,16 +11,18 @@ class UserRegister extends Event
     use SerializesModels;
     private $email;
     private $name;
+    private $id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($email,$nama)
+    public function __construct($email,$nama,$id)
     {
         $this->email = $email;
         $this->name =$nama;
+        $this->id = $id;
     }
 
     /**
@@ -47,6 +49,14 @@ class UserRegister extends Event
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
 

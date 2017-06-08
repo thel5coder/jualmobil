@@ -4,7 +4,7 @@
             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                 <div class="cs-logo">
                     <div class="cs-media">
-                        <figure><a href="#s"><img src="public/images/cs-logo.png" alt="" /></a></figure>
+                        <figure><a href="#s"><img src="public/images/cs-logo.png" alt=""/></a></figure>
                     </div>
                 </div>
             </div>
@@ -15,148 +15,20 @@
                             <li><a href="#">Home</a></li>
                             <li><a href="#">Cari Mobil</a></li>
                             <li><a href="#">Pasang Iklan</a>
-                            <li><a href="#">Berita</a>
-                                <ul>
-                                    <li><a href="blog-listing-large.html">Large View</a></li>
-                                    <li><a href="blog-listing-medium.html">Medium View</a></li>
-                                    <li><a href="blog-listing-grid.html">Grid View</a></li>
-                                    <li class="menu-item-has-children"><a href="#">Detail View</a>
-                                        <ul>
-                                            <li><a href="blog-detail-sound.html">With Audio</a></li>
-                                            <li><a href="blog-detail-video.html">With Video</a></li>
-                                            <li><a href="blog-detail-sound.html">With Soundcloud</a></li>
-                                            <li><a href="blog-detail-slider.html">With Slider</a></li>
-                                            <li><a href="blog-detail-post.html">Featured Image</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
+                            <li><a href="#">Berita</a></li>
                             <li class="cs-user-option">
                                 <div class="cs-login">
-                                    <div class="cs-login-dropdown"> <a href="#"><i class="icon-user2"></i> Kaiser <i class="icon-chevron-down2"></i></a>
-                                        <div class="cs-user-dropdown"> <strong>Buat Iklan Baru</strong>
+                                    @if(auth()->check())
+                                        <div class="cs-login-dropdown"><a href="#"><i class="icon-user2"></i> {{auth()->user()->name}} <i
+                                                        class="icon-chevron-down2"></i></a>
+                                            <div class="cs-user-dropdown"><strong>Buat Iklan Baru</strong>
                                                 @include('partials.dashboardmenu')
-                                            <a class="btn-sign-out" href="#">Logout</a> </div>
-                                    </div>
-                                    <a class="cs-bgcolor btn-form" data-toggle="modal" href="remote.html" data-target="#user-sign-up" aria-hidden="true"><i class="icon-plus"></i> Sell Car</a>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="user-sign-up" tabindex="-1" role="dialog">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h4>Create Account</h4>
-                                                    <div class="cs-login-form">
-                                                        <form>
-                                                            <div class="input-holder">
-                                                                <label for="cs-username"> <strong>USERNAME</strong> <i class="icon-user-plus2"></i>
-                                                                    <input type="text" class="" id="cs-username" placeholder="Type desired username">
-                                                                </label>
-                                                            </div>
-                                                            <div class="input-holder">
-                                                                <label for="cs-email"> <strong>Email</strong> <i class="icon-envelope"></i>
-                                                                    <input type="email" class="" id="cs-email" placeholder="Type desired username">
-                                                                </label>
-                                                            </div>
-                                                            <div class="input-holder">
-                                                                <label for="cs-login-password"> <strong>Password</strong> <i class="icon-unlock40"></i>
-                                                                    <input type="password" id="cs-login-password" placeholder="******">
-                                                                </label>
-                                                            </div>
-                                                            <div class="input-holder">
-                                                                <label for="cs-confirm-password"> <strong>confirm password</strong> <i class="icon-unlock40"></i>
-                                                                    <input type="password" id="cs-confirm-password" placeholder="******">
-                                                                </label>
-                                                            </div>
-                                                            <div class="input-holder">
-                                                                <input class="cs-color csborder-color" type="submit" value="Create Account">
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer"> <a data-dismiss="modal" data-target="#user-sign-in" data-toggle="modal" href="javascript:;" aria-hidden="true">Already have account</a>
-                                                    <div class="cs-separator"><span>or</span></div>
-                                                    <div class="cs-user-social"> <em>Signin with your Social Networks</em>
-                                                        <ul>
-                                                            <li><a href="#" data-original-title="facebook"><i class="icon-facebook-f"></i>facebook</a></li>
-                                                            <li><a href="#" data-original-title="twitter"><i class="icon-twitter4"></i>twitter</a></li>
-                                                            <li><a href="#" data-original-title="google-plus"><i class="icon-google4"></i>google</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                <a class="btn-sign-out" href="{{route('logout')}}">Logout</a></div>
                                         </div>
-                                    </div>
-                                    <div class="modal fade" id="user-sign-in" tabindex="-1" role="dialog">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h4>User Sign in</h4>
-                                                    <div class="cs-login-form">
-                                                        <form>
-                                                            <div class="input-holder">
-                                                                <label for="cs-username-1"> <strong>USERNAME</strong> <i class="icon-user-plus2"></i>
-                                                                    <input type="text" class="" id="cs-username-1" placeholder="Type desired username">
-                                                                </label>
-                                                            </div>
-                                                            <div class="input-holder">
-                                                                <label for="cs-login-password-1"> <strong>Password</strong> <i class="icon-unlock40"></i>
-                                                                    <input type="password" id="cs-login-password-1" placeholder="******">
-                                                                </label>
-                                                            </div>
-                                                            <div class="input-holder"> <a class="btn-forgot-pass" data-dismiss="modal" data-target="#user-forgot-pass" data-toggle="modal" href="javascript:;" aria-hidden="true"><i class=" icon-question-circle"></i> Forgot password?</a> </div>
-                                                            <div class="input-holder">
-                                                                <input class="cs-color csborder-color" type="submit" value="SIGN IN">
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <div class="cs-separator"><span>or</span></div>
-                                                    <div class="cs-user-social"> <em>Signin with your Social Networks</em>
-                                                        <ul>
-                                                            <li><a href="#" data-original-title="facebook"><i class="icon-facebook-f"></i>facebook</a></li>
-                                                            <li><a href="#" data-original-title="twitter"><i class="icon-twitter4"></i>twitter</a></li>
-                                                            <li><a href="#" data-original-title="google-plus"><i class="icon-google4"></i>google</a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="cs-user-signup"> <i class="icon-user-plus2"></i> <strong>Not a Member yet? </strong> <a class="cs-color" data-dismiss="modal" data-target="#user-sign-up" data-toggle="modal" href="javascript:;" aria-hidden="true">Signup Now</a> </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal fade" id="user-forgot-pass" tabindex="-1" role="dialog">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h4>Password Recovery</h4>
-                                                    <div class="cs-login-form">
-                                                        <form>
-                                                            <div class="input-holder">
-                                                                <label for="cs-email-1"> <strong>Email</strong> <i class="icon-envelope"></i>
-                                                                    <input type="email" class="" id="cs-email-1" placeholder="Type desired username">
-                                                                </label>
-                                                            </div>
-                                                            <div class="input-holder">
-                                                                <input class="cs-color csborder-color" type="submit" value="Send">
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <div class="cs-user-signup"> <i class="icon-user-plus2"></i> <strong>Not a Member yet? </strong> <a href="javascript:;" data-toggle="modal" data-target="#user-sign-up" data-dismiss="modal" class="cs-color" aria-hidden="true">Signup Now</a> </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @else
+                                        <a href="{{route('login')}}" class="cs-bgcolor btn-form" aria-hidden="true"><i
+                                                    class="icon-plus"></i> Sell Car</a>
+                                    @endif
                                 </div>
                                 <!--<div class="cs-wish-list"><a href="#"><i class=" icon-heart4"></i><span>0</span></a>
                                     <div class="wish-list-dropdown">
@@ -243,8 +115,9 @@
                     </nav>
                     <div class="cs-user-option hidden-lg visible-sm visible-xs">
                         <div class="cs-login">
-                            <div class="cs-login-dropdown"> <a href="#"><i class="icon-user2"></i> Kaiser <i class="icon-chevron-down2"></i></a>
-                                <div class="cs-user-dropdown"> <strong>Post a new Ad</strong>
+                            <div class="cs-login-dropdown"><a href="#"><i class="icon-user2"></i> Kaiser <i
+                                            class="icon-chevron-down2"></i></a>
+                                <div class="cs-user-dropdown"><strong>Post a new Ad</strong>
                                     <ul>
                                         <li><a href="#">General Setting<span class="cs-bgcolor">3</span></a></li>
                                         <li><a href="#">My Posted Cars <span class="cs-bgcolor">23</span></a></li>
@@ -253,53 +126,69 @@
                                         <li><a href="#">Payment</a></li>
                                         <li><a href="#">Packages</a></li>
                                     </ul>
-                                    <a class="btn-sign-out" href="#">Logout</a> </div>
+                                    <a class="btn-sign-out" href="#">Logout</a></div>
                             </div>
-                            <a class="cs-bgcolor btn-form" data-toggle="modal" href="remote.html" data-target="#user-sign-up-sm" aria-hidden="true"><i class="icon-plus"></i> Sell Car</a>
+                            <a class="cs-bgcolor btn-form" data-toggle="modal" href="remote.html"
+                               data-target="#user-sign-up-sm" aria-hidden="true"><i class="icon-plus"></i> Sell Car</a>
                             <!-- Modal -->
                             <div class="modal fade" id="user-sign-up-sm" tabindex="-1" role="dialog">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
                                         </div>
                                         <div class="modal-body">
                                             <h4>Create Account</h4>
                                             <div class="cs-login-form">
                                                 <form>
                                                     <div class="input-holder">
-                                                        <label for="cs-username11"> <strong>USERNAME</strong> <i class="icon-user-plus2"></i>
-                                                            <input type="text" class="" id="cs-username11" placeholder="Type desired username">
+                                                        <label for="cs-username11"> <strong>USERNAME</strong> <i
+                                                                    class="icon-user-plus2"></i>
+                                                            <input type="text" class="" id="cs-username11"
+                                                                   placeholder="Type desired username">
                                                         </label>
                                                     </div>
                                                     <div class="input-holder">
-                                                        <label for="cs-email11"> <strong>Email</strong> <i class="icon-envelope"></i>
-                                                            <input type="email" class="" id="cs-email11" placeholder="Type desired username">
+                                                        <label for="cs-email11"> <strong>Email</strong> <i
+                                                                    class="icon-envelope"></i>
+                                                            <input type="email" class="" id="cs-email11"
+                                                                   placeholder="Type desired username">
                                                         </label>
                                                     </div>
                                                     <div class="input-holder">
-                                                        <label for="cs-login-password11"> <strong>Password</strong> <i class="icon-unlock40"></i>
-                                                            <input type="password" id="cs-login-password11" placeholder="******">
+                                                        <label for="cs-login-password11"> <strong>Password</strong> <i
+                                                                    class="icon-unlock40"></i>
+                                                            <input type="password" id="cs-login-password11"
+                                                                   placeholder="******">
                                                         </label>
                                                     </div>
                                                     <div class="input-holder">
-                                                        <label for="cs-confirm-password11"> <strong>confirm password</strong> <i class="icon-unlock40"></i>
-                                                            <input type="password" id="cs-confirm-password11" placeholder="******">
+                                                        <label for="cs-confirm-password11"> <strong>confirm
+                                                                password</strong> <i class="icon-unlock40"></i>
+                                                            <input type="password" id="cs-confirm-password11"
+                                                                   placeholder="******">
                                                         </label>
                                                     </div>
                                                     <div class="input-holder">
-                                                        <input class="cs-color csborder-color" type="submit" value="Create Account">
+                                                        <input class="cs-color csborder-color" type="submit"
+                                                               value="Create Account">
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
-                                        <div class="modal-footer"> <a data-dismiss="modal" data-target="#user-sign-in-sm" data-toggle="modal" href="javascript:;" aria-hidden="true">Already have account</a>
+                                        <div class="modal-footer"><a data-dismiss="modal" data-target="#user-sign-in-sm"
+                                                                     data-toggle="modal" href="javascript:;"
+                                                                     aria-hidden="true">Already have account</a>
                                             <div class="cs-separator"><span>or</span></div>
-                                            <div class="cs-user-social"> <em>Signin with your Social Networks</em>
+                                            <div class="cs-user-social"><em>Signin with your Social Networks</em>
                                                 <ul>
-                                                    <li><a href="#" data-original-title="facebook"><i class="icon-facebook-f"></i>facebook</a></li>
-                                                    <li><a href="#" data-original-title="twitter"><i class="icon-twitter4"></i>twitter</a></li>
-                                                    <li><a href="#" data-original-title="google-plus"><i class="icon-google4"></i>google</a></li>
+                                                    <li><a href="#" data-original-title="facebook"><i
+                                                                    class="icon-facebook-f"></i>facebook</a></li>
+                                                    <li><a href="#" data-original-title="twitter"><i
+                                                                    class="icon-twitter4"></i>twitter</a></li>
+                                                    <li><a href="#" data-original-title="google-plus"><i
+                                                                    class="icon-google4"></i>google</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -310,39 +199,58 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
                                         </div>
                                         <div class="modal-body">
                                             <h4>User Sign in</h4>
                                             <div class="cs-login-form">
                                                 <form>
                                                     <div class="input-holder">
-                                                        <label for="cs-username-111"> <strong>USERNAME</strong> <i class="icon-user-plus2"></i>
-                                                            <input type="text" class="" id="cs-username-111" placeholder="Type desired username">
+                                                        <label for="cs-username-111"> <strong>USERNAME</strong> <i
+                                                                    class="icon-user-plus2"></i>
+                                                            <input type="text" class="" id="cs-username-111"
+                                                                   placeholder="Type desired username">
                                                         </label>
                                                     </div>
                                                     <div class="input-holder">
-                                                        <label for="cs-login-password-111"> <strong>Password</strong> <i class="icon-unlock40"></i>
-                                                            <input type="password" id="cs-login-password-111" placeholder="******">
+                                                        <label for="cs-login-password-111"> <strong>Password</strong> <i
+                                                                    class="icon-unlock40"></i>
+                                                            <input type="password" id="cs-login-password-111"
+                                                                   placeholder="******">
                                                         </label>
                                                     </div>
-                                                    <div class="input-holder"> <a class="btn-forgot-pass" data-dismiss="modal" data-target="#user-forgot-pass-sm" data-toggle="modal" href="javascript:;" aria-hidden="true"><i class=" icon-question-circle"></i> Forgot password?</a> </div>
+                                                    <div class="input-holder"><a class="btn-forgot-pass"
+                                                                                 data-dismiss="modal"
+                                                                                 data-target="#user-forgot-pass-sm"
+                                                                                 data-toggle="modal" href="javascript:;"
+                                                                                 aria-hidden="true"><i
+                                                                    class=" icon-question-circle"></i> Forgot password?</a>
+                                                    </div>
                                                     <div class="input-holder">
-                                                        <input class="cs-color csborder-color" type="submit" value="SIGN IN">
+                                                        <input class="cs-color csborder-color" type="submit"
+                                                               value="SIGN IN">
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <div class="cs-separator"><span>or</span></div>
-                                            <div class="cs-user-social"> <em>Signin with your Social Networks</em>
+                                            <div class="cs-user-social"><em>Signin with your Social Networks</em>
                                                 <ul>
-                                                    <li><a href="#" data-original-title="facebook"><i class="icon-facebook-f"></i>facebook</a></li>
-                                                    <li><a href="#" data-original-title="twitter"><i class="icon-twitter4"></i>twitter</a></li>
-                                                    <li><a href="#" data-original-title="google-plus"><i class="icon-google4"></i>google</a></li>
+                                                    <li><a href="#" data-original-title="facebook"><i
+                                                                    class="icon-facebook-f"></i>facebook</a></li>
+                                                    <li><a href="#" data-original-title="twitter"><i
+                                                                    class="icon-twitter4"></i>twitter</a></li>
+                                                    <li><a href="#" data-original-title="google-plus"><i
+                                                                    class="icon-google4"></i>google</a></li>
                                                 </ul>
                                             </div>
-                                            <div class="cs-user-signup"> <i class="icon-user-plus2"></i> <strong>Not a Member yet? </strong> <a class="cs-color" data-dismiss="modal" data-target="#user-sign-up-sm" data-toggle="modal" href="javascript:;" aria-hidden="true">Signup Now</a> </div>
+                                            <div class="cs-user-signup"><i class="icon-user-plus2"></i> <strong>Not a
+                                                    Member yet? </strong> <a class="cs-color" data-dismiss="modal"
+                                                                             data-target="#user-sign-up-sm"
+                                                                             data-toggle="modal" href="javascript:;"
+                                                                             aria-hidden="true">Signup Now</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -351,25 +259,33 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
                                         </div>
                                         <div class="modal-body">
                                             <h4>Password Recovery</h4>
                                             <div class="cs-login-form">
                                                 <form>
                                                     <div class="input-holder">
-                                                        <label for="cs-email-111"> <strong>Email</strong> <i class="icon-envelope"></i>
-                                                            <input type="email" class="" id="cs-email-111" placeholder="Type desired username">
+                                                        <label for="cs-email-111"> <strong>Email</strong> <i
+                                                                    class="icon-envelope"></i>
+                                                            <input type="email" class="" id="cs-email-111"
+                                                                   placeholder="Type desired username">
                                                         </label>
                                                     </div>
                                                     <div class="input-holder">
-                                                        <input class="cs-color csborder-color" type="submit" value="Send">
+                                                        <input class="cs-color csborder-color" type="submit"
+                                                               value="Send">
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <div class="cs-user-signup"> <i class="icon-user-plus2"></i> <strong>Not a Member yet? </strong> <a href="javascript:;" data-toggle="modal" data-target="#user-sign-up-sm" data-dismiss="modal" class="cs-color" aria-hidden="true">Signup Now</a> </div>
+                                            <div class="cs-user-signup"><i class="icon-user-plus2"></i> <strong>Not a
+                                                    Member yet? </strong> <a href="javascript:;" data-toggle="modal"
+                                                                             data-target="#user-sign-up-sm"
+                                                                             data-dismiss="modal" class="cs-color"
+                                                                             aria-hidden="true">Signup Now</a></div>
                                         </div>
                                     </div>
                                 </div>

@@ -5,63 +5,45 @@
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="widget widget-our-partners">
                         <div class="widget-section-title">
-                            <h6 style="color:#fff !important">Our Partners</h6>
+                            <h6 style="color:#fff !important">Cari Mobil</h6>
                         </div>
                         <ul>
-                            <li><a href="#">Apartments.com</a></li>
-                            <li><a href="#">CareerBuilder.com</a></li>
-                            <li><a href="#">Cars.com</a></li>
-                            <li><a href="#">HomeFinder.com</a></li>
-                            <li><a href="#">Detroit Newspapers in Education</a></li>
-                            <li><a href="#">Michigan.com</a></li>
-                            <li><a href="#">MovingCompanyReviews.com</a></li>
-                            <li><a href="#">Find & Save</a></li>
+                            <li><a href="#">Mobil Baru</a></li>
+                            <li><a href="#">Mobil Bekas</a></li>
+                            <li><a href="#">Mobil Importir Umum</a></li>
+
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="widget widget-categores">
                         <div class="widget-section-title">
-                            <h6 style="color:#fff !important">Top Categores</h6>
+                            <h6 style="color:#fff !important">Berita Mobil</h6>
                         </div>
                         <ul>
-                            <li><a href="#">All Toyota Vehicles</a></li>
-                            <li><a href="#">SUVs</a></li>
-                            <li><a href="#">Trucks</a></li>
-                            <li><a href="#">Cars</a></li>
-                            <li><a href="#">Crossovers</a></li>
-                            <li><a href="#">Hybrids</a></li>
-                            <li><a href="#">Hybrid Cars</a></li>
-                            <li><a href="#">Hybrid SUVs</a></li>
-                            <li><a href="#">Concept Vehicles</a></li>
-                            <li><a href="#">TRD Pro Series</a></li>
+                            <li><a href="#">Berita Mobil</a></li>
+                            <li><a href="#">Review Mobil</a></li>
+                            <li><a href="#">Tips Mobil</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="widget widget-about-us">
                         <div class="widget-section-title">
-                            <h6 style="color:#fff !important">About Us</h6>
+                            <h6 style="color:#fff !important">Mobil Terbaru</h6>
                         </div>
                         <ul>
-                            <li><a href="#">Shopping Tools</a></li>
-                            <li><a href="#">Trade-In Value</a></li>
-                            <li><a href="#">Customize Your Own Toyota</a></li>
-                            <li><a href="#">Search Inventory</a></li>
-                            <li><a href="#">Find a Dealer</a></li>
-                            <li><a href="#">Local Specials</a></li>
-                            <li><a href="#">Request a Quote</a></li>
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Find Your Match</a></li>
+                            <li><a href="#">Toyota </a></li>
+                            <li><a href="#">honda/a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="widget widget-news-letter">
                         <div class="widget-section-title">
-                            <h6 style="color:#fff !important">SIGN UP FOR TOYOTA UPDATES</h6>
+                            <h6 style="color:#fff !important">Daftar Untuk Pasang Iklan</h6>
                         </div>
-                        <p>Recently received some brochures from my traders  here are some that might be of interest. </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam, autem debitis delectus eaque eligendi eos hic in ipsam minus, nostrum quaerat quas quasi reprehenderit similique totam unde vel veniam, voluptatibus. </p>
                         <div class="cs-form">
                             <form>
                                 <div class="input-holder">

@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('image',60);
             $table->enum('tipe_user',['admin','individual','sales','showroom']);
             $table->smallInteger('is_active');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

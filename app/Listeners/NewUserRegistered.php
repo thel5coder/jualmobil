@@ -22,20 +22,20 @@ class NewUserRegistered
     /**
      * Handle the event.
      *
-     * @param  UserRegister  $event
+     * @param  UserRegister $event
      * @return void
      */
     public function handle(UserRegister $event)
     {
         $email = $event->getEmail();
-        $name = $event->getName();
         $encodedEmail = base64_encode($email);
         $data = [
-            'token'=>$encodedEmail,
-            'name'=>$name
+            'token' => $encodedEmail,
+            'name' => $event->getName(),
+            'id' => base64_encode($event->getId())
         ];
-        Mail::send(['html'=>'mail.newuserregister'],['data'=>$data], function ($message) use ($email){
-            $message->from(env('MAIL_USERNAME'),'Jual Mobil');
+        Mail::send(['html' => 'mail.newuserregister'], ['data' => $data], function ($message) use ($email) {
+            $message->from(env('MAIL_USERNAME'), 'Jual Mobil');
             $message->to($email)->subject('Confirmation Email');
         });
     }

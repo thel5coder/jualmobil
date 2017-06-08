@@ -13,5 +13,6 @@ interface IUserRepository extends IBaseRepository
     public function CekEmail($email);
     public function CekPassword($password,$email);
     public function UpdatePassword($password,$id);
-    public function UpdateUser($email);
+    public function SetActiveUser($email);
+    public function CekStatus($email);
 }

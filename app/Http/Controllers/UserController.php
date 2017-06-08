@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -16,7 +17,10 @@ class UserController extends Controller
     {
         $this->userService = $userService;
     }
-
+    public function dashboard()
+    {
+        return view('dashboard')->with('message','halo');
+    }
     public function login()
     {
         return view('login');
@@ -30,28 +34,26 @@ class UserController extends Controller
     public function doLogin()
     {
         $result = $this->userService->Autentikasi(Input::get('email'),Input::get('password'));
-        if($result->isSuccess())
-        {
-            return reedirect('/');
-        }
-        else{
-            return $result->getErrorMessages();
-        }
+        return $this->getJsonResponse($result);
     }
 
     public function doRegister()
     {
         $result = $this->userService->Register(Input::all());
+
+        return $this->getJsonResponse($result);
+    }
+    public function  confirmation($token,$id)
+    {
+        $result = $this->userService->SetActiveUser($token,$id);
         if($result->isSuccess())
         {
-            //return redirect('/');
-        }
-        else{
-            return $result->getErrorMessages();
+            return redirect('buatiklan');
         }
     }
-    public function  confirmation()
+    public function logout()
     {
-
+            auth()->logout();
+            return redirect('/');
     }
 }

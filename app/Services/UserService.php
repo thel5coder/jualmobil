@@ -1,5 +1,6 @@
 <?php
 namespace App\Services;
+
 use App\Events\UserRegister;
 use App\Repositories\Contracts\IUserRepository;
 use App\Services\Response\ServiceResponseDto;
@@ -22,85 +23,88 @@ class UserService extends BaseService
         return $response;
     }
 
-    protected function isPasswordValid($password,$email)
+    protected function isPasswordValid($password, $email)
     {
         $response = new ServiceResponseDto();
-        $response->setResult($this->userRepository->CekPassword($password,$email));
+        $response->setResult($this->userRepository->CekPassword($password, $email));
         return $response;
     }
 
-    public function Autentikasi($email,$password)
+    protected function isStatusActive($email)
     {
         $response = new ServiceResponseDto();
-        $isEmailExist = $this->isEmailExist($email);
-        if ($isEmailExist->getResult())
-        {
-            $isPasswordValid = $this->isPasswordValid($password,$email);
-            if($isPasswordValid->getResult())
-            {
-                Auth::attempt(['email' => $email ,'password' => $password]);
-            }else{
-                $message = ['Password Salah'];
+        $response->setResult($this->userRepository->CekStatus($email));
+        return $response;
+    }
+
+    public function Autentikasi($email, $password)
+    {
+        $response = new ServiceResponseDto();
+        $isStatusActive = $this->isStatusActive($email);
+        if ($isStatusActive->getResult()) {
+            $isEmailExist = $this->isEmailExist($email);
+            if ($isEmailExist->getResult()) {
+                $isPasswordValid = $this->isPasswordValid($password, $email);
+                if ($isPasswordValid->getResult()) {
+                    Auth::attempt(['email' => $email, 'password' => $password]);
+                } else {
+                    $message = ['Password Salah'];
+                    $response->addErrorMessage($message);
+                }
+            } else {
+                $message = ['Email Belum Terdaftar'];
                 $response->addErrorMessage($message);
             }
-        }else{
-            $message = ['Email Belum Terdaftar'];
+        } else {
+            $message = ['Akun Anda Belum Aktif'];
             $response->addErrorMessage($message);
         }
         return $response;
     }
 
-    public function UpdatePassword($password,$id)
+    public function UpdatePassword($password, $id)
     {
         $response = new ServiceResponseDto();
-        $this->userRepository->UpdatePassword($password,$id);
+        $this->userRepository->UpdatePassword($password, $id);
         return $response;
     }
 
     public function Register($input)
     {
         $response = new ServiceResponseDto();
-        if($input['password'] == $input['passwordcheck'])
-        {
-            $isEmailExist = $this->isEmailExist($input['email']);
-            if ($isEmailExist->getResult())
-            {
-                $message = ['Email Sudah Digunakan'];
-                $response->addErrorMessage($message);
-            }else{
-                $param=[
-                    'name'      => $input['name'],
-                    'password'  => bcrypt($input['password']),
-                    'email'     => $input['email'],
-                    'tipeUser' => $input['tipeUser'],
-                    'is_active' => '0'
-                ];
-                if($this->userRepository->create($param)){
-                    Event::fire(new UserRegister($input['email'],$input['name']));
-                }
-                else{
-                    $message = ['Gagal Mengirim Validasi Email'];
-                    $response->addErrorMessage($message);
-                }
-            }
-        }
-        else{
-            $message = 'Password Tidak Sama.';
+        $isEmailExist = $this->isEmailExist($input['email']);
+        if ($isEmailExist->getResult()) {
+            $message = ['Email Sudah Digunakan'];
             $response->addErrorMessage($message);
+        } else {
+            $param = [
+                'name' => $input['name'],
+                'password' => bcrypt($input['password']),
+                'email' => $input['email'],
+                'tipeUser' => $input['tipeUser']
+            ];
+            $result = $this->userRepository->create($param);
+            if ($result) {
+                Event::fire(new UserRegister($input['email'], $input['name'],$result));
+            } else {
+                $message = ['Gagal Mengirim Validasi Email'];
+                $response->addErrorMessage($message);
+            }
         }
 
         return $response;
     }
 
-    public function CekTokenEmail($token)
+    public function SetActiveUser($token,$id)
     {
         $response = new ServiceResponseDto();
         $email = base64_decode($token);
-        if(!$this->userRepository->UpdateUser($email))
-        {
-            $message = ['gagal merubah data'];
+        if (!$this->userRepository->SetActiveUser($email)) {
+            $message = ['gagal mengaktifkan user'];
             $response->addErrorMessage($message);
         }
+        Auth::loginUsingId(base64_decode($id));
+
         return $response;
     }
 
@@ -111,7 +115,7 @@ class UserService extends BaseService
 
     public function read($id)
     {
-        return $this->readObject($this->userRepository,$id);
+        return $this->readObject($this->userRepository, $id);
     }
 
     public function delete($id)

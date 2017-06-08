@@ -3,6 +3,8 @@ namespace App\Repositories\Actions;
 
 use App\Models\User;
 use App\Repositories\Contracts\IUserRepository;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements IUserRepository
 {
@@ -12,8 +14,9 @@ class UserRepository implements IUserRepository
         $create->name = $input['name'];
         $create->email = $input['email'];
         $create->password = $input['password'];
-        $create->tipe_user = $input['tipeUser'];
-        return $create->save();
+        $create->save();
+
+        return $create->id;
     }
 
     public function update($input)
@@ -55,8 +58,10 @@ class UserRepository implements IUserRepository
 
     public function CekPassword($password, $email)
     {
-        $result = User::where('email','=',$email)->value('password');
-        return \Illuminate\Support\Facades\Hash::check($result,$password);
+//        $result = User::where('email','=',$email)->value('password');
+//        return Hash::check($result,$password);
+        $result = DB::table('users')->where('email','=',$email)->value('password');
+        return \Illuminate\Support\Facades\Hash::check($password,$result);
     }
 
     public function UpdatePassword($password, $id)
@@ -66,10 +71,17 @@ class UserRepository implements IUserRepository
         return $update->save();
     }
 
-    public function UpdateUser($email)
+    public function SetActiveUser($email)
     {
-        $update = User::where('email','=',$email);
-        $update->is_active = '1';
-        return $update->save();
+       return User::where('email','=',$email)
+           ->update([
+               'is_active'=>1
+           ]);
+    }
+
+    public function CekStatus($email)
+    {
+        $result = User::where('email','=',$email)->where('is_status','=','1');
+        return ($result == true);
     }
 }
