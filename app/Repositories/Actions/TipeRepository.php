@@ -41,11 +41,17 @@ class TipeRepository implements ITipeRepository
 
     public function showAll()
     {
-        return JmMerk::all();
+        return JmTipe::all();
     }
 
-    public function paginationData(\App\Repository\Contract\Pagination\PaginationParam $param)
+    public function paginationData(\App\Repositories\Contracts\Pagination\PaginationParam $param)
     {
         // TODO: Implement paginationData() method.
+    }
+
+    public function ShowModelById($modelId)
+    {
+        $result = JmTipe::where('model_id','=',$modelId)->get();
+        return $result;
     }
 }

@@ -41,11 +41,17 @@ class ModelRepository implements IModelRepository
 
     public function showAll()
     {
-        return JmMerk::all();
+        return JmModel::all();
     }
 
     public function paginationData(\App\Repositories\Contracts\Pagination\PaginationParam $param)
     {
         // TODO: Implement paginationData() method.
+    }
+
+    public function ShowByMerkId($merkId)
+    {
+        $result = JmModel::where('merk_id','=',$merkId)->get();
+        return $result;
     }
 }

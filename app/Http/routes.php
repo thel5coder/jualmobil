@@ -21,15 +21,13 @@ Route::get('/register', ['as' => 'registerForm', 'uses' => 'UserController@regis
 Route::post('/user-register', ['uses' => 'UserController@doRegister', 'as' => 'register']);
 Route::get('/user-confirmation/{token}/{id}', ['uses' => 'UserController@confirmation', 'as' => 'confirmation']);
 
-Route::group(['midleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard',['uses' => 'UserController@dashboard' , 'as' => 'dashboard']);
-    Route::get('daftarmobil', function () {
-        return view('daftarmobil');
-    });
 
-    Route::get('buatiklan', function () {
-        return view('buatiklan');
-    });
+    Route::get('daftarmobil',['uses' => 'ListingMobilController@index','as' => 'daftarmobil']);
+    Route::get('buatiklan',['uses' => 'ListingMobilController@create' ,'as' => 'buatiklan']);
+    Route::post('buatiklan',['uses' => 'ListingMobilController@store' ,'as' => 'postiklan']);
+
     Route::get('tambahmerk', function () {
         return view('tambahmerk');
     });

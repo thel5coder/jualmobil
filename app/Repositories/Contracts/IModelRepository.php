@@ -9,5 +9,5 @@
 namespace App\Repositories\Contracts;
 interface IModelRepository extends IBaseRepository
 {
-
+    public function ShowByMerkId($merkId);
 }

@@ -11,5 +11,5 @@ namespace App\Repositories\Contracts;
 
 interface ITipeRepository extends IBaseRepository
 {
-
+    public function ShowModelById($modelId);
 }

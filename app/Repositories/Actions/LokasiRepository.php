@@ -8,7 +8,7 @@
  */
 namespace App\Repositories\Actions;
 
-use App\Models\JmLokasi;
+use App\Models\JmProvinsi;
 use App\Repositories\Contracts\ILokasiRepository;
 
 class LokasiRepository implements ILokasiRepository
@@ -16,7 +16,7 @@ class LokasiRepository implements ILokasiRepository
 
     public function create($input)
     {
-        $create = new  JmLokasi();
+        $create = new  JmProvinsi();
         $create->lokasi = $input['lokasi'];
         return $create->save();
 
@@ -24,24 +24,24 @@ class LokasiRepository implements ILokasiRepository
 
     public function update($input)
     {
-        $update = JmLokasi::find($input['id']);
+        $update = JmProvinsi::find($input['id']);
         $update->lokasi = $input['lokasi'];
         return $update->save();
     }
 
     public function delete($id)
     {
-        return JmLokasi::find($id)->delete();
+        return JmProvinsi::find($id)->delete();
     }
 
     public function read($id)
     {
-        return JmLokasi::find($id);
+        return JmProvinsi::find($id);
     }
 
     public function showAll()
     {
-        return JmLokasi::all();
+        return JmProvinsi::all();
     }
 
     public function paginationData(\App\Repositories\Contracts\Pagination\PaginationParam $param)
