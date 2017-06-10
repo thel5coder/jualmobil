@@ -51,7 +51,6 @@ class ModelRepository implements IModelRepository
 
     public function ShowByMerkId($merkId)
     {
-        $result = JmModel::where('merk_id','=',$merkId)->get();
-        return $result;
+        return JmModel::where('merk_id','=',$merkId)->get();
     }
 }

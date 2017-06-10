@@ -9,27 +9,40 @@
 namespace App\Services;
 
 
-use App\Repositories\Contracts\IListingMobil;
+use App\Repositories\Contracts\IImagesLmRepository;
+use App\Repositories\Contracts\IListingMobilRepository;
+use App\Services\Response\ServiceResponseDto;
 
 class ListingMobilService extends BaseService
 {
     protected $listingMobil;
+    protected $imageLisitngMobil;
 
-    public function __construct(IListingMobil $listingMobil)
+    public function __construct(IListingMobilRepository $listingMobil,IImagesLmRepository $imagesLmRepository)
     {
         $this->listingMobil = $listingMobil;
+        $this->imageLisitngMobil = $imagesLmRepository;
     }
 
     public function create($input)
     {
+        $response = new ServiceResponseDto();
         $result = $this->listingMobil->create($input);
-        $fileImage = $this->uploadingFile('images')->getResult();
         if($result)
         {
-            $param = [
-              'listing_mobile_id' => $result,
-                'images' => $fileImage,
-            ];
+            for($i=0;$i<count($input['carImageList']);$i++){
+                $param = [
+                    "listing_mobile_id"=>$result,
+                    "image"=>$input['carImageList'][$i]
+                ];
+                $this->imageLisitngMobil->create($param);
+            }
         }
+        else{
+            $message = ['ada error'];
+            $response->addErrorMessage($message);
+        }
+
+        return $response;
     }
 }

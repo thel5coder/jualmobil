@@ -2,14 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: AhmadShobirin
- * Date: 06/06/2017
- * Time: 16:18
+ * Date: 10/06/2017
+ * Time: 11:09
  */
 
 namespace App\Repositories\Contracts;
 
 
-interface IListingMobil extends IBaseRepository
+interface IListingMobilRepository extends IBaseRepository
 {
 
 }

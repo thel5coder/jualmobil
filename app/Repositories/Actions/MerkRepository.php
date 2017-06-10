@@ -41,7 +41,7 @@ class MerkRepository implements IMerkRepository
 
     public function showAll()
     {
-        return JmMerk::all();
+        return JmMerk::orderBy('merk','ASC')->get();
     }
 
     public function paginationData(\App\Repositories\Contracts\Pagination\PaginationParam $param)

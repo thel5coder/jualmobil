@@ -1,17 +1,18 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: AhmadShobirin
- * Date: 06/06/2017
- * Time: 16:21
+ * Date: 09/06/2017
+ * Time: 22:01
  */
+
 namespace App\Repositories\Actions;
 
 use App\Models\JmProvinsi;
-use App\Repositories\Contracts\ILokasiRepository;
+use App\Repositories\Contracts\IProvinsiRepository;
+use App\Repositories\Contracts\Pagination\PaginationParam;
 
-class LokasiRepository implements ILokasiRepository
+class ProvinsiRepository implements IProvinsiRepository
 {
 
     public function create($input)
@@ -44,7 +45,7 @@ class LokasiRepository implements ILokasiRepository
         return JmProvinsi::all();
     }
 
-    public function paginationData(\App\Repositories\Contracts\Pagination\PaginationParam $param)
+    public function paginationData(PaginationParam $param)
     {
         // TODO: Implement paginationData() method.
     }

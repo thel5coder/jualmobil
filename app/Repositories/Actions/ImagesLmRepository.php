@@ -17,8 +17,8 @@ class ImagesLmRepository implements IImagesLmRepository
     public function create($input)
     {
         $create = new JmImagesLM();
-        $create->listing_mobile_id = $input['listingMobilId'];
-        $create->images = $input['images'];
+        $create->listing_mobile_id = $input['listing_mobile_id'];
+        $create->images = $input['image'];
         return $create->save();
     }
 

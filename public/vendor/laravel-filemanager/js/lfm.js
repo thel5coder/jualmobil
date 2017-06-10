@@ -12,7 +12,7 @@
         this.on('click', function(e) {
             localStorage.setItem('target_input', $(this).data('input'));
             localStorage.setItem('target_preview', $(this).data('preview'));
-            window.open('/laravel-filemanager?type=' + type, 'FileManager', 'width=900,height=600');
+            window.open(url+'/laravel-filemanager?type=' + type, 'FileManager', 'width=900,height=600');
             return false;
         });
     }

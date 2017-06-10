@@ -7,24 +7,27 @@
  */
 
 namespace App\Repositories\Actions;
+
 use App\JmListingMobil;
 use App\Repositories\Contracts\IListingMobil;
+use App\Repositories\Contracts\IListingMobilRepository;
 use App\Repositories\Contracts\Pagination\PaginationParam;
 
-class ListingMobilRepository implements IListingMobil
+class ListingMobilRepository implements IListingMobilRepository
 {
 
     public function create($input)
     {
         $create = new JmListingMobil();
         $create->judul = $input['judul'];
-        $create->kondisi_id = $input['kondisi'];
+        $create->user_id = auth()->user()->id;
+        $create->kondisi = $input['kondisi'];
         $create->merk_id = $input['merk'];
         $create->model_id = $input['model'];
-        $create->tipe   = $input['tipe'];
+        $create->tipe = $input['tipe'];
         $create->plat_nomor = $input['platNomor'];
         $create->kilo_meter = $input['kiloMeter'];
-        $create->bahan_bkar = $input['bahanBakar'];
+        $create->bahan_bakar = $input['bahanBakar'];
         $create->transmisi = $input['transmisi'];
         $create->tahun = $input['tahun'];
         $create->warna = $input['warna'];
@@ -43,7 +46,7 @@ class ListingMobilRepository implements IListingMobil
         $update->kondisi_id = $input['kondisi'];
         $update->merk_id = $input['merk'];
         $update->model_id = $input['model'];
-        $update->tipe   = $input['tipe'];
+        $update->tipe = $input['tipe'];
         $update->plat_nomor = $input['platNomor'];
         $update->kilo_meter = $input['kiloMeter'];
         $update->bahan_bkar = $input['bahanBakar'];
@@ -69,7 +72,9 @@ class ListingMobilRepository implements IListingMobil
 
     public function showAll()
     {
-        // TODO: Implement showAll() method.
+        $result = JmListingMobil::userPengiklan()
+            ->where('user_id','=',auth()->user()->id)
+            ->paginate('5');
     }
 
     public function paginationData(PaginationParam $param)
