@@ -31,11 +31,11 @@ return [
     'thumb_folder_name'     => 'thumbs',
 
     'images_dir'            => 'public/photos/',
-    'images_url'            => '/photos/',
-    'images_startup_view'   => 'list',
+    'images_url'            => 'public/photos/',
+    'images_startup_view'   => 'thumb',
 
     'files_dir'             => 'public/files/',
-    'files_url'             => '/files/',
+    'files_url'             => 'public/files/',
     'files_startup_view'    => 'grid',
 
     'max_image_size' => 500,

@@ -27,7 +27,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('daftarmobil',['uses' => 'ListingMobilController@index','as' => 'daftarmobil']);
     Route::get('buatiklan',['uses' => 'ListingMobilController@create' ,'as' => 'buatiklan']);
     Route::post('buatiklan',['uses' => 'ListingMobilController@store' ,'as' => 'postiklan']);
-
+    Route::get('getmerk',['uses' => 'MerkController@showAll' ,'as' => 'getmerk']);
+    Route::get('getmodel/{merklId}',['uses' => 'ModelController@ShowByMerkId' ,'as' => 'getmerk.id']);
+    Route::get('gettipe/{modelId}',['uses' => 'TipeController@ShowByModelId' ,'as' => 'getmodel.id']);
+    Route::get('getprovinsi',['uses' => 'ProvinsiController@shoAll' ,'as' => 'getprovinsi']);
+    ROute::get('getkota/{provinsiId}',['uses' => 'KotaCOntroller@ShowByProvinsiId','as' => 'getkota.id']);
     Route::get('tambahmerk', function () {
         return view('tambahmerk');
     });
