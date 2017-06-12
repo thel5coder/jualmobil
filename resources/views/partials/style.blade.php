@@ -1,5 +1,6 @@
 <link href="{{asset('public/css/bootstrap.css')}}" rel="stylesheet">
 <link href="{{asset('public/css/bootstrap-theme.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="{{asset('public/plugins/font-awesome/css/font-awesome.min.css')}}">
 <link href="{{asset('public/css/iconmoon.css')}}" rel="stylesheet">
 <link href="{{asset('public/css/chosen.css')}}" rel="stylesheet">
 <link href="{{asset('public/css/style.css')}}" rel="stylesheet">

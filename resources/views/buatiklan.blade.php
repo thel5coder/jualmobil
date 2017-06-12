@@ -2,7 +2,7 @@
 @section('customstyle')
     <link href="{{asset('public/plugins/select2/css/select2.css')}}" rel="stylesheet"/>
     <link rel="stylesheet" href="{{asset('public/css/select2-bootstrap.css')}}">
-@endsection
+@stop
 @section('content')
     <div class="main-section">
         <div class="page-section"

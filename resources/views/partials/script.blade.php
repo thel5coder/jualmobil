@@ -2,6 +2,7 @@
 <script src="{{asset('public/scripts/chosen.select.js')}}"></script>
 <script src="{{asset('public/scripts/slick.js')}}"></script>
 <script src="{{asset('public/scripts/echo.js')}}"></script>
+<script src="{{asset('public/scripts/bootstrap-slider.js')}}"></script>
 <script src="{{asset('public/scripts/toastr.js')}}"></script>
 <script src="{{asset('public/scripts/waitMe.js')}}"></script>
 <script src="{{asset('public/scripts/jquery.bootgrid.js')}}"></script>

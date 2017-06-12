@@ -36,12 +36,12 @@ class ImagesLmRepository implements IImagesLmRepository
 
     public function read($id)
     {
-        // TODO: Implement read() method.
+        return JmImagesLM::where('listing_mobile_id','=',$id)->orderBy('listing_mobile_id','asc')->get();
     }
 
     public function showAll()
     {
-        // TODO: Implement showAll() method.
+       return JmImagesLM::all();
     }
 
     public function paginationData(\App\Repositories\Contracts\Pagination\PaginationParam $param)

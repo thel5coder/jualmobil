@@ -92,4 +92,25 @@ class ListingMobilService extends BaseService
 
         return $response;
     }
+
+    public function pagination($param)
+    {
+       return  $this->getPaginationObject($this->listingMobilRepository,$param);
+    }
+
+    public function read($id)
+    {
+        $response = new ServiceResponseDto();
+        $dataIklan = $this->readObject($this->listingMobilRepository,$id)->getResult();
+        $gambarIklan = $this->readObject($this->imageLisitngMobilRepository,$id)->getResult();
+
+        $result = [
+            'iklan' => $dataIklan,
+            'gambar' => $gambarIklan
+        ];
+
+        $response->setResult($result);
+
+        return $response;
+    }
 }

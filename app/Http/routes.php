@@ -25,6 +25,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('dashboard',         ['uses' => 'UserController@dashboard' , 'as' => 'dashboard']);
     Route::get('/listing',          ['uses' => 'ListingMobilController@index','as' => 'listing']);
+    Route::post('/listing',          ['uses' => 'ListingMobilController@pagination','as' => 'pagination']);
+    Route::get('/listing/read/{id}', ['uses' => 'ListingMobilController@read' ,'as' => 'read']);
     Route::get('/lisitng/create',   ['uses' => 'ListingMobilController@create' ,'as' => 'formbuatiklan']);
     Route::post('/listing/create',  ['uses' => 'ListingMobilController@store' ,'as' => 'postiklan']);
     Route::get('/listing/delete/{id}',  ['uses' => 'ListingMobilController@destroy','as' => 'deleteiklan.id']);

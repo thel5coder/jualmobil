@@ -9,11 +9,11 @@
 namespace App\Repositories\Actions;
 
 use App\Models\JmListingMobil;
-use App\Repositories\Contracts\IListingMobil;
 use App\Models\JmImagesLM;
 use App\Repositories\Contracts\IListingMobilRepository;
 use App\Repositories\Contracts\Pagination\PaginationParam;
-use Illuminate\Support\Facades\DB;
+use App\Repositories\Contracts\Pagination\PaginationResult;
+use DB;
 
 class ListingMobilRepository implements IListingMobilRepository
 {
@@ -26,7 +26,7 @@ class ListingMobilRepository implements IListingMobilRepository
         $create->kondisi = $input['kondisi'];
         $create->merk_id = $input['merk'];
         $create->model_id = $input['model'];
-        $create->tipe = $input['tipe'];
+        $create->tipe_id = $input['tipe'];
         $create->plat_nomor = $input['platNomor'];
         $create->kilo_meter = $input['kiloMeter'];
         $create->bahan_bakar = $input['bahanBakar'];
@@ -48,7 +48,7 @@ class ListingMobilRepository implements IListingMobilRepository
         $update->kondisi_id = $input['kondisi'];
         $update->merk_id = $input['merk'];
         $update->model_id = $input['model'];
-        $update->tipe = $input['tipe'];
+        $update->tipe_id = $input['tipe'];
         $update->plat_nomor = $input['platNomor'];
         $update->kilo_meter = $input['kiloMeter'];
         $update->bahan_bkar = $input['bahanBakar'];
@@ -69,7 +69,18 @@ class ListingMobilRepository implements IListingMobilRepository
 
     public function read($id)
     {
-        return JmListingMobil::with('merkMobil','modelMobil','tipeMobil')->where('id','=',$id);
+        return JmListingMobil::join('users', 'users.id', '=', 'jm_listing_mobil.user_id')
+            ->join('jm_merk', 'jm_merk.id', '=', 'jm_listing_mobil.merk_id')
+            ->join('jm_model', 'jm_model.id', '=', 'jm_listing_mobil.model_id')
+            ->join('jm_tipe', 'jm_tipe.id', '=', 'jm_listing_mobil.tipe_id')
+            ->select('jm_listing_mobil.id', 'jm_listing_mobil.user_id', 'jm_listing_mobil.judul', 'jm_listing_mobil.kondisi',
+                'jm_listing_mobil.plat_nomor', 'jm_listing_mobil.kilo_meter', 'jm_listing_mobil.bahan_bakar', 'jm_listing_mobil.transmisi',
+                'jm_listing_mobil.tahun', 'jm_listing_mobil.warna', 'jm_listing_mobil.harga', 'jm_listing_mobil.deskripsi',
+                'jm_listing_mobil.provinsi', 'jm_listing_mobil.kota', 'jm_listing_mobil.status',
+                'jm_merk.merk', 'jm_model.model', 'jm_tipe.tipe'
+            )
+            ->where('jm_listing_mobil.id', '=', $id)
+            ->first();
     }
 
     public function showAll()
@@ -84,7 +95,7 @@ class ListingMobilRepository implements IListingMobilRepository
         $order = $param->getSortOrder();
         $orderBy = $param->getSortBy();
 
-        $sortBy = (isset($orderBy) ? 'id' : $orderBy);
+        $sortBy = (isset($orderBy) ? 'jm_listing_mobil.status' : $orderBy);
         $sortOrder = ($order == 'asc' ? 'desc' : $order);
 
         //setup skip data for paging
@@ -94,28 +105,84 @@ class ListingMobilRepository implements IListingMobilRepository
             $skipCount = ($param->getPageIndex() * $param->getPageSize());
         }
         //get total count data
-        $result->setTotalCount(PjKategoriModel::count());
+        $result->setTotalCount(
+            JmListingMobil::join('users', 'users.id', '=', 'jm_listing_mobil.user_id')
+                ->join('jm_merk', 'jm_merk.id', '=', 'jm_listing_mobil.merk_id')
+                ->join('jm_model', 'jm_model.id', '=', 'jm_listing_mobil.model_id')
+                ->join('jm_tipe', 'jm_tipe.id', '=', 'jm_listing_mobil.tipe_id')
+                ->count()
+        );
 
         //get data
         if ($param->getKeyword() == '') {
 
             if ($skipCount == 0) {
-                $data = PjKategoriModel::take($param->getPageSize())
+                $data = JmListingMobil::join('users', 'users.id', '=', 'jm_listing_mobil.user_id')
+                    ->join('jm_merk', 'jm_merk.id', '=', 'jm_listing_mobil.merk_id')
+                    ->join('jm_model', 'jm_model.id', '=', 'jm_listing_mobil.model_id')
+                    ->join('jm_tipe', 'jm_tipe.id', '=', 'jm_listing_mobil.tipe_id')
+                    ->select('jm_listing_mobil.id', 'jm_listing_mobil.user_id', 'jm_listing_mobil.judul', 'jm_listing_mobil.kondisi',
+                        'jm_listing_mobil.plat_nomor', 'jm_listing_mobil.kilo_meter', 'jm_listing_mobil.bahan_bakar', 'jm_listing_mobil.transmisi',
+                        'jm_listing_mobil.tahun', 'jm_listing_mobil.warna', 'jm_listing_mobil.harga', 'jm_listing_mobil.deskripsi',
+                        'jm_listing_mobil.provinsi', 'jm_listing_mobil.kota', 'jm_listing_mobil.status',
+                        'jm_merk.merk', 'jm_model.model', 'jm_tipe.tipe'
+                    )
+                    ->take($param->getPageSize())
                     ->orderBy($sortBy, $sortOrder)
                     ->get();
             } else {
-                $data = PjKategoriModel::skip($skipCount)->take($param->getPageSize())
+                $data = JmListingMobil::join('users', 'users.id', '=', 'jm_listing_mobil.user_id')
+                    ->join('jm_merk', 'jm_merk.id', '=', 'jm_listing_mobil.merk_id')
+                    ->join('jm_model', 'jm_model.id', '=', 'jm_listing_mobil.model_id')
+                    ->join('jm_tipe', 'jm_tipe.id', '=', 'jm_listing_mobil.tipe_id')
+                    ->select('jm_listing_mobil.id', 'jm_listing_mobil.user_id', 'jm_listing_mobil.judul', 'jm_listing_mobil.kondisi',
+                        'jm_listing_mobil.plat_nomor', 'jm_listing_mobil.kilo_meter', 'jm_listing_mobil.bahan_bakar', 'jm_listing_mobil.transmisi',
+                        'jm_listing_mobil.tahun', 'jm_listing_mobil.warna', 'jm_listing_mobil.harga', 'jm_listing_mobil.deskripsi',
+                        'jm_listing_mobil.provinsi', 'jm_listing_mobil.kota', 'jm_listing_mobil.status',
+                        'jm_merk.merk', 'jm_model.model', 'jm_tipe.tipe'
+                    )
+                    ->skip($skipCount)->take($param->getPageSize())
                     ->orderBy($sortBy, $sortOrder)
                     ->get();
             }
         } else {
             if ($skipCount == 0) {
-                $data = PjKategoriModel::where('nama_kategori', 'like', '%' . $param->getKeyword() . '%')
+                $data = JmListingMobil::join('users', 'users.id', '=', 'jm_listing_mobil.user_id')
+                    ->join('jm_merk', 'jm_merk.id', '=', 'jm_listing_mobil.merk_id')
+                    ->join('jm_model', 'jm_model.id', '=', 'jm_listing_mobil.model_id')
+                    ->join('jm_tipe', 'jm_tipe.id', '=', 'jm_listing_mobil.tipe_id')
+                    ->select('jm_listing_mobil.id', 'jm_listing_mobil.user_id', 'jm_listing_mobil.judul', 'jm_listing_mobil.kondisi',
+                        'jm_listing_mobil.plat_nomor', 'jm_listing_mobil.kilo_meter', 'jm_listing_mobil.bahan_bakar', 'jm_listing_mobil.transmisi',
+                        'jm_listing_mobil.tahun', 'jm_listing_mobil.warna', 'jm_listing_mobil.harga', 'jm_listing_mobil.deskripsi',
+                        'jm_listing_mobil.provinsi', 'jm_listing_mobil.kota', 'jm_listing_mobil.status',
+                        'jm_merk.merk', 'jm_model.model', 'jm_tipe.tipe'
+                    )
+                    ->where(function ($q) use ($param) {
+                        $q->where('jm_listing_mobil.judul', 'like', '%' . $param->getKeyword() . '%')
+                            ->orWhere('jm_merk.merk', 'like', '%' . $param->getKeyword() . '%')
+                            ->orWhere('jm_model.model', 'like', '%' . $param->getKeyword() . '%')
+                            ->orWhere('jmTipe.tipe', 'like', '%' . $param->getKeyword() . '%');
+                    })
                     ->take($param->getPageSize())
                     ->orderBy($sortBy, $sortOrder)
                     ->get();
             } else {
-                $data =  PjKategoriModel::where('nama_kategori', 'like', '%' . $param->getKeyword() . '%')
+                $data = JmListingMobil::join('users', 'users.id', '=', 'jm_listing_mobil.user_id')
+                    ->join('jm_merk', 'jm_merk.id', '=', 'jm_listing_mobil.merk_id')
+                    ->join('jm_model', 'jm_model.id', '=', 'jm_listing_mobil.model_id')
+                    ->join('jm_tipe', 'jm_tipe.id', '=', 'jm_listing_mobil.tipe_id')
+                    ->select('jm_listing_mobil.id', 'jm_listing_mobil.user_id', 'jm_listing_mobil.judul', 'jm_listing_mobil.kondisi',
+                        'jm_listing_mobil.plat_nomor', 'jm_listing_mobil.kilo_meter', 'jm_listing_mobil.bahan_bakar', 'jm_listing_mobil.transmisi',
+                        'jm_listing_mobil.tahun', 'jm_listing_mobil.warna', 'jm_listing_mobil.harga', 'jm_listing_mobil.deskripsi',
+                        'jm_listing_mobil.provinsi', 'jm_listing_mobil.kota', 'jm_listing_mobil.status',
+                        'jm_merk.merk', 'jm_model.model', 'jm_tipe.tipe'
+                    )
+                    ->where(function ($q) use ($param) {
+                        $q->where('jm_listing_mobil.judul', 'like', '%' . $param->getKeyword() . '%')
+                            ->orWhere('jm_merk.merk', 'like', '%' . $param->getKeyword() . '%')
+                            ->orWhere('jm_model.model', 'like', '%' . $param->getKeyword() . '%')
+                            ->orWhere('jmTipe.tipe', 'like', '%' . $param->getKeyword() . '%');
+                    })
                     ->orderBy($sortBy, $sortOrder)
                     ->skip($skipCount)->take($param->getPageSize())
                     ->get();
@@ -131,7 +198,7 @@ class ListingMobilRepository implements IListingMobilRepository
 
     public function showByUserId($userId)
     {
-        return JmListingMobil::where('user_id', '=', $userId)->orderBy('id','asc')->paginate('5');
+        return JmListingMobil::where('user_id', '=', $userId)->orderBy('id', 'asc')->paginate('5');
     }
 
     public function setActiveListingMobil($id)

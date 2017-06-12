@@ -10,9 +10,7 @@
 <body class="wp-automobile">
 <div class="wrapper">
     @include('partials.header')
-    <div class="main-section">
-        @yield('content')
-    </div>
+    @yield('content')
     @include('partials.footer')
 </div>
     @include('partials.script')

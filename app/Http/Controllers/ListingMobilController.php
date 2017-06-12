@@ -28,10 +28,15 @@ class ListingMobilController extends Controller
     {
         $listingcars = $this->listingService->showIklan()->getResult();
 
-//        return response()->json($listingcars['gambarIklan']);
-        return view('daftarmobil')
-            ->with('listingcars',$listingcars['iklan'])
-            ->with('listingImage',$listingcars['gambarIklan']);
+        if(auth()->user()->tipe_user == 'admin')
+        {
+            return view('listiklanmobil');
+        }
+        else {
+            return view('daftarmobil')
+                ->with('listingcars',$listingcars['iklan'])
+                ->with('listingImage',$listingcars['gambarIklan']);
+        }
     }
 
     public function create()
@@ -43,20 +48,20 @@ class ListingMobilController extends Controller
 
     public function store()
     {
-        //
         $result = $this->listingService->create(Input::all());
         return $this->getJsonResponse($result);
-
     }
 
-    public function show($id)
+    public function read($id)
     {
-        //
+        $data = $this->listingService->read($id)->getResult();
+
+        return view('detailiklan')->with('iklan',$data['iklan'])->with('imageIklan',$data['gambar']);
     }
 
     public function edit($id)
     {
-        //
+
     }
 
     public function update(Request $request, $id)
@@ -67,7 +72,13 @@ class ListingMobilController extends Controller
     public function destroy($id)
     {
         $result = $this->listingService->delete(base64_decode($id));
-
         return $this->getJsonResponse($result);
+    }
+
+    public function pagination()
+    {
+        $param = $this->getPaginationParam();
+        $result = $this->listingService->pagination($param);
+        return $this->parsePaginationResultToGridJson($result);
     }
 }

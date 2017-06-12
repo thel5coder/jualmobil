@@ -548,7 +548,8 @@
 .single-page .cs-map.loader {background: #fff url(assets/images/spin-load.gif) no-repeat scroll center center;height: 450px;width: 100%;overflow:hidden;}
 /*Auto Google Map End*/
 /**** User Genral Setting Start ****/
-.wp-automobile .cs-user-account-holder {background: #fff;width: 990px;margin: 0 auto 50px;box-shadow:0 0 15px 0 rgba(0, 0, 0, 0.1);padding: 30px 150px;}
+/*.wp-automobile .cs-user-account-holder {background: #fff;width: 990px;margin: 0 auto 50px;box-shadow:0 0 15px 0 rgba(0, 0, 0, 0.1);padding: 30px 150px;}*/
+.wp-automobile .cs-user-account-holder {background: #fff;width: 990px;margin: 0 auto 50px;box-shadow:0 0 15px 0 rgba(0, 0, 0, 0.1);padding: 30px 50px;}
 .wp-automobile ul.cs-user-accounts-list {margin: 0 0 50px 0;padding: 0;border-bottom: 1px solid #e8eaed;}
 .wp-automobile ul.cs-user-accounts-list li {padding: 0;margin: 0 -4px -1px 0;list-style: none;display: inline-block;overflow: hidden;vertical-align: middle;}
 .wp-automobile ul.cs-user-accounts-list li a {display: block;text-decoration: none;text-transform: uppercase;color: #8a96a6;font-family: 'Lato', sans-serif;font-weight: 700;font-size: 10px;	padding: 10px 12px 10px 13px;margin: 0 0 0 0;position: relative;}
