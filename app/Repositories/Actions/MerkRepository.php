@@ -19,7 +19,6 @@ class MerkRepository implements IMerkRepository
         $create = new  JmMerk();
         $create->merk = $input['merk'];
         return $create->save();
-
     }
 
     public function update($input)

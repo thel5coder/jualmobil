@@ -20,6 +20,7 @@ class AppRepositoryProvider extends ServiceProvider
         $this->app->bind('App\\Repositories\\Contracts\\ITipeRepository','App\\Repositories\\Actions\\TipeRepository');
         $this->app->bind('App\\Repositories\\Contracts\\IProvinsiRepository','App\\Repositories\\Actions\\ProvinsiRepository');
         $this->app->bind('App\\Repositories\\Contracts\\IKotaRepository','App\\Repositories\\Actions\\KotaRepository');
+        $this->app->bind('App\\Repositories\\Contracts\\IBeritaRepository','App\\Repositories\\Actions\\BeritaRepository');
     }
 
     /**

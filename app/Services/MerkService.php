@@ -21,6 +21,17 @@ class MerkService extends BaseService
         $this->merkRepository = $merkRepository;
     }
 
+    public function create($input)
+    {
+        $response = new ServiceResponseDto();
+        if( !$this->merkRepository->create($input) )
+        {
+            $message = ['gagal menambah data'];
+            $response->addErrorMessage($response);
+        }
+        return $response;
+    }
+
     public function showAll()
     {
         return $this->getAllObject($this->merkRepository);

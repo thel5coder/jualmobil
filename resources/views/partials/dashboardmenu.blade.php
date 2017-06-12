@@ -1,8 +1,12 @@
 <ul class="cs-user-accounts-list">
-    <li><a href="{{url('daftarmobil')}}">Daftar Mobil</a></li>
-    <li><a href="{{url('buatiklan')}}">Buat Iklan Baru</a></li>
-    <li><a href="{{url('tambahmerk')}}">Tambah Merk Baru</a></li>
-    <li><a href="{{url('tambahmodel')}}">Tambah Model Baru</a></li>
-    <li ><a href="{{url('tambahtipe')}}">Tambah Tipe Baru</a></li>
+    <li><a href="{{route('listing')}}">Daftar Mobil</a></li>
+    <li><a href="{{route('formbuatiklan')}}">Buat Iklan Baru</a></li>
+    @if(auth()->user()->tipe_user == 'admin')
+        <li><a href="{{route('formBerita')}}"></a></li>
+        <li><a href="{{route('formMerk')}}">Tambah Merk Baru</a></li>
+        <li><a href="{{route('formModel')}}">Tambah Model Baru</a></li>
+        <li ><a href="{{route('formTipe')}}">Tambah Tipe Baru</a></li>
+    @endif
     <li><a href="{{route('dashboard')}}">Akun Saya</a></li>
+    <li><a href="{{route('logout')}}">Logout</a></li>
 </ul>

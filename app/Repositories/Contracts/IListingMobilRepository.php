@@ -11,5 +11,7 @@ namespace App\Repositories\Contracts;
 
 interface IListingMobilRepository extends IBaseRepository
 {
-
+    public function showByUserId($userId);
+    public function setActiveListingMobil($id);
+    public function setRejectListingMobil($id,$alasan);
 }

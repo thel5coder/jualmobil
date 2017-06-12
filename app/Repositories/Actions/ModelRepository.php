@@ -17,6 +17,7 @@ class ModelRepository implements IModelRepository
     public function create($input)
     {
         $create = new  JmModel();
+        $create->merk_id = $input['merk'];
         $create->model = $input['model'];
         return $create->save();
 

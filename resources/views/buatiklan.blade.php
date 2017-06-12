@@ -163,7 +163,7 @@
                                         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                                             <div class="cs-field">
                                                 <select name="tipe" id="tipe">
-                                                    <option disabled selected>Pilih Tipe</option>
+                                                    <option selected>Pilih Tipe</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -176,7 +176,7 @@
                                         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                                             <div class="cs-field">
                                                 <select name="tahun" id="tahun">
-                                                    @for($i = 1800; $i<date('Y'); $i++ )
+                                                    @for($i = date('Y') ; $i > 1800; $i--)
                                                         <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                                 </select>
@@ -289,7 +289,7 @@
                                         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                                             <div class="cs-field">
                                                 <select name="provinsi" id="provinsi">
-                                                    <option disable selected>Pilih Provinsi</option>
+                                                    <option  selected>Pilih Provinsi</option>
                                                     @foreach($provinsi as $prov)
                                                         <option value="{{$prov->id}}" data-namaprovinsi="{{$prov->nama}}">{{ucwords($prov->nama)}}</option>
                                                     @endforeach
@@ -376,7 +376,7 @@
             $('#merk').change(function (e) {
                 console.log($(this).val());
                 $.ajax({
-                    url: "<?= url('/getmodel')?>/" + $(this).val(),
+                    url: "<?= url('/listing/getmodel')?>/" + $(this).val(),
                     method: 'GET',
                     success: function (s) {
                         $('#model').children('option:not(:first)').remove().end();
@@ -391,7 +391,7 @@
 
             $('#model').change(function (e) {
                 $.ajax({
-                    url: "<?= url('gettipe') ?>/" + $(this).val(),
+                    url: "<?= url('/listing/gettipe') ?>/" + $(this).val(),
                     method: 'GET',
                     success: function (s) {
                         $('#tipe').children('option:not(:first)').remove().end();
@@ -406,7 +406,7 @@
             $('#provinsi').change(function (e) {
 //                console.log();
                 $.ajax({
-                    url: '<?= url('getkota')?>/' + $(this).val(),
+                    url: '<?= url('/listing/getkota')?>/' + $(this).val(),
                     method: 'GET',
                     success: function (s) {
                         $('#kota').children('option:not(:first)').remove().end();
@@ -553,7 +553,7 @@
                         }
                     });
                     $.ajax({
-                        url: "<?= route('postiklan')?>",
+                        url: "<?= url('listing/create')?>",
                         method: "POST",
                         data: {
                             _token: $('#token').val(),
@@ -571,7 +571,7 @@
                             bahanBakar: $('#bahanBakar').val(),
                             harga: $('#harga').val(),
                             provinsi: $('#provinsi option:selected').text(),
-                            kota: $('#kota').val(),
+                            kota: $('#kota option:selected').text(),
                             deskripsi: $('#deskripsi').val()
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrow) {
@@ -581,7 +581,7 @@
                         success: function (s) {
                             if (s.isSuccess) {
                                 //location.reload();
-                                window.location = "<?= route('daftarmobil')?>";
+                                window.location = "<?= url('/listing')?>";
                             } else {
                                 $('body').waitMe('hide');
                                 var errorMessagesCount = s.message.length;

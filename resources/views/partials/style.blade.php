@@ -10,6 +10,7 @@
 <link href="{{asset('public/css/waitMe.css')}}" rel="stylesheet" >
 <link href="{{asset('public/css/toastr.css')}}" rel="stylesheet" >
 <link href="{{asset('public/css/jquery.bootgrid.css')}}" rel="stylesheet" >
+<link href="{{asset('public/css/sweetalert2.min.css')}}" rel="stylesheet">
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

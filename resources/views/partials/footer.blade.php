@@ -34,7 +34,7 @@
                         </div>
                         <ul>
                             <li><a href="#">Toyota </a></li>
-                            <li><a href="#">honda/a></li>
+                            <li><a href="#">honda</a></li>
                         </ul>
                     </div>
                 </div>

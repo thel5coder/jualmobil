@@ -31,7 +31,7 @@ class ImagesLmRepository implements IImagesLmRepository
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        return JmImagesLM::where('listing_mobile_id','=',$id)->delete();
     }
 
     public function read($id)
@@ -48,4 +48,11 @@ class ImagesLmRepository implements IImagesLmRepository
     {
         // TODO: Implement paginationData() method.
     }
+
+    public function showImagesByListingId($listingID)
+    {
+        return JmImagesLM::where('listing_mobile_id','=',$listingID)->orderBy('listing_mobile_id','asc')->get();
+    }
+
+
 }

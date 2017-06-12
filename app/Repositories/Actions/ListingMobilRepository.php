@@ -8,10 +8,12 @@
 
 namespace App\Repositories\Actions;
 
-use App\JmListingMobil;
+use App\Models\JmListingMobil;
 use App\Repositories\Contracts\IListingMobil;
+use App\Models\JmImagesLM;
 use App\Repositories\Contracts\IListingMobilRepository;
 use App\Repositories\Contracts\Pagination\PaginationParam;
+use Illuminate\Support\Facades\DB;
 
 class ListingMobilRepository implements IListingMobilRepository
 {
@@ -67,18 +69,31 @@ class ListingMobilRepository implements IListingMobilRepository
 
     public function read($id)
     {
-        return JmListingMobil::find($id);
+        return JmListingMobil::with('merkMobil','modelMobil','tipeMobil')->where('id','=',$id);
     }
 
     public function showAll()
     {
-        $result = JmListingMobil::userPengiklan()
-            ->where('user_id','=',auth()->user()->id)
-            ->paginate('5');
+        return $result = JmListingMobil::paginate('5');
     }
 
     public function paginationData(PaginationParam $param)
     {
         // TODO: Implement paginationData() method.
+    }
+
+    public function showByUserId($userId)
+    {
+        return JmListingMobil::where('user_id', '=', $userId)->orderBy('id','asc')->paginate('5');
+    }
+
+    public function setActiveListingMobil($id)
+    {
+        // TODO: Implement setActiveListingMobil() method.
+    }
+
+    public function setRejectListingMobil($id, $alasan)
+    {
+        // TODO: Implement setRejectListingMobil() method.
     }
 }

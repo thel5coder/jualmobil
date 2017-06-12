@@ -17,9 +17,9 @@ class TipeRepository implements ITipeRepository
     public function create($input)
     {
         $create = new  JmTipe();
+        $create->model_id = $input['model'];
         $create->tipe = $input['tipe'];
         return $create->save();
-
     }
 
     public function update($input)

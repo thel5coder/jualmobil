@@ -15,31 +15,78 @@ use App\Services\Response\ServiceResponseDto;
 
 class ListingMobilService extends BaseService
 {
-    protected $listingMobil;
-    protected $imageLisitngMobil;
+    protected $listingMobilRepository;
+    protected $imageLisitngMobilRepository;
 
-    public function __construct(IListingMobilRepository $listingMobil,IImagesLmRepository $imagesLmRepository)
+    public function __construct(IListingMobilRepository $listingMobilRepository, IImagesLmRepository $imagesLmRepository)
     {
-        $this->listingMobil = $listingMobil;
-        $this->imageLisitngMobil = $imagesLmRepository;
+        $this->listingMobilRepository = $listingMobilRepository;
+        $this->imageLisitngMobilRepository = $imagesLmRepository;
     }
 
     public function create($input)
     {
         $response = new ServiceResponseDto();
-        $result = $this->listingMobil->create($input);
+        $result = $this->listingMobilRepository->create($input);
         if($result)
         {
             for($i=0;$i<count($input['carImageList']);$i++){
                 $param = [
-                    "listing_mobile_id"=>$result,
-                    "image"=>$input['carImageList'][$i]
+                    "listing_mobile_id" =>$result,
+                    "image"             =>$input['carImageList'][$i]
                 ];
-                $this->imageLisitngMobil->create($param);
+                $this->imageLisitngMobilRepository->create($param);
             }
         }
         else{
             $message = ['ada error'];
+            $response->addErrorMessage($message);
+        }
+
+        return $response;
+    }
+
+    public function showIklan(){
+        if(auth()->user()->tipe_user == 'admin'){
+            return $this->ShowAll();
+        }else{
+            return $this->showByUserId();
+        }
+    }
+    protected function ShowAll()
+    {
+        return $this->getAllObject($this->listingMobilRepository);
+    }
+
+    protected function showByUserId()
+    {
+        $response = new ServiceResponseDto();
+        $dataIklan = $this->listingMobilRepository->showByUserId(auth()->user()->id);
+        $dataGambarIklan = array();
+        foreach($dataIklan as $iklan){
+            $dataGambarIklan[$iklan->id] = $this->imageLisitngMobilRepository->showImagesByListingId($iklan->id);
+        }
+        $dataResult = [
+            'iklan'=>$dataIklan,
+            'gambarIklan'=>$dataGambarIklan
+        ];
+
+        $response->setResult($dataResult);
+
+        return $response;
+    }
+
+    public function delete($id)
+    {
+        $response = new ServiceResponseDto();
+        if($this->deleteObject($this->listingMobilRepository,$id)->isSuccess())
+        {
+            if(!$this->deleteObject($this->imageLisitngMobilRepository,$id)->isSuccess()){
+                $message = ['gagal hapus gambar'];
+                $response->addErrorMessage($message);
+            }
+        }else{
+            $message = ['gagal hapus iklan'];
             $response->addErrorMessage($message);
         }
 

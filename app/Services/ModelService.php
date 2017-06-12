@@ -12,13 +12,28 @@ namespace App\Services;
 use App\Repositories\Contracts\IModelRepository;
 use App\Services\Response\ServiceResponseDto;
 
-class ModelService
+class ModelService extends BaseService
 {
     protected $modelRepository;
 
     public function __construct(IModelRepository $modelRepository)
     {
         $this->modelRepository = $modelRepository;
+    }
+
+    public function create($input)
+    {
+        $response = new ServiceResponseDto();
+        if($input['merk'] == '')
+        {
+            $message = 'merk kosong';
+            $response->addErrorMessage($message);
+        }
+        else{
+            $this->modelRepository->create($input);
+        }
+
+        return $response;
     }
 
     public function ShowByMerkID($merkId)
@@ -36,5 +51,10 @@ class ModelService
         $response->setResult($data);
 
         return $response;
+    }
+
+    public function showAll()
+    {
+        return $this->getAllObject($this->modelRepository);
     }
 }

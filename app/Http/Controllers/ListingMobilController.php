@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Actions\ImagesLmRepository;
 use App\Services\ListingMobilService;
 use App\Services\MerkService;
 use App\Services\ProvinsiService;
@@ -15,16 +16,22 @@ class ListingMobilController extends Controller
     protected $listingService;
     protected $merkService;
     protected $provinsiService;
-    public function __construct(ListingMobilService $listingMobilService , MerkService $merkService,ProvinsiService $provinsiService)
+    protected $imagesListingLm;
+    public function __construct(ListingMobilService $listingMobilService , MerkService $merkService,ProvinsiService $provinsiService,ImagesLmRepository $imagesLmRepository)
     {
         $this->listingService = $listingMobilService;
         $this->merkService = $merkService;
         $this->provinsiService = $provinsiService;
+        $this->imagesListingLm = $imagesLmRepository;
     }
     public function index()
     {
-        $listingcar;
-        return view('daftarmobil');
+        $listingcars = $this->listingService->showIklan()->getResult();
+
+//        return response()->json($listingcars['gambarIklan']);
+        return view('daftarmobil')
+            ->with('listingcars',$listingcars['iklan'])
+            ->with('listingImage',$listingcars['gambarIklan']);
     }
 
     public function create()
@@ -59,6 +66,8 @@ class ListingMobilController extends Controller
 
     public function destroy($id)
     {
-        //
+        $result = $this->listingService->delete(base64_decode($id));
+
+        return $this->getJsonResponse($result);
     }
 }

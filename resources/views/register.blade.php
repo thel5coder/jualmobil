@@ -26,7 +26,6 @@
                                     <div class="cs-field">
                                         <select data-placeholder="Sebagai" tabindex="1" class="chosen-select"
                                                 name="tipeUser" id="tipeUser">
-                                            <option value="admin">admin</option>
                                             <option value="individual">Individual</option>
                                             <option value="sales">Sales Dealer Resmin</option>
                                             <option value="showroom">Showroom</option>

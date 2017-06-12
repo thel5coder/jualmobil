@@ -8,6 +8,7 @@
 
 namespace App\Services;
 
+use App\Repositories\Contracts\IModelRepository;
 use App\Repositories\Contracts\ITipeRepository;
 use App\Services\Response\ServiceResponseDto;
 
@@ -19,12 +20,21 @@ class TipeService
     {
         $this->tipeRepository = $tipeRepository;
     }
-
+    public function create($input)
+    {
+        $response = new ServiceResponseDto();
+        $response = new ServiceResponseDto();
+        if( !$this->tipeRepository->create($input) )
+        {
+            $message = ['gagal menambah data'];
+            $response->addErrorMessage($response);
+        }
+        return $response;
+    }
     public function ShowByModelId($modelId)
     {
         $response = new ServiceResponseDto();
         $result = $this->tipeRepository->ShowModelById($modelId);
-//    dd($result);
         for ($i = 0; $i < count($result); $i++) {
             $param [] = [
                 'id' => $result[$i]->id,

@@ -8,6 +8,7 @@
 <script src="{{asset('public/scripts/jquery.bootgrid.fa.js')}}"></script>
 <script src="{{asset('public/scripts/base.js')}}"></script>
 <script src="{{asset('public/plugins/jquery-validation/js/jquery.validate.js')}}"></script>
+<script src="{{asset('public/scripts/sweetalert2.js')}}"></script>
 <script>
     var url = "<?= url('/')?>";
 </script>
