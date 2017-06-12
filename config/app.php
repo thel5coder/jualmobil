@@ -147,6 +147,7 @@ return [
         App\Providers\AppRepositoryProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
+        Unisharp\Ckeditor\ServiceProvider::class,
 
     ],
 

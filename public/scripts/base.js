@@ -49,3 +49,13 @@ function logout(){
     });
     return false;
 }
+
+var editor = $('#content').ckeditor({
+    extraPlugins: 'embed,autoembed,image2',
+    height: 500,
+    customConfig:url+'/public/vendor/unisharp/laravel-ckeditor/config.js',
+    filebrowserImageBrowseUrl: url+'/laravel-filemanager?type=Images',
+    filebrowserImageUploadUrl: url+'/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
+    filebrowserBrowseUrl: url+'/laravel-filemanager?type=Files',
+    filebrowserUploadUrl: url+'/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
+});
