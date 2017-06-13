@@ -32,6 +32,7 @@ class ListingMobilRepository implements IListingMobilRepository
         $create->bahan_bakar = $input['bahanBakar'];
         $create->transmisi = $input['transmisi'];
         $create->tahun = $input['tahun'];
+        $create->harga = $input['harga'];
         $create->warna = $input['warna'];
         $create->deskripsi = $input['deskripsi'];
         $create->provinsi = $input['provinsi'];
@@ -77,7 +78,8 @@ class ListingMobilRepository implements IListingMobilRepository
                 'jm_listing_mobil.plat_nomor', 'jm_listing_mobil.kilo_meter', 'jm_listing_mobil.bahan_bakar', 'jm_listing_mobil.transmisi',
                 'jm_listing_mobil.tahun', 'jm_listing_mobil.warna', 'jm_listing_mobil.harga', 'jm_listing_mobil.deskripsi',
                 'jm_listing_mobil.provinsi', 'jm_listing_mobil.kota', 'jm_listing_mobil.status',
-                'jm_merk.merk', 'jm_model.model', 'jm_tipe.tipe'
+                'jm_merk.merk', 'jm_model.model', 'jm_tipe.tipe',
+                'users.name','users.phone','users.in_wa','users.pin_bbm','users.facebook'
             )
             ->where('jm_listing_mobil.id', '=', $id)
             ->first();

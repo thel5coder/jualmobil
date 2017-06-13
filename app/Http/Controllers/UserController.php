@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ProvinsiService;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
@@ -12,14 +13,17 @@ use Illuminate\Support\Facades\Session;
 class UserController extends Controller
 {
     protected $userService;
+    protected $provinsiService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService,ProvinsiService $provinsiService)
     {
         $this->userService = $userService;
+        $this->provinsiService = $provinsiService;
     }
     public function dashboard()
     {
-        return view('dashboard')->with('message','halo');
+        $provinsi = $this->provinsiService->ShowAll()->getResult();
+        return view('dashboard')->with('provinsi',$provinsi);
     }
     public function login()
     {
@@ -43,13 +47,18 @@ class UserController extends Controller
 
         return $this->getJsonResponse($result);
     }
+
     public function  confirmation($token,$id)
     {
-        $result = $this->userService->SetActiveUser($token,$id);
-        if($result->isSuccess())
-        {
-            return redirect('buatiklan');
-        }
+        $this->userService->SetActiveUser($token,$id)->isSuccess();
+        return redirect('buatiklan');
+    }
+
+    public function update($id)
+    {
+        $result = $this->userService->Update(Input::all());
+        return $this->getJsonResponse($result);
+
     }
     public function logout()
     {

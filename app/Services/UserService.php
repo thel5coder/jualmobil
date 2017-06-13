@@ -69,6 +69,31 @@ class UserService extends BaseService
         return $response;
     }
 
+    public function Update($input)
+    {
+        $response = new ServiceResponseDto();
+        if ($input['id'] == '') {
+            $message = ['id kosong'];
+            $response->addErrorMessage($message);
+        }
+        else{
+            $param=[
+                'id'        => $input['id'],
+                'name'      => (isset($input['name']) ? $input['name'] : ''),
+                'provinsi'  => (isset($input['provinsi'])) ? $input['provinsi'] : '',
+                'kota'      => (isset($input['kota'])) ? $input['kota'] : '',
+                'telepone'  => (isset($input['telepone'])) ? $input['telepone'] : '',
+                'pinBbm'    => (isset($input['pinBbm'])) ? $input['pinBbm'] : '',
+                'inWa'      => $input['inWa'],
+                'facebook'  => (isset($input['facebook'])) ? $input['facebook'] : '',
+                'image'  => (isset($input['image'])) ? $input['image'] : '',
+            ];
+
+            $this->userRepository->update($param);
+        }
+        return $response;
+    }
+
     public function Register($input)
     {
         $response = new ServiceResponseDto();
@@ -85,7 +110,7 @@ class UserService extends BaseService
             ];
             $result = $this->userRepository->create($param);
             if ($result) {
-                Event::fire(new UserRegister($input['email'], $input['name'],$result));
+                Event::fire(new UserRegister($input['email'], $input['name'], $result));
             } else {
                 $message = ['Gagal Mengirim Validasi Email'];
                 $response->addErrorMessage($message);
@@ -95,7 +120,7 @@ class UserService extends BaseService
         return $response;
     }
 
-    public function SetActiveUser($token,$id)
+    public function SetActiveUser($token, $id)
     {
         $response = new ServiceResponseDto();
         $email = base64_decode($token);

@@ -368,19 +368,16 @@
             $('input[name=kondisi]').change(function () {
                 kondisi = $(this).val();
             });
-
             $('#lfm').filemanager('image', {prefix: domain});
             $('#lfm2').filemanager('image', {prefix: domain});
             $('#lfm3').filemanager('image', {prefix: domain});
 
             $('#merk').change(function (e) {
-                console.log($(this).val());
                 $.ajax({
                     url: "<?= url('/listing/getmodel')?>/" + $(this).val(),
                     method: 'GET',
                     success: function (s) {
                         $('#model').children('option:not(:first)').remove().end();
-                        console.log(s);
                         $('#model').select2({
                             theme: "bootstrap",
                             data: s

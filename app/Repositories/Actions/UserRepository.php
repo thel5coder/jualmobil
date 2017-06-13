@@ -23,10 +23,13 @@ class UserRepository implements IUserRepository
     {
         $update = User::find($input['id']);
         $update->name = $input['name'];
-        $update->email = $input['email'];
-        $update->phone = $input['phone'];
+        $update->provinsi = $input['provinsi'];
+        $update->kota = $input['kota'];
+        $update->phone = $input['telepone'];
+        $update->in_wa = $input['inWa'];
+        $update->pin_bbm = $input['pinBbm'];
+        $update->facebook = $input['facebook'];
         $update->image = $input['image'];
-        $update->tipe_user = $input['tipeUser'];
         return $update->save();
     }
 

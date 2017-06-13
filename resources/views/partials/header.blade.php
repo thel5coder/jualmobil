@@ -4,7 +4,7 @@
             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                 <div class="cs-logo">
                     <div class="cs-media">
-                        <figure><a href="#s"><img src="public/images/cs-logo.png" alt=""/></a></figure>
+                        <figure><a href="#s"><img src="{{asset('public/images/cs-logo.png')}}" alt=""/></a></figure>
                     </div>
                 </div>
             </div>

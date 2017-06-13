@@ -23,7 +23,8 @@ Route::get('/user-confirmation/{token}/{id}', ['uses' => 'UserController@confirm
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('dashboard',         ['uses' => 'UserController@dashboard' , 'as' => 'dashboard']);
+    Route::get('dashboard',     ['uses' => 'UserController@dashboard' , 'as' => 'dashboard']);
+    Route::post('/user/update/{id}',   ['uses' => 'UserController@update' , 'as' => 'updateuser']);
     Route::get('/listing',          ['uses' => 'ListingMobilController@index','as' => 'listing']);
     Route::post('/listing',          ['uses' => 'ListingMobilController@pagination','as' => 'pagination']);
     Route::get('/listing/read/{id}', ['uses' => 'ListingMobilController@read' ,'as' => 'read']);

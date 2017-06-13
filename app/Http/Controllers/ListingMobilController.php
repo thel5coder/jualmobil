@@ -27,7 +27,6 @@ class ListingMobilController extends Controller
     public function index()
     {
         $listingcars = $this->listingService->showIklan()->getResult();
-
         if(auth()->user()->tipe_user == 'admin')
         {
             return view('listiklanmobil');
@@ -55,7 +54,6 @@ class ListingMobilController extends Controller
     public function read($id)
     {
         $data = $this->listingService->read($id)->getResult();
-
         return view('detailiklan')->with('iklan',$data['iklan'])->with('imageIklan',$data['gambar']);
     }
 

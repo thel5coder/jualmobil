@@ -16,18 +16,17 @@
     <div class="cs-banner loader">
         <ul class="cs-banner-slider">
             @foreach($imageIklan as $imageIklan)
-            <li>
-                <div class="cs-media">
-                    <figure><img data-echo="{{$imageIklan->images}}"  src="{{$imageIklan->images}}"  alt=""/></figure>
-                </div>
-            </li>
-           @endforeach
+                <li>
+                    <div class="cs-media">
+                        <figure><img data-echo="{{$imageIklan->images}}" src="{{$imageIklan->images}}" alt=""/></figure>
+                    </div>
+                </li>
+            @endforeach
         </ul>
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right">
                     <div class="cs-button-style">
-                        <a class="btn-video" href="#"><i class="icon-play_arrow"></i> Watch video</a>
                         <a class="btn-compare" href="#"><i class="icon-flow-tree"></i> Compare</a>
                         <a class="btn-shortlist" href="#"><i class="icon-heart-o"></i> shortlist</a>
                     </div>
@@ -49,7 +48,6 @@
                                     <div class="car-detail-heading">
                                         <div class="auto-text">
                                             <h2>{{$iklan->judul}}</h2>
-                                            <span><i class="icon-building-o"></i> {{$iklan->warna}}</span>
                                             <address><i class="icon-location"></i>{{$iklan->provinsi}}
                                                 - {{$iklan->kota}}</address>
                                         </div>
@@ -93,29 +91,29 @@
                                                 </li>
                                                 <li class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                                     <div class="cs-media">
-                                                        <figure><i class="icon-vehicle92 cs-color"></i></figure>
+                                                        <figure><i class="icon-car230 cs-color"></i></figure>
                                                     </div>
                                                     <div class="auto-text">
-                                                        <span>Kilo Meter</span>
-                                                        <strong>{{$iklan->kilo_meter}}</strong>
+                                                        <span>Model</span>
+                                                        <strong>{{$iklan->model}}</strong>
                                                     </div>
                                                 </li>
                                                 <li class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                                                     <div class="cs-media">
-                                                        <figure><i class="icon-engine cs-color"></i></figure>
+                                                        <figure><i class="icon-car228 cs-color"></i></figure>
                                                     </div>
                                                     <div class="auto-text">
-                                                        <span>Transmisi</span>
-                                                        <strong>{{$iklan->transmisi}}</strong>
+                                                        <span>Tipe</span>
+                                                        <strong>{{$iklan->tipe}}</strong>
                                                     </div>
                                                 </li>
                                                 <li class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                                                     <div class="cs-media">
-                                                        <figure><i class="icon-gas20 cs-color"></i></figure>
+                                                        <figure><i class="icon-colours cs-color"></i></figure>
                                                     </div>
                                                     <div class="auto-text">
-                                                        <span>Bahan Bakar</span>
-                                                        <strong>{{$iklan->bahan_bakar}}</strong>
+                                                        <span>Warna</span>
+                                                        <strong>{{$iklan->warna}}</strong>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -126,38 +124,39 @@
                                         </div>
                                         <div id="specification" class="auto-specifications detail-content">
                                             <div class="section-title" style="text-align:left;">
-                                                <h4>Technical Specifications</h4>
+                                                <h4>Spesifikasi Teknis</h4>
                                             </div>
                                             <ul class="row">
                                                 <li class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                                     <div class="element-title">
                                                         <i class="cs-color icon-engine"></i>
-                                                        <span>Engine and Drive Train</span>
+                                                        <span>Mobil & Mesin</span>
                                                     </div>
                                                 </li>
                                                 <li class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                                     <div class="specifications-info">
                                                         <ul>
                                                             <li>
-                                                                <span>Number of cylinders</span>
-                                                                <strong>825 KG</strong>
+                                                                <span>Kondisi</span>
+                                                                <strong>{{$iklan->kondisi}}</strong>
                                                             </li>
                                                             <li>
-                                                                <span>Displacement</span>
-                                                                <strong>KM/L</strong>
+                                                                <span>Transmisi</span>
+                                                                <strong>{{$iklan->transmisi}}</strong>
                                                             </li>
                                                             <li>
-                                                                <span>Drive layout</span>
-                                                                <strong>4 doors</strong>
+                                                                <span>Kilo Meter</span>
+                                                                <strong>{{$iklan->kilo_meter}}</strong>
                                                             </li>
                                                             <li>
-                                                                <span>Horespower</span>
-                                                                <strong>1670 mm</strong>
+                                                                <span>Bahan Bakar</span>
+                                                                <strong>{{$iklan->bahan_bakar}}</strong>
                                                             </li>
                                                             <li>
-                                                                <span>@ rpm</span>
-                                                                <strong>3600 mm</strong>
+                                                                <span>Plat Nomor</span>
+                                                                <strong>{{$iklan->plat_nomor}}</strong>
                                                             </li>
+
                                                         </ul>
                                                     </div>
                                                 </li>
@@ -165,42 +164,74 @@
                                                     <div class="specifications-info">
                                                         <ul>
                                                             <li>
-                                                                <span>Weight</span>
-                                                                <strong>Est. 42 mpg</strong>
+                                                                <span>Merk</span>
+                                                                <strong>{{$iklan->merk}}</strong>
                                                             </li>
                                                             <li>
-                                                                <span>Mileage</span>
-                                                                <strong>ECO driving mode</strong>
+                                                                <span>Model</span>
+                                                                <strong>{{$iklan->model}}</strong>
                                                             </li>
                                                             <li>
-                                                                <span>No of Doors</span>
-                                                                <strong>Standard Bluetooth®</strong>
+                                                                <span>Tipe</span>
+                                                                <strong>{{$iklan->tipe}}</strong>
                                                             </li>
                                                             <li>
-                                                                <span>Height</span>
-                                                                <strong>Backup camera</strong>
+                                                                <span>Tahun</span>
+                                                                <strong>{{$iklan->tahun}}</strong>
                                                             </li>
                                                             <li>
-                                                                <span>Length</span>
-                                                                <strong>Voice recognitioN</strong>
+                                                                <span>Daerah</span>
+                                                                <strong>{{$iklan->kota}}</strong>
                                                             </li>
                                                         </ul>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div id="contact" class="cs-contact-form detail-content">
-                                            <div class="section-title">
-                                                <h4 style="text-align:left;">Contact Us</h4>
-                                            </div>
-                                            <form>
-                                                <input type="text" placeholder="Full Name">
-                                                <input type="email" placeholder="Email Address">
-                                                <input type="text" placeholder="Phone Number">
-                                                <textarea placeholder="Your Message"></textarea>
-                                                <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Aktifkan</button>
-                                                <button type="button" class="btn btn-danger"><i class="fa fa-close"></i> Tolak</button>
-                                            </form>
+                                        <div id="contact" class="auto-specifications detail-content">
+                                            <ul class="row">
+                                                <li class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                    <div class="element-title">
+                                                        <i class="cs-color icon-engine"></i>
+                                                        <span>Kontak</span>
+                                                    </div>
+                                                </li>
+                                                <li class="col-lg-4 col-md-4 col-sm-12 col-xs-12"></li>
+                                                <li class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                    <div class="specifications-info">
+                                                        <ul>
+                                                            <li>
+                                                                <span>User</span>
+                                                                <strong>{{$iklan->name}}</strong>
+                                                            </li>
+                                                            @if($iklan->phone !== '')
+                                                                <li>
+                                                                    <span>Phone</span>
+                                                                    <strong>{{$iklan->phone}}</strong>
+                                                                </li>
+                                                            @endif
+                                                            @if($iklan->in_wa !== '')
+                                                                <li>
+                                                                    <span>Whatsapp</span>
+                                                                    <strong>{{$iklan->phone}}</strong>
+                                                                </li>
+                                                            @endif
+                                                            @if($iklan->pin_bbm !== '')
+                                                                <li>
+                                                                    <span>BBM</span>
+                                                                    <strong>{{$iklan->pin_bbm }}</strong>
+                                                                </li>
+                                                            @endif
+                                                            @if($iklan->facebook !== '')
+                                                                <li>
+                                                                    <span>Facebook</span>
+                                                                    <strong>{{$iklan->facebook}}</strong>
+                                                                </li>
+                                                            @endif
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -211,7 +242,7 @@
                     <aside class="page-sidebar col-lg-3 col-md-3 col-sm-12 col-xs-12">
                         <div class="cs-category-link-icon">
                             <ul>
-                                <li><a href="assets/extra-images/pdf-sample.pdf" download><i
+                                <li><a href="public/extra-images/pdf-sample.pdf" download><i
                                                 class="cs-color icon-print3"></i>Print this Detail</a></li>
                                 <li><a data-toggle="modal" href="remote.html" data-target="#email-to-friend"><i
                                                 class="fa fa-share-alt"></i>Share</a></li>
@@ -287,7 +318,7 @@
                         <div class="auto-listing auto-grid">
                             <div class="cs-media">
                                 <figure>
-                                    <img src="assets/extra-images/listing-Grid-img1.jpg" alt="#"/>
+                                    <img src="public/extra-images/listing-Grid-img1.jpg" alt="#"/>
                                 </figure>
                             </div>
                             <div class="auto-text">
@@ -319,94 +350,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="auto-listing auto-grid">
-                            <div class="cs-media">
-                                <figure><img src="assets/extra-images/listing-Grid-img2.jpg" alt="#"/></figure>
-                            </div>
-                            <div class="auto-text">
-                                <span class="cs-categories"><a href="#">Timlers Motors</a></span>
-                                <div class="post-title">
-                                    <h6><a href="#">Mazda CX-5 SX, V6, ABS, Sunroof </a></h6>
-                                    <div class="auto-price"><span class="cs-color">$25,000</span> <em>MSRP $27,000</em>
-                                    </div>
-                                </div>
-                                <div class="btn-list">
-                                    <a href="javascript:void(0)" class="btn btn-danger collapsed" data-toggle="collapse"
-                                       data-target="#list-view1"></a>
-                                    <div id="list-view1" class="collapse">
-                                        <ul>
-                                            <li>30/36 est. mpg 18</li>
-                                            <li>Black front grille with chrome accent</li>
-                                            <li>Cruise control</li>
-                                            <li>Remote keyless entry system</li>
-                                            <li>Tilt 3-spoke steering wheel with audio controls</li>
-                                            <li>15-in. alloy wheels</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="cs-checkbox">
-                                    <input type="checkbox" name="list" value="check-listn" id="check-list1">
-                                    <label for="check-list1">Compare</label>
-                                </div>
-                                <a href="#" class="View-btn">View Detail<i class=" icon-arrow-long-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="auto-listing auto-grid">
-                            <div class="cs-media">
-                                <figure><img src="assets/extra-images/listing-Grid-img3.jpg" alt="#"/></figure>
-                            </div>
-                            <div class="auto-text">
-                                <span class="cs-categories"><a href="#">Timlers Motors</a></span>
-                                <div class="post-title">
-                                    <h6><a href="#">Mazda CX-5 SX, V6, ABS, Sunroof </a></h6>
-                                    <div class="auto-price"><span class="cs-color">$25,000</span> <em>MSRP $27,000</em>
-                                    </div>
-                                </div>
-                                <div class="btn-list">
-                                    <a href="javascript:void(0)" class="btn btn-danger collapsed" data-toggle="collapse"
-                                       data-target="#list-view2"></a>
-                                    <div id="list-view2" class="collapse">
-                                        <ul>
-                                            <li>30/36 est. mpg 18</li>
-                                            <li>Black front grille with chrome accent</li>
-                                            <li>Cruise control</li>
-                                            <li>Remote keyless entry system</li>
-                                            <li>Tilt 3-spoke steering wheel with audio controls</li>
-                                            <li>15-in. alloy wheels</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="cs-checkbox">
-                                    <input type="checkbox" name="list" value="check-listn" id="check-list2">
-                                    <label for="check-list2">Compare</label>
-                                </div>
-                                <a href="#" class="View-btn">View Detail<i class=" icon-arrow-long-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="auto-listing auto-grid">
-                            <div class="cs-media">
-                                <figure><img src="assets/extra-images/listing-Grid-img4.jpg" alt="#"/></figure>
-                            </div>
-                            <div class="auto-text">
-                                <span class="cs-categories"><a href="#">Timlers Motors</a></span>
-                                <div class="post-title">
-                                    <h6><a href="#">Mazda CX-5 SX, V6, ABS, Sunroof </a></h6>
-                                    <div class="auto-price"><span class="cs-color">$25,000</span> <em>MSRP $27,000</em>
-                                    </div>
-                                </div>
-                                <div class="cs-checkbox">
-                                    <input type="checkbox" name="list" value="check-listn" id="check-list3">
-                                    <label for="check-list3">Compare</label>
-                                </div>
-                                <a href="#" class="View-btn">View Detail<i class=" icon-arrow-long-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -417,7 +360,7 @@
                         <div class="cs-ad" style="text-align:center; padding:55px 0 32px;">
                             <div class="cs-media">
                                 <figure>
-                                    <img src="assets/extra-images/cs-ad-img.jpg" alt=""/>
+                                    <img src="{{asset('public/extra-images/cs-ad-img.jpg')}}" alt=""/>
                                 </figure>
                             </div>
                         </div>
