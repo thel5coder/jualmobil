@@ -7,7 +7,6 @@
 <script src="{{asset('public/scripts/waitMe.js')}}"></script>
 <script src="{{asset('public/scripts/jquery.bootgrid.js')}}"></script>
 <script src="{{asset('public/scripts/jquery.bootgrid.fa.js')}}"></script>
-<script src="{{asset('public/scripts/base.js')}}"></script>
 <script src="{{asset('public/plugins/jquery-validation/js/jquery.validate.js')}}"></script>
 <script src="{{asset('public/scripts/sweetalert2.js')}}"></script>
 <script src="http://cdn.ckeditor.com/4.6.2/full-all/ckeditor.js"></script>
@@ -18,4 +17,6 @@
 <script src="{{asset('public/vendor/laravel-filemanager/js/lfm.js')}}"></script>
 <!-- Put all Functions in functions.js -->
 <script src="{{asset('public/scripts/functions.js')}}"></script>
+
+<script src="{{asset('public/scripts/base.js')}}"></script>
 @yield('customscript')

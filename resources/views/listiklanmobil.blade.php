@@ -79,8 +79,9 @@
                 formatters: {
                     "aksi": function (column, row)
                     {
+                        var encodedId = btoa(row.id);
                         return "<div class=\"btn-group\">"+
-                                "<a href=\"" + urlDetailListingMobil + "/"+row.id+"\" data-row-id=\""+row.id+"\" class=\"btn btn-success btn-sm command-detail\"><i class=\"fa fa-search-plus\"></i> Detail</a>"+
+                                "<a href=\"" + urlDetailListingMobil + "/"+encodedId+"\" class=\"btn btn-success btn-sm command-detail\"><i class=\"fa fa-search-plus\"></i> Detail</a>"+
                                 "</div>";
                     }
                 }

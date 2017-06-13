@@ -79,7 +79,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            Suadh punya akun? <a href="{{route('login')}}" class="btn btn-link"><i
+                            Sudah punya akun? <a href="{{route('login')}}" class="btn btn-link"><i
                                         class="icon-account_circle"></i> Login </a>
                         </div>
                     </div>

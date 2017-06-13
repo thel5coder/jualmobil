@@ -18,7 +18,7 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="cs-user-section-title">
-                                        <h4>Buat Iklan Mobil Barus</h4>
+                                        <h4>Buat Iklan Mobil Baru</h4>
                                     </div>
                                 </div>
                                 <br>
@@ -51,49 +51,70 @@
                                         <div class="cs-seprator"></div>
                                     </div>
                                     <div class="cs-field-holder">
-                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
                                             <div class="cs-upload-img">
                                                 <div class="input-group">
                                                    <span class="input-group-btn">
-                                                     <a id="lfm" data-input="thumbnail" data-preview="holder"
-                                                        class="btn btn-primary">
-                                                       <i class="fa fa-picture-o"></i> Choose
-                                                     </a>
+                                                       <img src="https://dummyimage.com/600x400/f23d52/fafafa.png&text=Gambar+Iklan"
+                                                           id="holder" data-input="thumbnail" data-preview="holder" style="margin-top:15px;max-height:100px;">
                                                    </span>
-                                                    <input id="thumbnail" type="hidden"
-                                                           name="filepath">
+                                                    <input id="thumbnail" type="hidden" name="filepath">
                                                 </div>
-                                                <img id="holder" style="margin-top:15px;max-height:100px;">
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
                                             <div class="cs-upload-img">
                                                 <div class="input-group">
                                                    <span class="input-group-btn">
-                                                     <a id="lfm2" data-input="thumbnail2" data-preview="holder2"
-                                                        class="btn btn-primary">
-                                                       <i class="fa fa-picture-o"></i> Choose
-                                                     </a>
+                                                     <img src="https://dummyimage.com/600x400/f23d52/fafafa.png&text=Gambar+Iklan"
+                                                          id="holder2" data-input="thumbnail2" data-preview="holder2" style="margin-top:15px;max-height:100px;">
                                                    </span>
-                                                    <input id="thumbnail2" type="hidden"
-                                                           name="filepath">
+                                                    <input id="thumbnail2" type="hidden" name="filepath">
                                                 </div>
-                                                <img id="holder2" style="margin-top:15px;max-height:100px;">
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
                                             <div class="cs-upload-img">
                                                 <div class="input-group">
                                                    <span class="input-group-btn">
-                                                     <a id="lfm3" data-input="thumbnail3" data-preview="holder3"
-                                                        class="btn btn-primary">
-                                                       <i class="fa fa-picture-o"></i> Choose
-                                                     </a>
+                                                     <img src="https://dummyimage.com/600x400/f23d52/fafafa.png&text=Gambar+Iklan"
+                                                          id="holder3" data-input="thumbnail3" data-preview="holder3" style="margin-top:15px;max-height:100px;">
                                                    </span>
-                                                    <input id="thumbnail3" type="hidden"
-                                                           name="filepath">
+                                                    <input id="thumbnail3" type="hidden" name="filepath">
                                                 </div>
-                                                <img id="holder3" style="margin-top:15px;max-height:100px;">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+                                            <div class="cs-upload-img">
+                                                <div class="input-group">
+                                                   <span class="input-group-btn">
+                                                       <img src="https://dummyimage.com/600x400/f23d52/fafafa.png&text=Gambar+Iklan"
+                                                            id="holder4" data-input="thumbnail4" data-preview="holder4" style="margin-top:15px;max-height:100px;">
+                                                   </span>
+                                                    <input id="thumbnail4" type="hidden" name="filepath">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+                                            <div class="cs-upload-img">
+                                                <div class="input-group">
+                                                   <span class="input-group-btn">
+                                                     <img src="https://dummyimage.com/600x400/f23d52/fafafa.png&text=Gambar+Iklan"
+                                                          id="holder5" data-input="thumbnail5" data-preview="holder5" style="margin-top:15px;max-height:100px;">
+                                                   </span>
+                                                    <input id="thumbnail5" type="hidden" name="filepath">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+                                            <div class="cs-upload-img">
+                                                <div class="input-group">
+                                                   <span class="input-group-btn">
+                                                     <img src="https://dummyimage.com/600x400/f23d52/fafafa.png&text=Gambar+Iklan"
+                                                          id="holder6" data-input="thumbnail6" data-preview="holder6" style="margin-top:15px;max-height:100px;">
+                                                   </span>
+                                                    <input id="thumbnail6" type="hidden" name="filepath">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -352,6 +373,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 @stop
 @section('customscript')
@@ -368,9 +390,12 @@
             $('input[name=kondisi]').change(function () {
                 kondisi = $(this).val();
             });
-            $('#lfm').filemanager('image', {prefix: domain});
-            $('#lfm2').filemanager('image', {prefix: domain});
-            $('#lfm3').filemanager('image', {prefix: domain});
+            $('#holder').filemanager('image', {prefix: domain});
+            $('#holder2').filemanager('image', {prefix: domain});
+            $('#holder3').filemanager('image', {prefix: domain});
+            $('#holder4').filemanager('image', {prefix: domain});
+            $('#holder5').filemanager('image', {prefix: domain});
+            $('#holder6').filemanager('image', {prefix: domain});
 
             $('#merk').change(function (e) {
                 $.ajax({

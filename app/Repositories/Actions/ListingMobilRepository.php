@@ -203,13 +203,12 @@ class ListingMobilRepository implements IListingMobilRepository
         return JmListingMobil::where('user_id', '=', $userId)->orderBy('id', 'asc')->paginate('5');
     }
 
-    public function setActiveListingMobil($id)
+    public function setStatusIklanMobil($input)
     {
-        // TODO: Implement setActiveListingMobil() method.
+        $setReject = JmListingMobil::find($input['id']);
+        $setReject->alasan_penolakan = $input['alasan'];
+        $setReject->status = $input['status'];
+        return $setReject->save();
     }
 
-    public function setRejectListingMobil($id, $alasan)
-    {
-        // TODO: Implement setRejectListingMobil() method.
-    }
 }

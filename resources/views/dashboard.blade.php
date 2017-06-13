@@ -36,7 +36,7 @@
                                             <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
                                                 <div class="cs-browse-holder"><em>My Profile Photo</em> <span
                                                             class="file-input btn-file"> Update Avatar
-												<input type="file" multiple>
+												<input type="file" multiple id="image" name="imageAvatar">
 												</span></div>
                                             </div>
                                         </div>
@@ -53,29 +53,31 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="cs-field-holder">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <label>Provinsi</label>
+                                    @if(auth()->user()->tipe_user !== 'admin')
+                                        <div class="cs-field-holder">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <label>Provinsi</label>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <select name="provinsi" kota="provinsi" id="provinsi">
+                                                    <option selected>Pilih Provinsi...</option>
+                                                    @foreach($provinsi as $prov)
+                                                        <option value="{{$prov->id}}">{{$prov->nama}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <select name="provinsi" kota="provinsi" id="provinsi">
-                                                <option selected>Pilih Provinsi...</option>
-                                                @foreach($provinsi as $prov)
-                                                    <option value="{{$prov->id}}">{{$prov->nama}}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="cs-field-holder">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <label>Kota</label>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <select id="kota" name="kota">
+                                                    <option value="United States">Pilih Kota...</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="cs-field-holder">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <label>Kota</label>
-                                        </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <select id="kota" name="kota">
-                                                <option value="United States">Pilih Kota...</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    @endif
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="cs-seprator"></div>
                                     </div>

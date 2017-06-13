@@ -28,17 +28,15 @@ class ListingMobilService extends BaseService
     {
         $response = new ServiceResponseDto();
         $result = $this->listingMobilRepository->create($input);
-        if($result)
-        {
-            for($i=0;$i<count($input['carImageList']);$i++){
+        if ($result) {
+            for ($i = 0; $i < count($input['carImageList']); $i++) {
                 $param = [
-                    "listing_mobile_id" =>$result,
-                    "image"             =>$input['carImageList'][$i]
+                    "listing_mobile_id" => $result,
+                    "image" => $input['carImageList'][$i]
                 ];
                 $this->imageLisitngMobilRepository->create($param);
             }
-        }
-        else{
+        } else {
             $message = ['ada error'];
             $response->addErrorMessage($message);
         }
@@ -46,13 +44,15 @@ class ListingMobilService extends BaseService
         return $response;
     }
 
-    public function showIklan(){
-        if(auth()->user()->tipe_user == 'admin'){
+    public function showIklan()
+    {
+        if (auth()->user()->tipe_user == 'admin') {
             return $this->ShowAll();
-        }else{
+        } else {
             return $this->showByUserId();
         }
     }
+
     protected function ShowAll()
     {
         return $this->getAllObject($this->listingMobilRepository);
@@ -63,12 +63,12 @@ class ListingMobilService extends BaseService
         $response = new ServiceResponseDto();
         $dataIklan = $this->listingMobilRepository->showByUserId(auth()->user()->id);
         $dataGambarIklan = array();
-        foreach($dataIklan as $iklan){
+        foreach ($dataIklan as $iklan) {
             $dataGambarIklan[$iklan->id] = $this->imageLisitngMobilRepository->showImagesByListingId($iklan->id);
         }
         $dataResult = [
-            'iklan'=>$dataIklan,
-            'gambarIklan'=>$dataGambarIklan
+            'iklan' => $dataIklan,
+            'gambarIklan' => $dataGambarIklan
         ];
 
         $response->setResult($dataResult);
@@ -79,13 +79,12 @@ class ListingMobilService extends BaseService
     public function delete($id)
     {
         $response = new ServiceResponseDto();
-        if($this->deleteObject($this->listingMobilRepository,$id)->isSuccess())
-        {
-            if(!$this->deleteObject($this->imageLisitngMobilRepository,$id)->isSuccess()){
+        if ($this->deleteObject($this->listingMobilRepository, $id)->isSuccess()) {
+            if (!$this->deleteObject($this->imageLisitngMobilRepository, $id)->isSuccess()) {
                 $message = ['gagal hapus gambar'];
                 $response->addErrorMessage($message);
             }
-        }else{
+        } else {
             $message = ['gagal hapus iklan'];
             $response->addErrorMessage($message);
         }
@@ -95,14 +94,14 @@ class ListingMobilService extends BaseService
 
     public function pagination($param)
     {
-       return  $this->getPaginationObject($this->listingMobilRepository,$param);
+        return $this->getPaginationObject($this->listingMobilRepository, $param);
     }
 
     public function read($id)
     {
         $response = new ServiceResponseDto();
-        $dataIklan = $this->readObject($this->listingMobilRepository,$id)->getResult();
-        $gambarIklan = $this->readObject($this->imageLisitngMobilRepository,$id)->getResult();
+        $dataIklan = $this->readObject($this->listingMobilRepository, $id)->getResult();
+        $gambarIklan = $this->readObject($this->imageLisitngMobilRepository, $id)->getResult();
 
         $result = [
             'iklan' => $dataIklan,
@@ -111,6 +110,18 @@ class ListingMobilService extends BaseService
 
         $response->setResult($result);
 
+        return $response;
+    }
+
+    public function setStatusIklan($input)
+    {
+        $response = new ServiceResponseDto();
+        $param = [
+            'id' => $input['id'],
+            'alasan' => (isset($input['alasan'])) ? $input['alasan'] : '',
+            'status' => $input['status']
+        ];
+        $this->listingMobilRepository->setStatusIklanMobil($param);
         return $response;
     }
 }

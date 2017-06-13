@@ -12,29 +12,7 @@
     <!-- Header Start -->
 @include('partials.header')
 <!-- Header End -->
-    <!-- Single - Page Slider Start -->
-    <div class="cs-banner loader">
-        <ul class="cs-banner-slider">
-            @foreach($imageIklan as $imageIklan)
-                <li>
-                    <div class="cs-media">
-                        <figure><img data-echo="{{$imageIklan->images}}" src="{{$imageIklan->images}}" alt=""/></figure>
-                    </div>
-                </li>
-            @endforeach
-        </ul>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right">
-                    <div class="cs-button-style">
-                        <a class="btn-compare" href="#"><i class="icon-flow-tree"></i> Compare</a>
-                        <a class="btn-shortlist" href="#"><i class="icon-heart-o"></i> shortlist</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Single - Page Slider End -->
+
 
     <!-- Main Start -->
     <div class="main-section">
@@ -42,6 +20,14 @@
             <div class="container">
                 <div class="row">
                     <div class="custom-content col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                        <ul class="blog-detail-slider" style="margin-bottom:30px;">
+                            @foreach($imageIklan as $imageiklan)
+                                <li>
+                                    <figure><img src="{{$imageiklan->images}}" alt="" width="800" height="485"/>
+                                    </figure>
+                                </li>
+                            @endforeach
+                        </ul>
                         <div class="page-section">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -64,10 +50,16 @@
                                         <div class="detail-btn">
                                             <div class="cs-button-style">
                                                 @if(auth()->user()->tipe_user == 'admin')
-                                                    <a class="btn-compare" href="#"><i class="fa fa-close"></i>
-                                                        Tolak </a>
-                                                    <a class="btn-shortlist" href="#"><i class="fa fa-check"></i>
-                                                        Aktifkan </a>
+                                                    @if($iklan->status == 'moderasi')
+                                                        <button class="btn btn-compare" onclick="rejectIklan()"><i
+                                                                    class="fa fa-close"></i>
+                                                            Tolak
+                                                        </button>
+                                                        <button class="btn btn-shortlist" onclick="acceptIklan()"><i
+                                                                    class="fa fa-check"></i>
+                                                            Aktifkan
+                                                        </button>
+                                                    @endif
                                                 @else
                                                     <a class="btn-compare" href="#"><i class="icon-flow-tree"></i>
                                                         Compare</a>
@@ -196,7 +188,6 @@
                                                         <span>Kontak</span>
                                                     </div>
                                                 </li>
-                                                <li class="col-lg-4 col-md-4 col-sm-12 col-xs-12"></li>
                                                 <li class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                                     <div class="specifications-info">
                                                         <ul>
@@ -231,6 +222,29 @@
                                                         </ul>
                                                     </div>
                                                 </li>
+                                                @if($iklan->status == 'moderasi')
+                                                    <li class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <button type="button" class="btn btn-primary"
+                                                                onclick="acceptIklan()"><i
+                                                                    class="fa fa-check"></i> Aktifkan
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger"
+                                                                onclick="rejectIklan()"><i
+                                                                    class="fa fa-close"></i> Tolak
+                                                        </button>
+                                                    </li>
+                                                    <input type="hidden" name="_token" id="token"
+                                                           value="{{csrf_token()}}">
+                                                    <input type="hidden" name="id" value="{{$iklan->id}}" id="id">
+                                                @else
+                                                    @if($iklan->status == 'nonaktif')
+                                                        <strong>Iklan <span
+                                                                    class="label label-danger">{{$iklan->status}}</span></strong>
+                                                    @else
+                                                        <strong>Iklan <span
+                                                                    class="label label-success">{{$iklan->status}}</span></strong>
+                                                    @endif
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>
@@ -238,12 +252,12 @@
                             </div>
                         </div>
                     </div>
-
                     <aside class="page-sidebar col-lg-3 col-md-3 col-sm-12 col-xs-12">
                         <div class="cs-category-link-icon">
                             <ul>
-                                <li><a href="public/extra-images/pdf-sample.pdf" download><i
-                                                class="cs-color icon-print3"></i>Print this Detail</a></li>
+                                <li><a href="public/extra-images/pdf-sample.pdf" download>
+                                        <iclass
+                                        ="cs-color icon-print3"></i>Print this Detail</a></li>
                                 <li><a data-toggle="modal" href="remote.html" data-target="#email-to-friend"><i
                                                 class="fa fa-share-alt"></i>Share</a></li>
                             </ul>
@@ -253,60 +267,73 @@
                                 <h6><i class="cs-bgcolor icon-line-graph"></i> Financing calculator</h6>
                             </div>
                             <div class="auto-filter">
-                                <form>
-                                    <ul>
-                                        <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="auto-field">
-                                                <label>Vehicle price <span class="cs-color"> (&#x24;)</span></label>
-                                                <select data-placeholder="$25,000" style="width:100%;"
-                                                        class="chosen-select" tabindex="5">
-                                                    <option>$30,000</option>
-                                                    <option>$35,000</option>
-                                                    <option>$45,000</option>
-                                                    <option>$55,000</option>
-                                                </select>
-                                            </div>
-                                        </li>
-                                        <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="auto-field">
-                                                <label>Interest rate <span class="cs-color"> (&#x25;)</span></label>
-                                                <select data-placeholder="50%" style="width:100%;" class="chosen-select"
-                                                        tabindex="5">
-                                                    <option>30%</option>
-                                                    <option>35%</option>
-                                                    <option>45%</option>
-                                                    <option>55%</option>
-                                                </select>
-                                            </div>
-                                        </li>
-                                        <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="auto-field">
-                                                <label>Period <span class="cs-color"> (month)</span></label>
-                                                <span id="ex6CurrentSliderValLabel"><span id="ex6SliderVal">9</span> Months</span>
-                                                <input id="ex6" type="text" data-slider-min="0" data-slider-max="12"
-                                                       data-slider-step="1" data-slider-value="9"/>
-                                            </div>
-                                        </li>
-                                        <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="auto-field">
-                                                <label>Down Payment<span class="cs-color"> (&#x25;)</span></label>
-                                                <input type="text" placeholder="$326,500">
-                                            </div>
-                                        </li>
-                                        <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="auto-field">
-                                                <input class="cs-bgcolor" type="submit" value="Calculate">
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </form>
+                                <ul>
+                                    <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="auto-field">
+                                            <label>Harga Mobil <span class="cs-color"> (&#x24;)</span></label>
+                                            <input type="text" disabled value="{{$iklan->harga}}" id="harga">
+                                        </div>
+                                    </li>
+                                    <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="auto-field">
+                                            <label>Bunga <span class="cs-color"> (&#x25;)</span></label>
+                                            <input type="text" id="bunga">
+                                        </div>
+                                    </li>
+                                    <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="auto-field">
+                                            <label>Periode Cicilan <span class="cs-color"> (bulan)</span></label>
+                                            <select style="width:100%;" class="chosen-select" id="periodeCicilan">
+                                                <option value="6">6</option>
+                                                <option value="12">12</option>
+                                                <option value="18">18</option>
+                                                <option value="24">24</option>
+                                                <option value="36">36</option>
+                                                <option value="48">48</option>
+                                                <option value="60">60</option>
+                                            </select>
+                                        </div>
+                                    </li>
+
+                                    <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="auto-field">
+                                            <label>Uang Muka<span class="cs-color"> Rp.</span></label>
+                                            <input type="text" id="uangmuka">
+                                        </div>
+                                    </li>
+
+                                    <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="auto-field">
+                                            <label>Bunga Perbulan<span class="cs-color">Rp.</span></label>
+                                            <input type="text" id="bungaPerBulan">
+                                        </div>
+                                    </li>
+                                    <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="auto-field">
+                                            <label>Pokok<span class="cs-color">Rp.</span></label>
+                                            <input type="text" id="pokok">
+                                        </div>
+                                    </li>
+                                    <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="auto-field">
+                                            <label>Total<span class="cs-color"> Rp.</span></label>
+                                            <input type="text" id="total">
+                                        </div>
+                                    </li>
+                                    <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="auto-field">
+                                            <input class="cs-bgcolor" type="submit" value="Hitung" id="hitung"
+                                                   onclick="hitung()">
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </aside>
                 </div>
             </div>
         </div>
-        <div class="page-section" style="margin-bottom:30px;">
+        <div class="page-section" style="margin-top:30px;">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -377,6 +404,95 @@
 </div>
 
 @include('partials.script')
-
+<script type="text/javascript">
+    function hitung() {
+        var harga = $('#harga').val();
+        var bunga = $('#bunga').val();
+        var uangMuka = $('#uangmuka').val();
+        var periodeCicilan = $('#periodeCicilan').val();
+        var total, pokok, bungaPerBulan;
+        bungaPerBulan = (harga - uangMuka) * (bunga/100);
+        console.log(periodeCicilan);
+        pokok = (harga - uangMuka) / periodeCicilan;
+        total = bungaPerBulan + pokok;
+        $('#bungaPerBulan').val(Math.round(bungaPerBulan));
+        $('#pokok').val(Math.round(pokok));
+        $('#total').val(Math.round(total));
+    }
+    function rejectIklan() {
+        swal({
+            title: 'Reject Iklan Ini ?! ',
+            text: "Tulis alasan mengapa iklan ditolak",
+            type: 'warning',
+            input: 'textarea',
+            showCancelButton: true,
+            confirmButtonText: 'Kirim',
+            showLoaderOnConfirm: true,
+        }).then(function (input) {
+            runWaitMe('body', 'roundBounce', 'Set reject Data...');
+            $.ajax({
+                url: "<?= url('/listing/setstatusiklan')?>",
+                method: "POST",
+                data: {
+                    _token: $('#token').val(),
+                    id: $('#id').val(),
+                    alasan: input,
+                    status: 'nonaktif'
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrow) {
+                    $('body').waitMe('hide');
+                    notificationMessage(errorThrow, 'error');
+                },
+                success: function (s) {
+                    if (s.isSuccess) {
+                        window.location.reload()
+                    } else {
+                        $('body').waitMe('hide');
+                        var errorMessagesCount = s.message.length;
+                        for (var i = 0; i < errorMessagesCount; i++) {
+                            notificationMessage(s.message[i], 'error');
+                        }
+                    }
+                }
+            });
+        });
+    }
+    function acceptIklan() {
+        swal({
+            title: 'Aktifkan Iklan ',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aktfkan!'
+        }).then(function () {
+            runWaitMe('body', 'roundBounce', 'Set Aktif Data...');
+            $.ajax({
+                url: "<?= url('/listing/setstatusiklan')?>",
+                method: 'POST',
+                data: {
+                    _token: $('#token').val(),
+                    id: $('#id').val(),
+                    status: 'aktif'
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrow) {
+                    $('body').waitMe('hide');
+                    notificationMessage(errorThrow, 'error');
+                },
+                success: function (s) {
+                    if (s.isSuccess) {
+                        window.location.reload()
+                    } else {
+                        $('body').waitMe('hide');
+                        var errorMessagesCount = s.message.length;
+                        for (var i = 0; i < errorMessagesCount; i++) {
+                            notificationMessage(s.message[i], 'error');
+                        }
+                    }
+                }
+            });
+        });
+    }
+</script>
 </body>
 </html>

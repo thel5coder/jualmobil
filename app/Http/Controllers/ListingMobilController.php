@@ -53,8 +53,15 @@ class ListingMobilController extends Controller
 
     public function read($id)
     {
-        $data = $this->listingService->read($id)->getResult();
+        $data = $this->listingService->read(base64_decode($id))->getResult();
         return view('detailiklan')->with('iklan',$data['iklan'])->with('imageIklan',$data['gambar']);
+    }
+
+    public function setStatusIklan()
+    {
+        $result = $this->listingService->setStatusIklan(Input::all());
+
+        return $this->getJsonResponse($result);
     }
 
     public function edit($id)

@@ -1,6 +1,7 @@
 @extends('main')
 @section('content')
-<div class="page-section" style="background: url(public/extra-images/full-section-img.jpg)no-repeat; background-size:cover; padding:206px 0 80px; text-shadow: 3px 4px 6px rgba(0,0,0,.37);margin-top:-30px;">
+<div class="main-section">
+    <div class="page-section" style="background: url(public/extra-images/full-section-img.jpg)no-repeat; background-size:cover; padding:206px 0 80px; text-shadow: 3px 4px 6px rgba(0,0,0,.37);margin-top:-30px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -1232,4 +1233,5 @@
             </div>
         </div>
     </div>
+</div>
 @stop

@@ -77,6 +77,7 @@ class UserService extends BaseService
             $response->addErrorMessage($message);
         }
         else{
+            $fileImage = $this->uploadingFile('imageAvatar');
             $param=[
                 'id'        => $input['id'],
                 'name'      => (isset($input['name']) ? $input['name'] : ''),
@@ -86,7 +87,7 @@ class UserService extends BaseService
                 'pinBbm'    => (isset($input['pinBbm'])) ? $input['pinBbm'] : '',
                 'inWa'      => $input['inWa'],
                 'facebook'  => (isset($input['facebook'])) ? $input['facebook'] : '',
-                'image'  => (isset($input['image'])) ? $input['image'] : '',
+                'image'  => (isset($input['image'])) ? $fileImage : '',
             ];
 
             $this->userRepository->update($param);

@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('dashboard',     ['uses' => 'UserController@dashboard' , 'as' => 'dashboard']);
     Route::post('/user/update/{id}',   ['uses' => 'UserController@update' , 'as' => 'updateuser']);
+
     Route::get('/listing',          ['uses' => 'ListingMobilController@index','as' => 'listing']);
     Route::post('/listing',          ['uses' => 'ListingMobilController@pagination','as' => 'pagination']);
     Route::get('/listing/read/{id}', ['uses' => 'ListingMobilController@read' ,'as' => 'read']);
@@ -35,7 +36,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/listing/getmodel/{merklId}',   ['uses' => 'ModelController@ShowByMerkId' ,'as' => 'getmerk.id']);
     Route::get('/listing/gettipe/{modelId}',    ['uses' => 'TipeController@ShowByModelId' ,'as' => 'getmodel.id']);
     Route::get('/listing/getprovinsi',          ['uses' => 'ProvinsiController@shoAll' ,'as' => 'getprovinsi']);
-    Route::get('/listing/getkota/{provinsiId}', ['uses' => 'KotaCOntroller@ShowByProvinsiId','as' => 'getkota.id']);
+    Route::get('/listing/getkota/{provinsiId}', ['uses' => 'KotaController@ShowByProvinsiId','as' => 'getkota.id']);
+    Route::post('/listing/setstatusiklan', ['uses' => 'ListingMobilController@setStatusIklan', 'as' => 'setReject']);
 
     Route::get('/berita', ['uses' => 'BeritaController@index' , 'as' => 'berita']);
     Route::get('/berita/create',    ['uses' => 'BeritaController@create' , 'as' => 'formBerita']);
