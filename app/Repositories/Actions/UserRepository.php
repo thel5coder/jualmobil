@@ -84,7 +84,7 @@ class UserRepository implements IUserRepository
 
     public function CekStatus($email)
     {
-        $result = User::where('email','=',$email)->where('is_status','=','1');
-        return ($result == true);
+        $result = User::where('email','=',$email)->value('is_status');
+        return ($result == 1);
     }
 }
