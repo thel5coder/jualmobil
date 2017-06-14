@@ -9,6 +9,16 @@ use App\Repositories\Contracts\Pagination\PaginationParam;
 use Illuminate\Support\Facades\Input;
 
 abstract class BaseService {
+    protected function generateSlug($url){
+        $url = strtolower($url);
+        //Make alphanumeric (removes all other characters)
+        $url = preg_replace("/[^a-z0-9_\s-]/", "", $url);
+        //Clean up multiple dashes or whitespaces
+        $url = preg_replace("/[\s-]+/", " ", $url);
+        //Convert whitespaces and underscore to dash
+        $url = preg_replace("/[\s_]/", "-", $url);
+        return $url;
+    }
 
     protected function deleteObject(IBaseRepository $repository, $id) {
         $response = new ResponseDto();
