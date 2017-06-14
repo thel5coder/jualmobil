@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\BeritaService;
+use App\Services\KomentarService;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -12,10 +13,12 @@ use Illuminate\Support\Facades\Input;
 class BeritaController extends Controller
 {
     protected $beritaService;
+    protected $komentarSevice;
 
-    public function __construct(BeritaService $beritaService)
+    public function __construct(BeritaService $beritaService,KomentarService $komentarService)
     {
         $this->beritaService = $beritaService;
+        $this->komentarSevice = $komentarService;
     }
 
     public function index()
@@ -30,10 +33,16 @@ class BeritaController extends Controller
         }
     }
 
-    public function read($id)
+    public function read($slug)
     {
-        $dataBerita = $this->beritaService->read(base64_decode($id));
-        return view('detailberita')->with('dataBerita',$dataBerita);
+        $dataBerita = $this->beritaService->read($slug)->getResult();
+        $relatedPost = $this->beritaService->relatedPostBeritaByUser($dataBerita->user_id)->getResult();
+        $otherBerita =  $this->beritaService->otherBerita()->getResult();
+        $dataKomentar = $this->komentarSevice->read($dataBerita->id)->getResult();
+        return view('detailberita')->with('dataBerita',$dataBerita)
+                ->with('relatedPost',$relatedPost)
+                ->with('otherBerita',$otherBerita)
+                ->with('dataKomentar',$dataKomentar);
     }
 
     public function create()
@@ -60,4 +69,9 @@ class BeritaController extends Controller
         return $this->parsePaginationResultToGridJson($result);
     }
 
+    public function setStatusBerita()
+    {
+        $result = $this->beritaService->setStatusBerita(Input::all());
+        return $this->getJsonResponse($result);
+    }
 }

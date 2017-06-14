@@ -24,14 +24,19 @@ class BeritaService extends BaseService
     public function create($input)
     {
         $response = new ServiceResponseDto();
+
         $slug = $this->generateSlug($input['judul']);
-        $param=[
-            'judul'=>$input['judul'],
-            'slug'=>$slug
+        $param = [
+            'user_id' => auth()->user()->id,
+            'judul' => $input['judul'],
+            'slug' => $slug,
+            'deskripsiSingkat' => $input['deskripsiSingkat'],
+            'deskripsi' => $input['deskripsi'],
+            'images' => $input['images'],
+            'status' => $input['moderasi']
         ];
 
-        if(!$this->beritaRepository->create($input))
-        {
+        if (!$this->beritaRepository->create($param)) {
             $message = ['gagal menambah data'];
             $response->addErrorMessage($message);
         }
@@ -43,8 +48,7 @@ class BeritaService extends BaseService
     {
         $response = new ServiceResponseDto();
 
-        if(!$this->beritaRepository->update($input))
-        {
+        if (!$this->beritaRepository->update($input)) {
             $message = ['gagal menambah data'];
             $response->addErrorMessage($message);
         }
@@ -56,27 +60,45 @@ class BeritaService extends BaseService
     {
         $response = new ServiceResponseDto();
 
-        if(auth()->user()->tipe_user == 'admin')
-        {
+        if (auth()->user()->tipe_user == 'admin') {
             $response->setResult($this->beritaRepository->showAll());
-        }
-        else{
+        } else {
             $response->setResult($this->beritaRepository->showByUser(auth()->user()->id));
         }
         return $response;
     }
 
-    public function read($id)
+    public function read($slug)
     {
-        $result = $this->readObject($this->beritaRepository,$id)->getResult();
+        $response = new ServiceResponseDto();
 
+        $response->setResult($this->beritaRepository->read($slug));
+
+        return $response;
+    }
+
+    public function relatedPostBeritaByUser($userId)
+    {
+        $response = new ServiceResponseDto();
+
+        $response->setResult($this->beritaRepository->relatedPostBeritaByUser($userId));
+
+        return $response;
+    }
+
+    public function otherBerita()
+    {
+        $response = new ServiceResponseDto();
+
+        $response->setResult($this->beritaRepository->otherBerita());
+
+        return $response;
     }
 
     public function delete($id)
     {
         $response = new ServiceResponseDto();
-        if( ! $this->beritaRepository->delete($id) )
-        {
+        if (!$this->beritaRepository->delete($id)) {
             $message = ['gagal menghapus data'];
             $response->addErrorMessage($message);
         }
@@ -85,6 +107,18 @@ class BeritaService extends BaseService
 
     public function pagination($param)
     {
-        return $this->getPaginationObject($this->beritaRepository,$param);
+        return $this->getPaginationObject($this->beritaRepository, $param);
+    }
+
+    public function setStatusBerita($input)
+    {
+        $response = new ServiceResponseDto();
+        $param = [
+            'id' => $input['id'],
+            'alasan' => (isset($input['alasan'])) ? $input['alasan'] : '',
+            'status' => $input['status']
+        ];
+        $response->setResult($this->beritaRepository->setStatusBerita($param));
+        return $response;
     }
 }

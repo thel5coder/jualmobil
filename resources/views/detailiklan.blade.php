@@ -345,7 +345,7 @@
                         <div class="auto-listing auto-grid">
                             <div class="cs-media">
                                 <figure>
-                                    <img src="public/extra-images/listing-Grid-img1.jpg" alt="#"/>
+                                    <img src="{{asset('public/extra-images/listing-Grid-img1.jpg')}}" alt="#"/>
                                 </figure>
                             </div>
                             <div class="auto-text">

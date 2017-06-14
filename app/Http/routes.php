@@ -41,12 +41,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/berita', ['uses' => 'BeritaController@index' , 'as' => 'berita']);
     Route::post('/berita', ['uses' => 'BeritaController@pagination' , 'as' => 'paginationBerita']);
-    Route::get('/berita/read/{id}', ['uses' => 'BeritaController@read' , 'as' => 'readBerita']);
+    Route::get('/berita/read/{slug}', ['uses' => 'BeritaController@read' , 'as' => 'readBerita']);
     Route::get('/berita/create',   ['uses' => 'BeritaController@create' , 'as' => 'formBerita']);
     Route::post('/berita/create',   ['uses' => 'BeritaController@store' , 'as' => 'postBerita']);
     Route::get('/berita/edit/{id}', ['uses' => 'BeritaController@edit' , 'as' => 'berita.edit']);
     Route::post('/berita/update/{id',   ['uses' => 'BeritaController@update', 'as' => 'berita.update']);
     Route::get('/berita/delete/{id}',   ['uses' => 'BeritaController@destroy','as' => 'berita.delete']);
+    Route::post('/berita/setstatusberita',['uses' => 'BeritaController@setStatusBerita', 'as' => 'setStatus']);
 
     Route::get('/merk', ['uses' => 'MerkController@index' , 'as' => 'merk']);
     Route::get('/merk/create',      ['uses' => 'MerkController@create' ,'as' => 'formMerk']);
@@ -66,4 +67,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/tipe/edit/{id}', ['uses' => 'TipeController@edit', 'as' => 'tipe.edit']);
     Route::post('/tipe/update/{id}', ['uses' => 'TipeController@update' ,'as' => 'tipe.update']);
     Route::get('/tipe/delete/{id}', ['uses' => 'TipeController@destry' , 'as' => 'tipe.delete']);
+
+    Route::post('/komentar/create', ['uses' => 'KomentarController@create' , 'as' => 'komentar']);
 });

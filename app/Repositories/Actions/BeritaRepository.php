@@ -20,10 +20,10 @@ class BeritaRepository implements IBeritaRepository
     public function create($input)
     {
         $create = new JmBerita();
-        $create->user_id = auth()->user()->id;
+        $create->user_id = $input['userId'];
         $create->judul = $input['judul'];
         $create->deskripsi_singkat = $input['deskripsiSingkat'];
-        $create->slug = str_slug($input['judul'],'-');
+        $create->slug = $input['slug'];
         $create->deskripsi = $input['deskripsi'];
         $create->images = $input['images'];
         $create->status = 'moderasi';
@@ -35,7 +35,7 @@ class BeritaRepository implements IBeritaRepository
         $update = JmBerita::find($input['id']);
         $update->user_id = auth()->user()->id;
         $update->judul = $input['judul'];
-        $update->slug = str_slug($input['judul'],'-');
+        $update->slug = str_slug($input['judul'], '-');
         $update->deskripsi = $input['deskripsi'];
         $update->images = $input['images'];
         return $update->save();
@@ -46,9 +46,12 @@ class BeritaRepository implements IBeritaRepository
         return JmBerita::find($id)->delete();
     }
 
-    public function read($id)
+    public function read($slug)
     {
-        return JmBerita::find($id);
+        return JmBerita::join('users','users.id','=','jm_berita.user_id')
+            ->select('jm_berita.*','users.name','users.image')
+            ->where('slug', '=', $slug)
+            ->first();
     }
 
     public function showAll()
@@ -81,13 +84,13 @@ class BeritaRepository implements IBeritaRepository
 
             if ($skipCount == 0) {
                 $data = JmBerita::join('users', 'users.id', '=', 'jm_berita.user_id')
-                    ->select('jm_berita.judul','jm_berita.views','jm_berita.deskripsi_singkat','jm_berita.status')
+                    ->select('jm_berita.id', 'jm_berita.judul', 'jm_berita.views', 'jm_berita.deskripsi_singkat', 'jm_berita.status', 'jm_berita.slug')
                     ->take($param->getPageSize())
                     ->orderBy($sortBy, $sortOrder)
                     ->get();
             } else {
                 $data = JmBerita::join('users', 'users.id', '=', 'jm_berita.user_id')
-                    ->select('jm_berita.judul','jm_berita.views','jm_berita.deskripsi_singkat','jm_berita.status')
+                    ->select('jm_berita.id', 'jm_berita.judul', 'jm_berita.views', 'jm_berita.deskripsi_singkat', 'jm_berita.status', 'jm_berita.slug')
                     ->skip($skipCount)->take($param->getPageSize())
                     ->orderBy($sortBy, $sortOrder)
                     ->get();
@@ -95,7 +98,7 @@ class BeritaRepository implements IBeritaRepository
         } else {
             if ($skipCount == 0) {
                 $data = JmBerita::join('users', 'users.id', '=', 'jm_berita.user_id')
-                    ->select('jm_berita.judul','jm_berita.views','jm_berita.deskripsi_singkat','jm_berita.status')
+                    ->select('jm_berita.id', 'jm_berita.judul', 'jm_berita.views', 'jm_berita.deskripsi_singkat', 'jm_berita.status', 'jm_berita.slug')
                     ->where(function ($q) use ($param) {
                         $q->where('jm_berita.judul', 'like', '%' . $param->getKeyword() . '%')
                             ->orWhere('jmTipe.status', 'like', '%' . $param->getKeyword() . '%');
@@ -105,7 +108,7 @@ class BeritaRepository implements IBeritaRepository
                     ->get();
             } else {
                 $data = JmBerita::join('users', 'users.id', '=', 'jm_berita.user_id')
-                    ->select('jm_berita.judul','jm_berita.views','jm_berita.deskripsi_singkat','jm_berita.status')
+                    ->select('jm_berita.id', 'jm_berita.judul', 'jm_berita.views', 'jm_berita.deskripsi_singkat', 'jm_berita.status', 'jm_berita.slug')
                     ->where(function ($q) use ($param) {
                         $q->where('jm_berita.judul', 'like', '%' . $param->getKeyword() . '%')
                             ->orWhere('jmTipe.status', 'like', '%' . $param->getKeyword() . '%');
@@ -135,8 +138,28 @@ class BeritaRepository implements IBeritaRepository
 
     public function showByUser($userId)
     {
-       return JmBerita::where('user_id','=',$userId)->orderBy('id','desc')->paginate(5);
+        return JmBerita::where('user_id', '=', $userId)->orderBy('id', 'desc')->paginate(5);
     }
 
+    public function relatedPostBeritaByUser($userId)
+    {
+        return JmBerita::join('users','users.id','=','jm_berita.user_id')
+            ->select('jm_berita.*','users.name','users.image')
+            ->orderBy('jm_berita.id','desc')
+            ->where('users.id', '=', $userId)
+            ->take(2);
+    }
 
+    public function otherBerita()
+    {
+        return JmBerita::orderBy('id','desc')->limit(4);
+    }
+
+  public function setStatusBerita($input)
+    {
+        $setStatus = JmBerita::find($input['id']);
+        $setStatus->alasan_penolakan = $input['alasan'];
+        $setStatus->status = $input['status'];
+        return $setStatus->save();
+    }
 }
