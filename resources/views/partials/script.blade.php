@@ -10,6 +10,7 @@
 <script src="{{asset('public/plugins/jquery-validation/js/jquery.validate.js')}}"></script>
 <script src="{{asset('public/scripts/sweetalert2.js')}}"></script>
 <script src="http://cdn.ckeditor.com/4.6.2/full-all/ckeditor.js"></script>
+<script src="{{asset('public/vendor/unisharp/laravel-ckeditor/skins/kama/skin.js')}}"></script>
 <script src="{{url('/public/vendor/unisharp/laravel-ckeditor/adapters/jquery.js')}}"></script>
 <script src="{{asset('public/vendor/laravel-filemanager/js/lfm.js')}}"></script>
 <script>

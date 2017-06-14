@@ -40,8 +40,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/listing/setstatusiklan', ['uses' => 'ListingMobilController@setStatusIklan', 'as' => 'setReject']);
 
     Route::get('/berita', ['uses' => 'BeritaController@index' , 'as' => 'berita']);
-    Route::get('/berita/create',    ['uses' => 'BeritaController@create' , 'as' => 'formBerita']);
-    Route::post('/berita/create',   ['uses' => 'BeritaController@strore' , 'as' => 'postBerita']);
+    Route::post('/berita', ['uses' => 'BeritaController@pagination' , 'as' => 'paginationBerita']);
+    Route::get('/berita/read/{id}', ['uses' => 'BeritaController@read' , 'as' => 'readBerita']);
+    Route::get('/berita/create',   ['uses' => 'BeritaController@create' , 'as' => 'formBerita']);
+    Route::post('/berita/create',   ['uses' => 'BeritaController@store' , 'as' => 'postBerita']);
     Route::get('/berita/edit/{id}', ['uses' => 'BeritaController@edit' , 'as' => 'berita.edit']);
     Route::post('/berita/update/{id',   ['uses' => 'BeritaController@update', 'as' => 'berita.update']);
     Route::get('/berita/delete/{id}',   ['uses' => 'BeritaController@destroy','as' => 'berita.delete']);

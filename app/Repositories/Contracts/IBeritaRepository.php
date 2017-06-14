@@ -13,4 +13,5 @@ interface IBeritaRepository extends IBaseRepository
 {
     public function addView($id);
     public function searchBerita($search);
+    public function showByUser($userId);
 }

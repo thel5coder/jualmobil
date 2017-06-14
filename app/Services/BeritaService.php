@@ -45,8 +45,38 @@ class BeritaService extends BaseService
         return $response;
     }
 
-    public function delete()
+    public function showBerita()
     {
+        $response = new ServiceResponseDto();
+        if(auth()->user()->tipe_user == 'admin')
+        {
+            $response->setResult($this->beritaRepository->showAll());
+        }
+        else{
+            $response->setResult($this->beritaRepository->showByUser(auth()->user()->id));
+        }
+        return $response;
+    }
 
+    public function read($id)
+    {
+        $result = $this->readObject($this->beritaRepository,$id)->getResult();
+
+    }
+
+    public function delete($id)
+    {
+        $response = new ServiceResponseDto();
+        if( ! $this->beritaRepository->delete($id) )
+        {
+            $message = ['gagal menghapus data'];
+            $response->addErrorMessage($message);
+        }
+        return $response;
+    }
+
+    public function pagination($param)
+    {
+        return $this->getPaginationObject($this->beritaRepository,$param);
     }
 }

@@ -96,7 +96,7 @@
             }).then(function () {
                 runWaitMe('body', 'roundBounce', 'Mengapus Data...');
                 $.ajax({
-                    url: "<?= url('/deleteiklan')?>/" + id,
+                    url: "<?= url('/listing/delete')?>/" + id,
                     method: 'GET',
                     error: function (XMLHttpRequest, textStatus, errorThrow) {
                         $('body').waitMe('hide');

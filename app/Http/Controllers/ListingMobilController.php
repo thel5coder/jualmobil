@@ -17,6 +17,7 @@ class ListingMobilController extends Controller
     protected $merkService;
     protected $provinsiService;
     protected $imagesListingLm;
+
     public function __construct(ListingMobilService $listingMobilService , MerkService $merkService,ProvinsiService $provinsiService,ImagesLmRepository $imagesLmRepository)
     {
         $this->listingService = $listingMobilService;
