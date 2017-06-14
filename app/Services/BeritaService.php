@@ -24,6 +24,12 @@ class BeritaService extends BaseService
     public function create($input)
     {
         $response = new ServiceResponseDto();
+        $slug = $this->generateSlug($input['judul']);
+        $param=[
+            'judul'=>$input['judul'],
+            'slug'=>$slug
+        ];
+
         if(!$this->beritaRepository->create($input))
         {
             $message = ['gagal menambah data'];
@@ -36,6 +42,7 @@ class BeritaService extends BaseService
     public function update($input)
     {
         $response = new ServiceResponseDto();
+
         if(!$this->beritaRepository->update($input))
         {
             $message = ['gagal menambah data'];
@@ -48,6 +55,7 @@ class BeritaService extends BaseService
     public function showBerita()
     {
         $response = new ServiceResponseDto();
+
         if(auth()->user()->tipe_user == 'admin')
         {
             $response->setResult($this->beritaRepository->showAll());
