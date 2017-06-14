@@ -180,8 +180,18 @@
                         },
                         success: function (s) {
                             if (s.isSuccess) {
-                                //location.reload();
-                                window.location = "<?= route('login')?>";
+                                swal({
+                                    title: 'Selamat Registrasi Berhasil',
+                                    text: "Cek akun email anda untuk mengaktifkan akun anda.",
+                                    type: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'OK!'
+                                }).then(function () {
+                                    window.location = "<?= route('login')?>";
+                                });
+
                             } else {
                                 $('body').waitMe('hide');
                                 var errorMessagesCount = s.message.length;
