@@ -113,7 +113,7 @@ class UserService extends BaseService
             if ($result) {
                 Event::fire(new UserRegister($input['email'], $input['name'], $result));
             } else {
-                $message = ['Gagal Mengirim Validasi Email'];
+                $message = ['Registrasi gagal'];
                 $response->addErrorMessage($message);
             }
         }
@@ -125,6 +125,7 @@ class UserService extends BaseService
     {
         $response = new ServiceResponseDto();
         $email = base64_decode($token);
+
         if (!$this->userRepository->SetActiveUser($email)) {
             $message = ['gagal mengaktifkan user'];
             $response->addErrorMessage($message);
