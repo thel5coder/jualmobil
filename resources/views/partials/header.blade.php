@@ -15,7 +15,7 @@
                             <li><a href="#">Home</a></li>
                             <li><a href="#">Cari Mobil</a></li>
                             <li><a href="#">Pasang Iklan</a>
-                            <li><a href="#">Berita</a></li>
+                            <li><a href="{{route('berita')}}">Berita</a></li>
                             <li class="cs-user-option">
                                 <div class="cs-login">
                                     @if(auth()->check())
