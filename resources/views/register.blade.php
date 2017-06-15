@@ -180,6 +180,7 @@
                         },
                         success: function (s) {
                             if (s.isSuccess) {
+                                $('body').waitMe('hide');
                                 swal({
                                     title: 'Selamat Registrasi Berhasil',
                                     text: "Cek akun email anda untuk mengaktifkan akun anda.",
