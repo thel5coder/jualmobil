@@ -33,9 +33,9 @@ class BeritaRepository implements IBeritaRepository
     public function update($input)
     {
         $update = JmBerita::find($input['id']);
-        $update->user_id = auth()->user()->id;
         $update->judul = $input['judul'];
-        $update->slug = str_slug($input['judul'], '-');
+        $update->slug = $input['slug'];
+        $update->deskripsi_singkat = $input['deskripsiSingkat'];
         $update->deskripsi = $input['deskripsi'];
         $update->images = $input['images'];
         return $update->save();
@@ -56,7 +56,9 @@ class BeritaRepository implements IBeritaRepository
 
     public function showAll()
     {
-        return JmBerita::all();
+        return JmBerita::join('users','users.id','=','jm_berita.user_id')
+                ->select('jm_berita.id','jm_berita.judul','jm_berita.slug','jm_berita.deskripsi_singkat','jm_berita.images','jm_berita.created_at','users.name')
+                ->get();
     }
 
     public function paginationData(PaginationParam $param)
@@ -152,7 +154,7 @@ class BeritaRepository implements IBeritaRepository
 
     public function otherBerita()
     {
-        return JmBerita::orderBy('id','desc')->limit(4);
+        return JmBerita::orderBy('id','desc')->take(3)->get();
     }
 
   public function setStatusBerita($input)

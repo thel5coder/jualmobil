@@ -70,38 +70,40 @@
                                 </div>
                             </div>
                             <div class="cs-comments">
-                                @forelse($dataKomentar as $komentar)
-                                    <h3>5 Comments</h3>
-                                    <ul>
-                                        <li>
-                                            <div class="thumblist">
-                                                <ul>
-                                                    <li>
-                                                        <div class="cs-media">
-                                                            <figure>
-                                                                @if($komentar->image == '')
-                                                                    <img src="{{asset('public/extra-images/cs-comment-1.jpg')}}"
-                                                                         alt=""/>
-                                                                @else
-                                                                    <img src="{{$komentar->image}}" alt=""/>
-                                                                @endif
-                                                            </figure>
-                                                        </div>
-                                                        <div class="cs-text">
-                                                            <div class="cs-title">
-                                                                <h6>{{$komentar->name}}</h6>
-                                                                <span>{{$komentar->created_at->diffForHumans()}}</span>
+                                @if( ! empty($dataKomentar) )
+                                    <h3>{{count($dataKomentar)}} Komentar</h3>
+                                    @foreach($dataKomentar as $komentar)
+                                        <ul>
+                                            <li>
+                                                <div class="thumblist">
+                                                    <ul>
+                                                        <li>
+                                                            <div class="cs-media">
+                                                                <figure>
+                                                                    @if($komentar->image == '')
+                                                                        <img src="{{asset('public/extra-images/cs-comment-1.jpg')}}"
+                                                                             alt=""/>
+                                                                    @else
+                                                                        <img src="{{$komentar->image}}" alt=""/>
+                                                                    @endif
+                                                                </figure>
                                                             </div>
-                                                            <p>{{$komentar->komentar}}</p>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                @empty
+                                                            <div class="cs-text">
+                                                                <div class="cs-title">
+                                                                    <h6>{{$komentar->name}}</h6>
+                                                                    <span>{{$komentar->created_at->diffForHumans()}}</span>
+                                                                </div>
+                                                                <p>{{$komentar->komentar}}</p>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    @endforeach
+                                @else
                                     <h6>Berita Belum ada Komentar</h6>
-                                @endforelse
+                                @endif
                             </div>
                             <div class="cs-contact-form">
                                 @if(auth()->check())
@@ -132,17 +134,20 @@
                         @endif
                     </div>
                     <aside class="section-sidebar col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        @if(auth()->user()->tipe_user !== 'admin' && $dataBerita->status == 'moderasi')
+                        @if(auth()->user()->tipe_user == 'admin' && $dataBerita->status == 'moderasi')
                             <div class="widget widget-recent-posts">
                                 <ul>
                                     <li>
-                                        <button class="btn btn-compare btn-danger" onclick="setReject()"><i class="fa fa-close" ></i>
+                                        <button class="btn btn-compare btn-danger" onclick="setReject()"><i
+                                                    class="fa fa-close"></i>
                                             Tolak
                                         </button>
-                                        <button class="btn btn-shortlist btn-success" onclick="setAccept()" ><i class="fa fa-check"></i>
+                                        <button class="btn btn-shortlist btn-success" onclick="setAccept()"><i
+                                                    class="fa fa-check"></i>
                                             Aktifkan
                                         </button>
                                         <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
+                                        <input type="hidden" id="slug" value="{{$dataBerita->slug}}">
                                     </li>
                                 </ul>
                             </div>
@@ -154,8 +159,8 @@
                                         <li>
                                             <div class="cs-media">
                                                 <figure><a href="#">
-                                                        <img src="{{$dataBeritaLainnya->image}}"
-                                                             alt="{{$dataBeritaLainnya->judul}}"/></a>
+                                                        <img src="{{$dataBeritaLainnya->images}}"
+                                                             alt="{{$dataBeritaLainnya->judul}}" class="img-responsive" width="41" height="41"/></a>
                                                 </figure>
                                             </div>
                                             <div class="cs-text">
@@ -164,10 +169,10 @@
                                             </div>
                                         </li>
                                 </ul>
-                                <a href="#." class="cs-view-blog">View all Blogs</a>
                                 @empty
                                     data kosong
                                 @endforelse
+                                <a href="#." class="cs-view-blog">View all Blogs</a>
                             </div>
                         @endif
                     </aside>
@@ -193,7 +198,7 @@
 @stop
 @section('customscript')
     <script type="text/javascript">
-        function setReject(){
+        function setReject() {
             swal({
                 title: 'Reject Iklan Ini ?! ',
                 text: "Tulis alasan mengapa iklan ditolak",
@@ -205,13 +210,14 @@
             }).then(function (input) {
                 runWaitMe('body', 'roundBounce', 'Set reject Berita...');
                 $.ajax({
-                    url: "<?= url('/berita/setstatusberita')?>",
+                    url: "<?= url('backend/berita/setstatusberita')?>",
                     method: "POST",
                     data: {
                         _token: $('#token').val(),
                         id: " <?= $dataBerita->id ?> ",
                         alasan: input,
-                        status: 'nonaktif'
+                        status: 'nonaktif',
+                        slug : $('#slug').val()
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrow) {
                         $('body').waitMe('hide');
@@ -242,12 +248,13 @@
             }).then(function () {
                 runWaitMe('body', 'roundBounce', 'Set Aktif Data...');
                 $.ajax({
-                    url: "<?= url('/berita/setstatusberita')?>",
+                    url: "<?= url('backend/berita/setstatusberita')?>",
                     method: 'POST',
                     data: {
                         _token: $('#token').val(),
                         id: " <?= $dataBerita->id ?> ",
-                        status: 'aktif'
+                        status: 'aktif',
+                        slug : $('#slug').val()
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrow) {
                         $('body').waitMe('hide');
@@ -315,7 +322,7 @@
                     runWaitMe('body', 'roundBounce', 'Menyimpan Data...');
 
                     $.ajax({
-                        url: "<?= url('/komentar/create')?>",
+                        url: "<?= url('backend/komentar/create')?>",
                         method: "POST",
                         data: {
                             _token: $('#token').val(),

@@ -56,7 +56,7 @@ class UserService extends BaseService
                 $response->addErrorMessage($message);
             }
         } else {
-            $message = ['Akun Anda Belum Aktif'];
+            $message = ['Akun Anda Belum Aktif , Silahkan Cek Email Anda '];
             $response->addErrorMessage($message);
         }
         return $response;
@@ -91,6 +91,16 @@ class UserService extends BaseService
             ];
 
             $this->userRepository->update($param);
+        }
+        return $response;
+    }
+
+    public function CekNameSlug($slug)
+    {
+        $response = new ServiceResponseDto();
+        if(Auth::check())
+        {
+            $response->setResult($this->userRepository->CekNameSlug($slug,auth()->user()->id));
         }
         return $response;
     }

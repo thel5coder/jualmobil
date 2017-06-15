@@ -174,7 +174,7 @@
             });
             $('#provinsi').change(function (e) {
                 $.ajax({
-                    url: '<?= url('/listing/getkota')?>/' + $(this).val(),
+                    url: '<?= url('backend/listing/getkota')?>/' + $(this).val(),
                     method: 'GET',
                     success: function (s) {
                         $('#kota').children('option:not(:first)').remove().end();

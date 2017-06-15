@@ -58,7 +58,7 @@
 @stop
 @section('customscript')
     <script type="text/javascript">
-        var urlDetailListingMobil  = "<?= url('/berita/read/')?>";
+        var urlDetailListingMobil  = "<?= url('backend/berita/read/')?>";
         $(document).ready(function(){
             paginationTable();
         });

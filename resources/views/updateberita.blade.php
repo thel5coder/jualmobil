@@ -15,18 +15,19 @@
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="cs-user-section-title">
-                                            <h4>Buat Berita Baru</h4>
+                                            <h4>Update Berita</h4>
                                         </div>
                                     </div>
                                     <br>
-                                    <form id="formBerita">
+                                    <form id="formUpdateBerita">
                                         <div class="cs-field-holder">
                                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                                 <label>Judul Berita</label>
                                             </div>
                                             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                                                 <div class="cs-field">
-                                                    <input type="text" name="judul" id="judul">
+                                                    <input type="text" name="judul" id="judul"
+                                                           value="{{$dataBerita->judul}}">
                                                 </div>
                                             </div>
 
@@ -35,19 +36,27 @@
                                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                                 <label>Gambar Utama</label>
                                             </div>
-                                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                                            <div class="col-lg-4 col-md-4">
                                                 <div class="cs-upload-img">
                                                     <div class="input-group">
                                                    <span class="input-group-btn">
-                                                     <img src="https://dummyimage.com/1020x400/f23d52/fafafa.png&text=Featured+Image"
+                                                     <img src="https://dummyimage.com/1020x400/f23d52/fafafa.png&text=Edit+Featured+Image"
                                                           id="gambarUtama" data-input="thumbnail2"
                                                           data-preview="gambarUtama"
                                                           style="margin-top:15px;max-height:100px;">
                                                    </span>
-                                                        <input id="thumbnail2" type="hidden" name="filepath">
+                                                        <input id="thumbnail2" type="hidden" name="filepath"
+                                                               value="{{$dataBerita->images}}">
                                                     </div>
                                                 </div>
                                             </div>
+                                            @if($dataBerita->images !== '')
+                                                <div class="col-lg-5 col-md-5">
+                                                    <span><strong>Gambar Awal</strong></span>
+                                                    <br>
+                                                    <img src="{{$dataBerita->images}}" alt="{{$dataBerita->judul}}">
+                                                </div>
+                                            @endif
                                         </div>
                                         <div class="cs-field-holder">
                                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
@@ -55,7 +64,8 @@
                                             </div>
                                             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                                                 <div class="cs-field">
-                                                    <textarea name="deskripsiSingkat" id="deskripsiSingkat"></textarea>
+                                                    <textarea name="deskripsiSingkat"
+                                                              id="deskripsiSingkat">{{$dataBerita->deskripsi_singkat}}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -64,15 +74,17 @@
                                                 <label>Deskripsi</label>
                                             </div>
                                             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                                                <textarea id="content" name="deskripsi"></textarea>
+                                                <textarea id="content"
+                                                          name="deskripsi">{{$dataBerita->deskripsi}}</textarea>
                                             </div>
                                         </div>
                                         <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
+                                        <input type="hidden" id="id" value="{{$dataBerita->id}}">
                                         <div class="cs-field-holder">
                                             <div class="col-lg-4 col-md-4 col-sm-12 col-md-12">
                                                 <div class="cs-field">
                                                     <div class="cs-btn-submit">
-                                                        <input type="submit" value="SUBMIT & CONTINUE">
+                                                        <input type="submit" value="Update & Simpan">
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,42 +122,13 @@
 
             $('#gambarUtama').filemanager('image', {prefix: domain});
 
-            $('#formBerita').validate({
+            $('#formUpdateBerita').validate({
                 errorElement: 'span', //default input error message container
                 errorClass: 'help-block', // default input error message class
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",
-                rules: {
-                    judul: {
-                        required: true,
-                        minlength: 10
-                    },
-                    thumbnail2: {
-                        required: true
-                    },
-                    deskripsiSingkat: {
-                        required: true
-                    },
-                    deskripsi: {
-                        required: true
-                    }
-                },
-
-                messages: {
-                    judul: {
-                        required: "judul harus di isi",
-                        minlength: "judul minimal 10 karakter"
-                    },
-                    thumbnail2: {
-                        required: "Gambar iklan harus diisi"
-                    },
-                    deskripsiSingkat: {
-                        required: "deksripsi singkat harus di isi"
-                    },
-                    deskripsi: {
-                        required: "deskripsi bakar harus di isi"
-                    }
-                },
+                rules: false,
+                messages: false,
 
                 invalidHandler: function (event, validator) { //display error alert on form submit
 
@@ -172,18 +155,18 @@
                 },
 
                 submitHandler: function (form) {
-                    runWaitMe('body', 'roundBounce', 'Menyimpan Data...');
+                    runWaitMe('body', 'roundBounce', 'Merubah Data...');
                     var content = CKEDITOR.instances.content.getData();
                     $.ajax({
-                        url: "<?= route('postBerita')?>",
+                        url: "<?= route('berita.update')?>",
                         method: "POST",
                         data: {
                             _token: $('#token').val(),
+                            id: $('#id').val(),
                             judul: $('#judul').val(),
                             images: $('#thumbnail2').val(),
                             deskripsiSingkat: $('#deskripsiSingkat').val(),
-                            deskripsi: content,
-                            status: 'moderasi'
+                            deskripsi: content
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrow) {
                             $('body').waitMe('hide');
@@ -192,7 +175,7 @@
                         success: function (s) {
                             if (s.isSuccess) {
                                 //location.reload();
-                                window.location = "<?= route('beritaBackend')?>";
+                                window.location = "<?= url('/berita')?>";
                             } else {
                                 $('body').waitMe('hide');
                                 var errorMessagesCount = s.message.length;
@@ -207,4 +190,3 @@
         });
     </script>
 @stop
-

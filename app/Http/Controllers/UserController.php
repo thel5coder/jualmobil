@@ -51,7 +51,7 @@ class UserController extends Controller
     public function  confirmation($token,$id)
     {
         $this->userService->SetActiveUser($token,$id)->isSuccess();
-        return redirect('buatiklan');
+        return redirect('/backend/dashboard');
     }
 
     public function update($id)

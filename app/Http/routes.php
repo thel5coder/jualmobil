@@ -21,33 +21,38 @@ Route::get('/register', ['as' => 'registerForm', 'uses' => 'UserController@regis
 Route::post('/user-register', ['uses' => 'UserController@doRegister', 'as' => 'register']);
 Route::get('/user-confirmation/{token}/{id}', ['uses' => 'UserController@confirmation', 'as' => 'confirmation']);
 
-Route::group(['middleware' => 'auth'], function () {
+Route::get('berita',                    ['uses' => 'BeritaController@showAll', 'as' => 'berita']);
+Route::get('berita/{slug}',               ['uses' => 'BeritaController@show' ,'as' => 'beritaSlug']);
 
-    Route::get('dashboard',     ['uses' => 'UserController@dashboard' , 'as' => 'dashboard']);
+Route::group(['middlexware' => 'auth','prefix'=>'backend'], function () {
+
+    Route::get('/dashboard',     ['uses' => 'UserController@dashboard' , 'as' => 'dashboard']);
     Route::post('/user/update/{id}',   ['uses' => 'UserController@update' , 'as' => 'updateuser']);
 
-    Route::get('/listing',          ['uses' => 'ListingMobilController@index','as' => 'listing']);
-    Route::post('/listing',          ['uses' => 'ListingMobilController@pagination','as' => 'pagination']);
-    Route::get('/listing/read/{id}', ['uses' => 'ListingMobilController@read' ,'as' => 'read']);
-    Route::get('/lisitng/create',   ['uses' => 'ListingMobilController@create' ,'as' => 'formbuatiklan']);
-    Route::post('/listing/create',  ['uses' => 'ListingMobilController@store' ,'as' => 'postiklan']);
+    Route::get('/listing',              ['uses' => 'ListingMobilController@index','as' => 'listing']);
+    Route::post('/listing',             ['uses' => 'ListingMobilController@pagination','as' => 'pagination']);
+    Route::get('/listing/read/{id}',    ['uses' => 'ListingMobilController@read' ,'as' => 'read']);
+    Route::get('/lisitng/create',       ['uses' => 'ListingMobilController@create' ,'as' => 'formbuatiklan']);
+    Route::post('/listing/create',      ['uses' => 'ListingMobilController@store' ,'as' => 'postiklan']);
+    Route::get('/listing/edit/{id}',    ['uses' => 'ListingMobilController@edit' ,'as' => 'editIklan']);
+    Route::post('/listing/update',      ['uses' => 'ListingMobilController@update' , 'as' => 'updateIklan']);
     Route::get('/listing/delete/{id}',  ['uses' => 'ListingMobilController@destroy','as' => 'deleteiklan.id']);
     Route::get('/listing/getmerk',      ['uses' => 'MerkController@showAll' ,'as' => 'getmerk']);
-    Route::get('/listing/getmodel/{merklId}',   ['uses' => 'ModelController@ShowByMerkId' ,'as' => 'getmerk.id']);
-    Route::get('/listing/gettipe/{modelId}',    ['uses' => 'TipeController@ShowByModelId' ,'as' => 'getmodel.id']);
-    Route::get('/listing/getprovinsi',          ['uses' => 'ProvinsiController@shoAll' ,'as' => 'getprovinsi']);
+    Route::get('/listing/getmodel/{merklId}',   ['uses' => 'ModelController@ShowByMerkId' ,'as' => 'getmodel.id']);
+    Route::get('/listing/gettipe/{modelId}',    ['uses' => 'TipeController@ShowByModelId' ,'as' => 'gettipe.id']);
+    Route::get('/listing/getprovinsi',          ['uses' => 'ProvinsiController@showAll' ,'as' => 'getprovinsi']);
     Route::get('/listing/getkota/{provinsiId}', ['uses' => 'KotaController@ShowByProvinsiId','as' => 'getkota.id']);
-    Route::post('/listing/setstatusiklan', ['uses' => 'ListingMobilController@setStatusIklan', 'as' => 'setReject']);
+    Route::post('/listing/setstatusiklan',      ['uses' => 'ListingMobilController@setStatusIklan', 'as' => 'setReject']);
 
-    Route::get('/berita', ['uses' => 'BeritaController@index' , 'as' => 'berita']);
-    Route::post('/berita', ['uses' => 'BeritaController@pagination' , 'as' => 'paginationBerita']);
-    Route::get('/berita/read/{slug}', ['uses' => 'BeritaController@read' , 'as' => 'readBerita']);
-    Route::get('/berita/create',   ['uses' => 'BeritaController@create' , 'as' => 'formBerita']);
-    Route::post('/berita/create',   ['uses' => 'BeritaController@store' , 'as' => 'postBerita']);
-    Route::get('/berita/edit/{id}', ['uses' => 'BeritaController@edit' , 'as' => 'berita.edit']);
-    Route::post('/berita/update/{id',   ['uses' => 'BeritaController@update', 'as' => 'berita.update']);
-    Route::get('/berita/delete/{id}',   ['uses' => 'BeritaController@destroy','as' => 'berita.delete']);
-    Route::post('/berita/setstatusberita',['uses' => 'BeritaController@setStatusBerita', 'as' => 'setStatus']);
+    Route::get('/berita',            ['uses' => 'BeritaController@index' , 'as' => 'beritaBackend']);
+    Route::post('/berita',                  ['uses' => 'BeritaController@pagination' , 'as' => 'paginationBerita']);
+    Route::get('/berita/read/{slug}',         ['uses' => 'BeritaController@read' , 'as' => 'readBerita']);
+    Route::get('/berita/create',            ['uses' => 'BeritaController@create' , 'as' => 'formBerita']);
+    Route::post('/berita/create',           ['uses' => 'BeritaController@store' , 'as' => 'postBerita']);
+    Route::get('/berita/edit/{slug}',       ['uses' => 'BeritaController@edit' , 'as' => 'berita.edit']);
+    Route::post('/berita/update',           ['uses' => 'BeritaController@update', 'as' => 'berita.update']);
+    Route::get('/berita/delete/{id}',       ['uses' => 'BeritaController@destroy','as' => 'berita.delete']);
+    Route::post('/berita/setstatusberita',  ['uses' => 'BeritaController@setStatusBerita', 'as' => 'setStatus']);
 
     Route::get('/merk', ['uses' => 'MerkController@index' , 'as' => 'merk']);
     Route::get('/merk/create',      ['uses' => 'MerkController@create' ,'as' => 'formMerk']);

@@ -14,8 +14,8 @@ class UserRepository implements IUserRepository
         $create->name = $input['name'];
         $create->email = $input['email'];
         $create->password = $input['password'];
+        $create->tipe_user = $input['tipeUser'];
         $create->save();
-
         return $create->id;
     }
 
@@ -84,7 +84,8 @@ class UserRepository implements IUserRepository
 
     public function CekStatus($email)
     {
-        $result = User::where('email','=',$email)->value('is_status');
+        $result = User::where('email','=',$email)->value('is_active');
         return ($result == 1);
     }
+
 }

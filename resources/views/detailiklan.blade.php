@@ -22,10 +22,12 @@
                     <div class="custom-content col-lg-9 col-md-9 col-sm-12 col-xs-12">
                         <ul class="blog-detail-slider" style="margin-bottom:30px;">
                             @foreach($imageIklan as $imageiklan)
-                                <li>
-                                    <figure><img src="{{$imageiklan->images}}" alt="" width="800" height="485"/>
-                                    </figure>
-                                </li>
+                                @if($imageiklan->images != "" )
+                                    <li>
+                                        <figure><img src="{{$imageiklan->images}}" alt="" width="800" height="485"/>
+                                        </figure>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                         <div class="page-section">
@@ -222,27 +224,30 @@
                                                         </ul>
                                                     </div>
                                                 </li>
-                                                @if($iklan->status == 'moderasi')
-                                                    <li class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                                                        <button type="button" class="btn btn-primary"
-                                                                onclick="acceptIklan()"><i
-                                                                    class="fa fa-check"></i> Aktifkan
-                                                        </button>
-                                                        <button type="button" class="btn btn-danger"
-                                                                onclick="rejectIklan()"><i
-                                                                    class="fa fa-close"></i> Tolak
-                                                        </button>
-                                                    </li>
-                                                    <input type="hidden" name="_token" id="token"
-                                                           value="{{csrf_token()}}">
-                                                    <input type="hidden" name="id" value="{{$iklan->id}}" id="id">
-                                                @else
-                                                    @if($iklan->status == 'nonaktif')
-                                                        <strong>Iklan <span
-                                                                    class="label label-danger">{{$iklan->status}}</span></strong>
+
+                                                @if(auth()->user()->tipe_user == "admin" )
+                                                    @if($iklan->status == 'moderasi')
+                                                        <li class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                            <button type="button" class="btn btn-primary"
+                                                                    onclick="acceptIklan()"><i
+                                                                        class="fa fa-check"></i> Aktifkan
+                                                            </button>
+                                                            <button type="button" class="btn btn-danger"
+                                                                    onclick="rejectIklan()"><i
+                                                                        class="fa fa-close"></i> Tolak
+                                                            </button>
+                                                        </li>
+                                                        <input type="hidden" name="_token" id="token"
+                                                               value="{{csrf_token()}}">
+                                                        <input type="hidden" name="id" value="{{$iklan->id}}" id="id">
                                                     @else
-                                                        <strong>Iklan <span
-                                                                    class="label label-success">{{$iklan->status}}</span></strong>
+                                                        @if($iklan->status == 'nonaktif')
+                                                            <strong>Iklan <span
+                                                                        class="label label-danger">{{$iklan->status}}</span></strong>
+                                                        @else
+                                                            <strong>Iklan <span
+                                                                        class="label label-success">{{$iklan->status}}</span></strong>
+                                                        @endif
                                                     @endif
                                                 @endif
                                             </ul>
@@ -411,7 +416,7 @@
         var uangMuka = $('#uangmuka').val();
         var periodeCicilan = $('#periodeCicilan').val();
         var total, pokok, bungaPerBulan;
-        bungaPerBulan = (harga - uangMuka) * (bunga/100);
+        bungaPerBulan = (harga - uangMuka) * (bunga / 100);
         console.log(periodeCicilan);
         pokok = (harga - uangMuka) / periodeCicilan;
         total = bungaPerBulan + pokok;
@@ -431,7 +436,7 @@
         }).then(function (input) {
             runWaitMe('body', 'roundBounce', 'Set reject Data...');
             $.ajax({
-                url: "<?= url('/listing/setstatusiklan')?>",
+                url: "<?= url('backend/listing/setstatusiklan')?>",
                 method: "POST",
                 data: {
                     _token: $('#token').val(),
@@ -468,7 +473,7 @@
         }).then(function () {
             runWaitMe('body', 'roundBounce', 'Set Aktif Data...');
             $.ajax({
-                url: "<?= url('/listing/setstatusiklan')?>",
+                url: "<?= url('backend/listing/setstatusiklan')?>",
                 method: 'POST',
                 data: {
                     _token: $('#token').val(),

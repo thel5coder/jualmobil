@@ -138,7 +138,7 @@
                     runWaitMe('body', 'roundBounce', 'Menyimpan Data...');
 
                     $.ajax({
-                        url: "<?= url('model/create')?>",
+                        url: "<?= url('backend/model/create')?>",
                         method: "POST",
                         data: {
                             _token: $('#token').val(),

@@ -37,7 +37,7 @@ class KotaRepository implements IKotaRepository
 
     public function showAll()
     {
-        // TODO: Implement showAll() method.
+        return JmKota::all();
     }
 
     public function paginationData(PaginationParam $param)

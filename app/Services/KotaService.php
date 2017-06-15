@@ -12,7 +12,7 @@ namespace App\Services;
 use App\Repositories\Actions\KotaRepository;
 use App\Services\Response\ServiceResponseDto;
 
-class KotaService
+class KotaService extends BaseService
 {
     protected $kotaRepository;
 
@@ -34,5 +34,10 @@ class KotaService
         }
         $response->setResult($param);
         return $response;
+    }
+
+    public function showAll()
+    {
+        return $this->getAllObject($this->kotaRepository);
     }
 }

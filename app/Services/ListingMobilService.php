@@ -9,9 +9,12 @@
 namespace App\Services;
 
 
+use App\Events\NewListingPost;
+use App\Events\ResultModerationListing;
 use App\Repositories\Contracts\IImagesLmRepository;
 use App\Repositories\Contracts\IListingMobilRepository;
 use App\Services\Response\ServiceResponseDto;
+use Illuminate\Support\Facades\Event;
 
 class ListingMobilService extends BaseService
 {
@@ -27,6 +30,7 @@ class ListingMobilService extends BaseService
     public function create($input)
     {
         $response = new ServiceResponseDto();
+
         $result = $this->listingMobilRepository->create($input);
         if ($result) {
             for ($i = 0; $i < count($input['carImageList']); $i++) {
@@ -36,8 +40,35 @@ class ListingMobilService extends BaseService
                 ];
                 $this->imageLisitngMobilRepository->create($param);
             }
+            Event::fire( new NewListingPost($result, auth()->user()->name, auth()->user()->email));
         } else {
             $message = ['ada error'];
+            $response->addErrorMessage($message);
+        }
+
+        return $response;
+    }
+
+    public function update($input)
+    {
+        $response = new ServiceResponseDto();
+
+        $update = $this->listingMobilRepository->update($input);
+
+        if ($update)
+        {
+            for ($i = 0; $i < count($input['carImageList']); $i++)
+            {
+                $param = [
+                    'id' => $input['idCarImage'][$i],
+                    'images' => $input['carImageList'][$i]
+                ];
+                $this->imageLisitngMobilRepository->update($param);
+            }
+        }
+        else
+        {
+            $message = ['id kosong'];
             $response->addErrorMessage($message);
         }
 
@@ -116,12 +147,14 @@ class ListingMobilService extends BaseService
     public function setStatusIklan($input)
     {
         $response = new ServiceResponseDto();
+        $alasan = (isset($input['alasan'])) ? $input['alasan'] : '';
         $param = [
             'id' => $input['id'],
-            'alasan' => (isset($input['alasan'])) ? $input['alasan'] : '',
+            'alasan' => $alasan,
             'status' => $input['status']
         ];
         $this->listingMobilRepository->setStatusIklanMobil($param);
+        Event::fire(new ResultModerationListing($input['id'],$input['alasan'],$input['status'],auth()->user()->email,auth()->user()->name));
         return $response;
     }
 }

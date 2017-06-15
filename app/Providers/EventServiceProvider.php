@@ -19,6 +19,18 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserRegister' => [
             'App\Listeners\NewUserRegistered',
         ],
+        'App\Events\NewListingPost' => [
+            'App\Listeners\NewUserListingWasPosted',
+        ],
+        'App\Events\ResultModerationListing' => [
+            'App\Listeners\SendResultModerationListing',
+        ],
+        'App\Events\NewBeritaPost' => [
+            'App\Listeners\NewBeritaWasPosted',
+        ],
+        'App\Events\ResultModerationBerita' => [
+            'App\Listeners\SendResultModerationBerita',
+        ],
     ];
 
     /**

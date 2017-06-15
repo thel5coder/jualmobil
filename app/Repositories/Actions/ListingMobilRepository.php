@@ -45,22 +45,22 @@ class ListingMobilRepository implements IListingMobilRepository
     public function update($input)
     {
         $update = JmListingMobil::find($input['id']);
-        $update->judul = $input['judul'];
-        $update->kondisi_id = $input['kondisi'];
+        $update->kondisi = $input['kondisi'];
         $update->merk_id = $input['merk'];
         $update->model_id = $input['model'];
         $update->tipe_id = $input['tipe'];
         $update->plat_nomor = $input['platNomor'];
         $update->kilo_meter = $input['kiloMeter'];
-        $update->bahan_bkar = $input['bahanBakar'];
+        $update->bahan_bakar = $input['bahanBakar'];
         $update->transmisi = $input['transmisi'];
         $update->tahun = $input['tahun'];
+        $update->harga = $input['harga'];
         $update->warna = $input['warna'];
         $update->deskripsi = $input['deskripsi'];
         $update->provinsi = $input['provinsi'];
         $update->kota = $input['kota'];
-        $update->status = 'moderasi';
-        $update->save();
+        return $update->save();
+
     }
 
     public function delete($id)
@@ -78,7 +78,7 @@ class ListingMobilRepository implements IListingMobilRepository
                 'jm_listing_mobil.plat_nomor', 'jm_listing_mobil.kilo_meter', 'jm_listing_mobil.bahan_bakar', 'jm_listing_mobil.transmisi',
                 'jm_listing_mobil.tahun', 'jm_listing_mobil.warna', 'jm_listing_mobil.harga', 'jm_listing_mobil.deskripsi',
                 'jm_listing_mobil.provinsi', 'jm_listing_mobil.kota', 'jm_listing_mobil.status',
-                'jm_merk.merk', 'jm_model.model', 'jm_tipe.tipe',
+                'jm_merk.merk', 'jm_model.model', 'jm_tipe.tipe','jm_listing_mobil.merk_id','jm_listing_mobil.model_id','jm_listing_mobil.tipe_id',
                 'users.name','users.phone','users.in_wa','users.pin_bbm','users.facebook'
             )
             ->where('jm_listing_mobil.id', '=', $id)

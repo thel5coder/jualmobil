@@ -113,7 +113,7 @@
                     runWaitMe('body', 'roundBounce', 'Menyimpan Data...');
 
                     $.ajax({
-                        url: "<?= url('/merk/create')?>",
+                        url: "<?= url('backend/merk/create')?>",
                         method: "POST",
                         data: {
                             _token: $('#token').val(),

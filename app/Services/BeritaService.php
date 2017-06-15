@@ -9,8 +9,11 @@
 namespace App\Services;
 
 
+use App\Events\NewBeritaPost;
+use App\Events\ResultModerationBerita;
 use App\Repositories\Contracts\IBeritaRepository;
 use App\Services\Response\ServiceResponseDto;
+use Illuminate\Support\Facades\Event;
 
 class BeritaService extends BaseService
 {
@@ -27,20 +30,20 @@ class BeritaService extends BaseService
 
         $slug = $this->generateSlug($input['judul']);
         $param = [
-            'user_id' => auth()->user()->id,
+            'userId' => auth()->user()->id,
             'judul' => $input['judul'],
             'slug' => $slug,
             'deskripsiSingkat' => $input['deskripsiSingkat'],
             'deskripsi' => $input['deskripsi'],
             'images' => $input['images'],
-            'status' => $input['moderasi']
+            'status' => $input['status']
         ];
 
         if (!$this->beritaRepository->create($param)) {
             $message = ['gagal menambah data'];
             $response->addErrorMessage($message);
         }
-
+        Event::fire(new NewBeritaPost(auth()->user()->email,auth()->user()->name,$slug));
         return $response;
     }
 
@@ -48,10 +51,29 @@ class BeritaService extends BaseService
     {
         $response = new ServiceResponseDto();
 
-        if (!$this->beritaRepository->update($input)) {
-            $message = ['gagal menambah data'];
+        $slug = $this->generateSlug($input['judul']);
+        $param = [
+            'id' => $input['id'],
+            'judul' => $input['judul'],
+            'slug' => $slug,
+            'deskripsiSingkat' => $input['deskripsiSingkat'],
+            'deskripsi' => $input['deskripsi'],
+            'images' => $input['images']
+        ];
+
+        if (!$this->beritaRepository->update($param)) {
+            $message = ['gagal merubah data'];
             $response->addErrorMessage($message);
         }
+
+        return $response;
+    }
+
+    public function showAllBerita()
+    {
+        $response = new ServiceResponseDto();
+
+        $response->setResult($this->beritaRepository->showAll());
 
         return $response;
     }
@@ -113,12 +135,14 @@ class BeritaService extends BaseService
     public function setStatusBerita($input)
     {
         $response = new ServiceResponseDto();
+        $alasan = (isset($input['alasan'])) ? $input['alasan'] : '';
         $param = [
             'id' => $input['id'],
-            'alasan' => (isset($input['alasan'])) ? $input['alasan'] : '',
+            'alasan' => $alasan,
             'status' => $input['status']
         ];
         $response->setResult($this->beritaRepository->setStatusBerita($param));
+        Event::fire( new  ResultModerationBerita($input['slug'],auth()->user()->name,auth()->user()->email , $alasan) );
         return $response;
     }
 }

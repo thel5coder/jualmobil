@@ -63,7 +63,7 @@
 @stop
 @section('customscript')
     <script type="text/javascript">
-        var urlDetailListingMobil  = "<?= url('/listing/read/')?>";
+        var urlDetailListingMobil  = "<?= url('backend/listing/read/')?>";
         $(document).ready(function(){
             paginationTable();
         });
