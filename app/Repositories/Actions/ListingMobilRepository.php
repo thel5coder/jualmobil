@@ -87,7 +87,9 @@ class ListingMobilRepository implements IListingMobilRepository
 
     public function showAll()
     {
-        return $result = JmListingMobil::paginate('5');
+        return JmListingMobil::join('users','users.id','=','jm_listing_mobil.user_id')
+        ->select('jm_listing_mobil.*','users.name')
+        ->orderBy('jm_listing_mobil.id', 'asc')->paginate(6);
     }
 
     public function paginationData(PaginationParam $param)

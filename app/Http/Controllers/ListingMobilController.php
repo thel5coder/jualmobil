@@ -12,6 +12,7 @@ use App\Services\TipeService;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 class ListingMobilController extends Controller
@@ -35,15 +36,21 @@ class ListingMobilController extends Controller
     }
     public function index()
     {
-        $listingcars = $this->listingService->showIklan()->getResult();
-        if(auth()->user()->tipe_user == 'admin')
+        if(Auth::check())
         {
-            return view('listiklanmobil');
+            $listingcars = $this->listingService->showIklan()->getResult();
+            if(auth()->user()->tipe_user == 'admin')
+            {
+                return view('listiklanmobil');
+            }
+            else {
+                return view('daftarmobil')
+                    ->with('listingcars',$listingcars['iklan'])
+                    ->with('listingImage',$listingcars['gambarIklan']);
+            }
         }
-        else {
-            return view('daftarmobil')
-                ->with('listingcars',$listingcars['iklan'])
-                ->with('listingImage',$listingcars['gambarIklan']);
+        else{
+            return abort(404);
         }
     }
 
@@ -71,6 +78,17 @@ class ListingMobilController extends Controller
         $result = $this->listingService->setStatusIklan(Input::all());
 
         return $this->getJsonResponse($result);
+    }
+
+    public function showAll()
+    {
+        $data = $this->listingService->ShowAll()->getResult();
+        return view('iklan')->with('dataIklan',$data['iklan'])->with('dataImageIklan',$data['gambarIklan']);
+    }
+
+    public function show()
+    {
+
     }
 
     public function edit($id)

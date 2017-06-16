@@ -21,12 +21,15 @@ Route::get('/register', ['as' => 'registerForm', 'uses' => 'UserController@regis
 Route::post('/user-register', ['uses' => 'UserController@doRegister', 'as' => 'register']);
 Route::get('/user-confirmation/{token}/{id}', ['uses' => 'UserController@confirmation', 'as' => 'confirmation']);
 
-Route::get('berita',                    ['uses' => 'BeritaController@showAll', 'as' => 'berita']);
-Route::get('berita/{slug}',               ['uses' => 'BeritaController@show' ,'as' => 'beritaSlug']);
+Route::get('berita',            ['uses' => 'BeritaController@showAll', 'as' => 'berita']);
+Route::get('berita/{slug}',     ['uses' => 'BeritaController@show' ,'as' => 'beritaSlug']);
+
+Route::get('iklan',             ['uses' => 'ListingMobilController@showAll' , 'as' => 'iklan']);
+Route::get('iklan/{id}',        ['uses' => 'ListingMobilController@show' , 'as' => 'iklanId']);
 
 Route::group(['middlexware' => 'auth','prefix'=>'backend'], function () {
 
-    Route::get('/dashboard',     ['uses' => 'UserController@dashboard' , 'as' => 'dashboard']);
+    Route::get('/dashboard',           ['uses' => 'UserController@dashboard' , 'as' => 'dashboard']);
     Route::post('/user/update/{id}',   ['uses' => 'UserController@update' , 'as' => 'updateuser']);
 
     Route::get('/listing',              ['uses' => 'ListingMobilController@index','as' => 'listing']);

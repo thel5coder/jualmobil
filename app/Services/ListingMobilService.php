@@ -40,7 +40,7 @@ class ListingMobilService extends BaseService
                 ];
                 $this->imageLisitngMobilRepository->create($param);
             }
-            Event::fire( new NewListingPost($result, auth()->user()->name, auth()->user()->email));
+            Event::fire(new NewListingPost($result, auth()->user()->name, auth()->user()->email));
         } else {
             $message = ['ada error'];
             $response->addErrorMessage($message);
@@ -55,19 +55,15 @@ class ListingMobilService extends BaseService
 
         $update = $this->listingMobilRepository->update($input);
 
-        if ($update)
-        {
-            for ($i = 0; $i < count($input['carImageList']); $i++)
-            {
+        if ($update) {
+            for ($i = 0; $i < count($input['carImageList']); $i++) {
                 $param = [
                     'id' => $input['idCarImage'][$i],
                     'images' => $input['carImageList'][$i]
                 ];
                 $this->imageLisitngMobilRepository->update($param);
             }
-        }
-        else
-        {
+        } else {
             $message = ['id kosong'];
             $response->addErrorMessage($message);
         }
@@ -84,9 +80,24 @@ class ListingMobilService extends BaseService
         }
     }
 
-    protected function ShowAll()
+    public function ShowAll()
     {
-        return $this->getAllObject($this->listingMobilRepository);
+        $response = new ServiceResponseDto();
+
+        $dataIklan = $this->getAllObject($this->listingMobilRepository)->getResult();
+        $dataGambarIklan = array();
+        foreach( $dataIklan as $iklan )
+        {
+                $dataGambarIklan[$iklan->id] = $this->imageLisitngMobilRepository->showImagesByListingId($iklan->id);
+        }
+        $dataResult = [
+            'iklan' => $dataIklan,
+            'gambarIklan' => $dataGambarIklan
+
+        ];
+        $response->setResult($dataResult);
+
+        return $response;
     }
 
     protected function showByUserId()
@@ -154,7 +165,7 @@ class ListingMobilService extends BaseService
             'status' => $input['status']
         ];
         $this->listingMobilRepository->setStatusIklanMobil($param);
-        Event::fire(new ResultModerationListing($input['id'],$input['alasan'],$input['status'],auth()->user()->email,auth()->user()->name));
+        Event::fire(new ResultModerationListing($input['id'], $input['alasan'], $input['status'], auth()->user()->email, auth()->user()->name));
         return $response;
     }
 }
