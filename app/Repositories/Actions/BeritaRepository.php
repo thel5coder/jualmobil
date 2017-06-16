@@ -27,7 +27,9 @@ class BeritaRepository implements IBeritaRepository
         $create->deskripsi = $input['deskripsi'];
         $create->images = $input['images'];
         $create->status = 'moderasi';
-        return $create->save();
+        $create->save();
+
+        return $create->id;
     }
 
     public function update($input)

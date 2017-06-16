@@ -22,6 +22,8 @@ class AppRepositoryProvider extends ServiceProvider
         $this->app->bind('App\\Repositories\\Contracts\\IKotaRepository','App\\Repositories\\Actions\\KotaRepository');
         $this->app->bind('App\\Repositories\\Contracts\\IBeritaRepository','App\\Repositories\\Actions\\BeritaRepository');
         $this->app->bind('App\\Repositories\\Contracts\\IKomentarRepository','App\\Repositories\\Actions\\KomentarRepository');
+        $this->app->bind('App\\Repositories\\Contracts\\IKategoriRepository','App\\Repositories\\Actions\\KategoriRepository');
+        $this->app->bind('App\\Repositories\\Contracts\\IGrupKategoriBeritaRepository','App\\Repositories\\Actions\\GrupKategoriBeritaRepository');
     }
 
     /**

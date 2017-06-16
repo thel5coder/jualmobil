@@ -12,16 +12,18 @@ namespace App\Services;
 use App\Events\NewBeritaPost;
 use App\Events\ResultModerationBerita;
 use App\Repositories\Contracts\IBeritaRepository;
+use App\Repositories\Contracts\IGrupKategoriBeritaRepository;
 use App\Services\Response\ServiceResponseDto;
 use Illuminate\Support\Facades\Event;
 
 class BeritaService extends BaseService
 {
-    protected $beritaRepository;
+    protected $beritaRepository, $grupKategoriBeritaRepository;
 
-    public function __construct(IBeritaRepository $beritaRepository)
+    public function __construct(IBeritaRepository $beritaRepository, IGrupKategoriBeritaRepository $grupKategoriBeritaRepository)
     {
         $this->beritaRepository = $beritaRepository;
+        $this->grupKategoriBeritaRepository = $grupKategoriBeritaRepository;
     }
 
     public function create($input)
@@ -38,12 +40,22 @@ class BeritaService extends BaseService
             'images' => $input['images'],
             'status' => $input['status']
         ];
+        $idBerita = $this->beritaRepository->create($param);
+        if ($idBerita) {
 
-        if (!$this->beritaRepository->create($param)) {
+            for ($i = 0; $i < count($input['kategori']); $i++) {
+                $param = [
+                    'beritaId' => $idBerita,
+                    'kategoriId' => $input['kategori'][$i]
+                ];
+                $this->grupKategoriBeritaRepository->create($param);
+            }
+            Event::fire(new NewBeritaPost(auth()->user()->email, auth()->user()->name, $slug));
+        } else {
             $message = ['gagal menambah data'];
             $response->addErrorMessage($message);
         }
-        Event::fire(new NewBeritaPost(auth()->user()->email,auth()->user()->name,$slug));
+
         return $response;
     }
 
@@ -73,7 +85,17 @@ class BeritaService extends BaseService
     {
         $response = new ServiceResponseDto();
 
-        $response->setResult($this->beritaRepository->showAll());
+        $berita = $this->beritaRepository->showAll();
+        $datakategori = array();
+        foreach ($berita as $dataBerita) {
+            $datakategori[$dataBerita->id] = $this->grupKategoriBeritaRepository->showGrupKategoriBerita($dataBerita->id);
+        }
+        $result = [
+            'berita' => $berita,
+            'kategori' => $datakategori
+        ];
+
+        $response->setResult($result);
 
         return $response;
     }
@@ -142,7 +164,7 @@ class BeritaService extends BaseService
             'status' => $input['status']
         ];
         $response->setResult($this->beritaRepository->setStatusBerita($param));
-        Event::fire( new  ResultModerationBerita($input['slug'],auth()->user()->name,auth()->user()->email , $alasan) );
+        Event::fire(new  ResultModerationBerita($input['slug'], auth()->user()->name, auth()->user()->email, $alasan));
         return $response;
     }
 }

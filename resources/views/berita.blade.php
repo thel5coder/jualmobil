@@ -42,22 +42,33 @@
                                             <div class="cs-media">
                                                 <figure>
                                                     <a href="{{route('beritaSlug',['slug' => $dataBerita->slug])}}">
-                                                        <img src="{{$dataBerita->images}}" alt="{{$dataBerita->judul}}"/>
+                                                        <img src="{{$dataBerita->images}}"
+                                                             alt="{{$dataBerita->judul}}"/>
                                                     </a>
                                                 </figure>
                                             </div>
                                             <div class="cs-text">
                                                 <div class="post-title">
-                                                    <h4><a href="{{route('beritaSlug',['slug' => $dataBerita->slug])}}">{{$dataBerita->judul}}</a></h4>
+                                                    <h4>
+                                                        <a href="{{route('beritaSlug',['slug' => $dataBerita->slug])}}">{{$dataBerita->judul}}</a>
+                                                    </h4>
                                                 </div>
+                                                <ul class="cs-auto-categories">
+                                                    @foreach($kategori[$dataBerita->id] as $dataKategori)
+
+                                                        <li> <a href="#" class="cs-color">{{$dataKategori->kategori}}</a></li>
+                                                    @endforeach
+                                                </ul>
+
                                                 <p>{{$dataBerita->deskripsi_singkat}}</p>
                                                 <div class="post-detail">
-                                                    <span class="post-author"><i class="icon-user4"></i> <a href="#">{{$dataBerita->name}}</a></span>
+                                                    <span class="post-author"><i class="icon-user4"></i> <a
+                                                                href="#">{{$dataBerita->name}}</a></span>
                                                     <span class="post-date"> {{$dataBerita->created_at->diffForHumans()}}</span>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div >
+                                    </div>
                                 @endforeach
                             </div>
                         </div>

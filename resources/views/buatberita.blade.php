@@ -1,4 +1,8 @@
 @extends('main')
+@section('customstyle')
+    <link href="{{asset('public/plugins/select2/css/select2.css')}}" rel="stylesheet"/>
+    <link href="{{asset('public/css/select2-bootstrap.css')}}" rel="stylesheet">
+@stop
 @section('content')
     <div class="main-section">
         <div class="page-section"
@@ -49,6 +53,21 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="cs-field-holder">
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                <label>Kategori Berita</label>
+                                            </div>
+                                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                                                <div class="cs-field">
+                                                    <select name="kategoriBeritaId[]" id="kategoriBerita" multiple>
+                                                        @foreach($kategori as $dataKategori)
+                                                            <option value="{{$dataKategori->id}}">{{$dataKategori->kategori}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="cs-field-holder">
                                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                                 <label>Deskripsi Singkat</label>
@@ -104,10 +123,14 @@
     </div>
 @stop
 @section('customscript')
+    <script type="text/javascript" src="{{asset('public/plugins/select2/js/select2.js')}}"></script>
     <script type="text/javascript">
         var domain = "jualmobil";
         $(document).ready(function () {
 
+            $('select').select2({
+                theme: 'bootstrap'
+            });
             $('#gambarUtama').filemanager('image', {prefix: domain});
 
             $('#formBerita').validate({
@@ -182,6 +205,7 @@
                             judul: $('#judul').val(),
                             images: $('#thumbnail2').val(),
                             deskripsiSingkat: $('#deskripsiSingkat').val(),
+                            kategori : $('#kategoriBerita').select2().val(),
                             deskripsi: content,
                             status: 'moderasi'
                         },

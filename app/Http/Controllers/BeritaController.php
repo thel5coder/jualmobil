@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\BeritaService;
+use App\Services\KategoriService;
 use App\Services\KomentarService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -16,13 +17,16 @@ class BeritaController extends Controller
     protected $beritaService;
     protected $komentarSevice;
     protected $userService;
+    protected $kategoriService;
 
-    public function __construct(BeritaService $beritaService,KomentarService $komentarService, UserService $userService)
+    public function __construct(BeritaService $beritaService,KomentarService $komentarService, UserService $userService, KategoriService $kategoriService)
     {
         $this->beritaService = $beritaService;
         $this->komentarSevice = $komentarService;
         $this->userService = $userService;
+        $this->kategoriService = $kategoriService;
     }
+
     public function index()
     {
         if(auth()->user()->tipe_user == "admin")
@@ -38,7 +42,9 @@ class BeritaController extends Controller
     public function showAll()
     {
             $berita = $this->beritaService->showAllBerita()->getResult();
-            return view('berita')->with('berita',$berita);
+
+//        return var_dump($berita['kategori']);
+            return view('berita')->with('berita',$berita['berita'])->with('kategori',$berita['kategori']);
     }
 
     public function show($slug)
@@ -67,7 +73,8 @@ class BeritaController extends Controller
 
     public function create()
     {
-        return view('buatberita');
+        $kategori =$this->kategoriService->showAll()->getResult();
+        return view('buatberita')->with('kategori',$kategori);
     }
 
     public function store()
