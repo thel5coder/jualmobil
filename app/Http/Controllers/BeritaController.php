@@ -41,19 +41,22 @@ class BeritaController extends Controller
 
     public function showAll()
     {
+            $beritaBanner = $this->beritaService->showToBanner()->getResult();
+            $popularBerita = $this->beritaService->showPopularBerita()->getResult();
             $berita = $this->beritaService->showAllBerita()->getResult();
-
-//        return var_dump($berita['kategori']);
-            return view('berita')->with('berita',$berita['berita'])->with('kategori',$berita['kategori']);
+            return view('berita')->with('berita',$berita['berita'])
+                    ->with('kategori',$berita['kategori'])
+                    ->with('beritaBanner',$beritaBanner)
+                    ->with('popularBerita',$popularBerita);
     }
 
     public function show($slug)
     {
         $dataBerita = $this->beritaService->read($slug)->getResult();
-        $relatedPost = $this->beritaService->relatedPostBeritaByUser($dataBerita->user_id)->getResult();
+        $relatedPost = $this->beritaService->relatedPostBeritaByUser($dataBerita['berita']->user_id)->getResult();
         $otherBerita =  $this->beritaService->otherBerita()->getResult();
-        $dataKomentar = $this->komentarSevice->read($dataBerita->id)->getResult();
-        return view('detailberita')->with('dataBerita',$dataBerita)
+        $dataKomentar = $this->komentarSevice->read($dataBerita['berita']->id)->getResult();
+        return view('detailberita')->with('dataBerita',$dataBerita['berita'])
             ->with('relatedPost',$relatedPost)
             ->with('otherBerita',$otherBerita)
             ->with('dataKomentar',$dataKomentar);
@@ -62,10 +65,10 @@ class BeritaController extends Controller
     public function read($slug)
     {
         $dataBerita = $this->beritaService->read($slug)->getResult();
-        $relatedPost = $this->beritaService->relatedPostBeritaByUser($dataBerita->user_id)->getResult();
+        $relatedPost = $this->beritaService->relatedPostBeritaByUser($dataBerita['berita']->user_id)->getResult();
         $otherBerita =  $this->beritaService->otherBerita()->getResult();
-        $dataKomentar = $this->komentarSevice->read($dataBerita->id)->getResult();
-        return view('detailberita')->with('dataBerita',$dataBerita)
+        $dataKomentar = $this->komentarSevice->read($dataBerita['berita']->id)->getResult();
+        return view('detailberita')->with('dataBerita',$dataBerita['berita'])
                 ->with('relatedPost',$relatedPost)
                 ->with('otherBerita',$otherBerita)
                 ->with('dataKomentar',$dataKomentar);
@@ -86,7 +89,7 @@ class BeritaController extends Controller
     public function edit($slug)
     {
         $dataBerita = $this->beritaService->read($slug)->getResult();
-        return view('updateberita')->with('dataBerita',$dataBerita);
+        return view('updateberita')->with('dataBerita',$dataBerita['berita'])->with('kategori',$dataBerita['kategori']);
     }
 
     public function update()

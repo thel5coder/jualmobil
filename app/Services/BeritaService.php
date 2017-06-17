@@ -116,7 +116,13 @@ class BeritaService extends BaseService
     {
         $response = new ServiceResponseDto();
 
-        $response->setResult($this->beritaRepository->read($slug));
+        $berita = $this->beritaRepository->read($slug);
+        $datakategori = $this->grupKategoriBeritaRepository->showGrupKategoriBerita($berita->id);
+        $result = [
+            'berita' => $berita,
+            'kategori' => $datakategori
+        ];
+        $response->setResult($result);
 
         return $response;
     }
@@ -166,5 +172,24 @@ class BeritaService extends BaseService
         $response->setResult($this->beritaRepository->setStatusBerita($param));
         Event::fire(new  ResultModerationBerita($input['slug'], auth()->user()->name, auth()->user()->email, $alasan));
         return $response;
+    }
+
+    public function showToBanner()
+    {
+        $response = new ServiceResponseDto();
+
+        $response->setResult($this->beritaRepository->showToBanner());
+
+        return $response;
+    }
+
+    public function showPopularBerita()
+    {
+        $response = new ServiceResponseDto();
+
+        $response->setResult($this->beritaRepository->showPopularBerita());
+
+        return $response;
+
     }
 }

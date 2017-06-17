@@ -27,7 +27,7 @@ Route::get('berita/{slug}',     ['uses' => 'BeritaController@show' ,'as' => 'ber
 Route::get('iklan',             ['uses' => 'ListingMobilController@showAll' , 'as' => 'iklan']);
 Route::get('iklan/{id}',        ['uses' => 'ListingMobilController@show' , 'as' => 'iklanId']);
 
-Route::group(['middlexware' => 'auth','prefix'=>'backend'], function () {
+Route::group(['middleware' => 'auth','prefix'=>'backend'], function () {
 
     Route::get('/dashboard',           ['uses' => 'UserController@dashboard' , 'as' => 'dashboard']);
     Route::post('/user/update/{id}',   ['uses' => 'UserController@update' , 'as' => 'updateuser']);

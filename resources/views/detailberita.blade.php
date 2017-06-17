@@ -33,7 +33,7 @@
                                     </div>
                                 @else
                                     <div class="cs-media">
-                                        <figure><img src="{{asset('public/extra-images/blog-post-thumb.jpg')}}"
+                                        <figure><img src="{{$dataBerita->image}}"
                                                      alt="" width="41" height="41"/></figure>
                                     </div>
                                 @endif
@@ -46,31 +46,34 @@
                         <div class="cs-blog-detail-text">
                             {!! $dataBerita->deskripsi !!}
                         </div>
-                        @if(auth()->user()->tipe_user !== 'admin')
-                            <div class="cs-blog-related-post">
-                                <h3>Related post</h3>
-                                <div class="row">
-                                    @foreach($relatedPost as $post)
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="blog-medium">
-                                                <div class="cs-media">
-                                                    <figure>
+                        @if(auth()->check())
+                            @if(auth()->user()->tipe_user !== "admin")
+                                <div class="cs-blog-related-post">
+                                    <h3>Related post</h3>
+                                    <div class="row">
+                                        @foreach($relatedPost as $post)
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="blog-medium">
+                                                    <div class="cs-media">
                                                         <a href="#">
-                                                            <img src="{{$post->image}}" alt="{{$post->judul}}"/>
+                                                            <img src="{{$post->images}}" alt="{{$post->judul}}"
+                                                                 style="width: 240px;"/>
                                                         </a>
-                                                    </figure>
-                                                </div>
-                                                <div class="cs-text">
-                                                    <h4><a href="#">1{{$post->judul}}</a></h4>
-                                                    <p>{{  $post->deskripsi_singkat }}</p>
+                                                    </div>
+                                                    <div class="cs-text">
+                                                        <h4><a href="#">{{$post->judul}}</a></h4>
+
+                                                        <p>{{  $post->deskripsi_singkat }}</p>
+                                                        <a href="" class="cs-color">Lihat Selegkapnya <i
+                                                                    class="icon icon-arrow-bold-right"></i></a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                            <br>
+                                        @endforeach
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="cs-comments">
-                                @if( ! empty($dataKomentar) )
+                                <div class="cs-comments">
                                     <h3>{{count($dataKomentar)}} Komentar</h3>
                                     @foreach($dataKomentar as $komentar)
                                         <ul>
@@ -101,12 +104,8 @@
                                             </li>
                                         </ul>
                                     @endforeach
-                                @else
-                                    <h6>Berita Belum ada Komentar</h6>
-                                @endif
-                            </div>
-                            <div class="cs-contact-form">
-                                @if(auth()->check())
+                                </div>
+                                <div class="cs-contact-form">
                                     <h3>leave a comment</h3>
                                     <form id="formKomentar">
                                         <div class="row">
@@ -127,14 +126,74 @@
                                             </div>
                                         </div>
                                     </form>
+                                </div>
+                            @endif
+                        @else
+                            <div class="cs-blog-related-post">
+                                <h3>Related post</h3>
+                                <div class="row">
+                                    @foreach($relatedPost as $post)
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="blog-medium">
+                                                <div class="cs-media">
+                                                    <a href="#">
+                                                        <img src="{{$post->images}}" alt="{{$post->judul}}"
+                                                             style="width: 240px;"/>
+                                                    </a>
+                                                </div>
+                                                <div class="cs-text">
+                                                    <h4><a href="#">{{$post->judul}}</a></h4>
+
+                                                    <p>{{  $post->deskripsi_singkat }}</p>
+                                                    <a href="" class="cs-color">Lihat Selegkapnya <i
+                                                                class="icon icon-arrow-bold-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="cs-comments">
+                                @if(count($dataKomentar) == [])
+                                    <h3> {{count($dataKomentar)}} Komentar</h3>
+                                    @foreach($dataKomentar as $komentar)
+                                        <ul>
+                                            <li>
+                                                <div class="thumblist">
+                                                    <ul>
+                                                        <li>
+                                                            <div class="cs-media">
+                                                                <figure>
+                                                                    @if($komentar->image == '')
+                                                                        <img src="{{asset('public/extra-images/cs-comment-1.jpg')}}"
+                                                                             alt=""/>
+                                                                    @else
+                                                                        <img src="{{$komentar->image}}" alt=""/>
+                                                                    @endif
+                                                                </figure>
+                                                            </div>
+                                                            <div class="cs-text">
+                                                                <div class="cs-title">
+                                                                    <h6>{{$komentar->name}}</h6>
+                                                                    <span>{{$komentar->created_at->diffForHumans()}}</span>
+                                                                </div>
+                                                                <p>{{$komentar->komentar}}</p>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    @endforeach
                                 @else
-                                    <strong><a href="{{route('login')}}">Tingalkan Komentar ?</a></strong>
+                                    <h3><a href="{{route('login')}}">Tinggalkan Komentar ?</a></h3>
                                 @endif
                             </div>
                         @endif
                     </div>
                     <aside class="section-sidebar col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        @if(auth()->user()->tipe_user == 'admin' && $dataBerita->status == 'moderasi')
+                        @if( auth()->check() && auth()->user()->tipe_user == 'admin' && $dataBerita->status == 'moderasi')
                             <div class="widget widget-recent-posts">
                                 <ul>
                                     <li>
@@ -153,26 +212,27 @@
                             </div>
                         @else
                             <div class="widget widget-recent-posts">
-                                <h6>You may also like</h6>
+                                <h6>Berita Lainnya</h6>
+                                <br>
                                 <ul>
                                     @forelse($otherBerita as $dataBeritaLainnya)
                                         <li>
-                                            <div class="cs-media">
-                                                <figure><a href="#">
-                                                        <img src="{{$dataBeritaLainnya->images}}"
-                                                             alt="{{$dataBeritaLainnya->judul}}" class="img-responsive" width="41" height="41"/></a>
-                                                </figure>
+                                            <div class="">
+                                                    <a href="#">
+                                                        <img src="{{$dataBeritaLainnya->images}}" class="img-responsive"/>
+                                                    </a>
                                             </div>
                                             <div class="cs-text">
-                                                <a href="#">{{$dataBeritaLainnya->judul}}</a>
+                                                <a href="#" style="font-size: 17px;">{{$dataBeritaLainnya->judul}}</a>
                                                 <span><i class="icon-clock5"></i>{{$dataBeritaLainnya->created_at->diffForHumans()}}</span>
                                             </div>
                                         </li>
                                 </ul>
                                 @empty
-                                    data kosong
+                                    Belum Ada Berita Baru , <a href="{{route('login')}}">Buat Berita Sekarang ?!</a>
                                 @endforelse
-                                <a href="#." class="cs-view-blog">View all Blogs</a>
+                                <br>
+                                <a href="{{route('berita')}}" class="cs-view-blog">View all Blogs</a>
                             </div>
                         @endif
                     </aside>
@@ -217,7 +277,7 @@
                         id: " <?= $dataBerita->id ?> ",
                         alasan: input,
                         status: 'nonaktif',
-                        slug : $('#slug').val()
+                        slug: $('#slug').val()
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrow) {
                         $('body').waitMe('hide');
@@ -254,7 +314,7 @@
                         _token: $('#token').val(),
                         id: " <?= $dataBerita->id ?> ",
                         status: 'aktif',
-                        slug : $('#slug').val()
+                        slug: $('#slug').val()
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrow) {
                         $('body').waitMe('hide');

@@ -51,7 +51,7 @@ class GrupKategoriBeritaRepository implements IGrupKategoriBeritaRepository
     public function showGrupKategoriBerita($beritaId)
     {
         return JmGrupBeritaKategori::join('jm_kategori_berita', 'jm_kategori_berita.id', '=', 'jm_grup_kategori_berita.kategori_id')
-            ->select('jm_kategori_berita.kategori', 'jm_kategori_berita.slug_kategori')
+            ->select('jm_kategori_berita.id','jm_kategori_berita.kategori', 'jm_kategori_berita.slug_kategori')
             ->where('jm_grup_kategori_berita.berita_id','=',$beritaId)
             ->get();
     }

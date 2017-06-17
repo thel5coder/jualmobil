@@ -1,4 +1,8 @@
 @extends('main')
+@section('customstyle')
+    <link href="{{asset('public/plugins/select2/css/select2.css')}}" rel="stylesheet"/>
+    <link href="{{asset('public/css/select2-bootstrap.css')}}" rel="stylesheet">
+@stop
 @section('content')
     <div class="main-section">
         <div class="page-section"
@@ -30,34 +34,52 @@
                                                            value="{{$dataBerita->judul}}">
                                                 </div>
                                             </div>
-
                                         </div>
                                         <div class="cs-field-holder">
                                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                                                <label>Gambar Utama</label>
+                                                <label>Gambar Utama</label> <br>
+                                                <em>* klik gambar untuk merubah</em>
                                             </div>
                                             <div class="col-lg-4 col-md-4">
                                                 <div class="cs-upload-img">
                                                     <div class="input-group">
-                                                   <span class="input-group-btn">
-                                                     <img src="https://dummyimage.com/1020x400/f23d52/fafafa.png&text=Edit+Featured+Image"
-                                                          id="gambarUtama" data-input="thumbnail2"
-                                                          data-preview="gambarUtama"
-                                                          style="margin-top:15px;max-height:100px;">
-                                                   </span>
+                                                        @if($dataBerita->images == '')
+                                                            <span class="input-group-btn">
+                                                                 <img src="https://dummyimage.com/1020x400/f23d52/fafafa.png&text=Edit+Featured+Image"
+                                                                      id="gambarUtama" data-input="thumbnail2"
+                                                                      data-preview="gambarUtama"
+                                                                      style="margin-top:15px;max-height:100px;">
+                                                           </span>
+                                                        @else
+                                                            <span class="input-group-btn">
+                                                                 <img src="{{$dataBerita->images}}" alt="{{$dataBerita->judul}}"
+                                                                      id="gambarUtama" data-input="thumbnail2"
+                                                                      data-preview="gambarUtama"
+                                                                      style="margin-top:15px;max-height:100px;">
+                                                           </span>
+                                                        @endif
                                                         <input id="thumbnail2" type="hidden" name="filepath"
                                                                value="{{$dataBerita->images}}">
                                                     </div>
                                                 </div>
                                             </div>
-                                            @if($dataBerita->images !== '')
-                                                <div class="col-lg-5 col-md-5">
-                                                    <span><strong>Gambar Awal</strong></span>
-                                                    <br>
-                                                    <img src="{{$dataBerita->images}}" alt="{{$dataBerita->judul}}">
-                                                </div>
-                                            @endif
                                         </div>
+
+                                        <div class="cs-field-holder">
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                <label>Kategori Berita</label>
+                                            </div>
+                                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                                                <div class="cs-field">
+                                                    <select name="kategoriBeritaId[]" id="kategoriBerita" multiple>
+                                                        @foreach($kategori as $dataKategori)
+                                                            <option value="{{$dataKategori->id}}" @if($dataKategori->kategori == $dataBerita->kategori) {{'selected'}} @endif >{{$dataKategori->kategori}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="cs-field-holder">
                                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                                 <label>Deskripsi Singkat</label>
@@ -116,9 +138,15 @@
     </div>
 @stop
 @section('customscript')
+    <script type="text/javascript" src="{{asset('public/plugins/select2/js/select2.js')}}"></script>
     <script type="text/javascript">
         var domain = "jualmobil";
         $(document).ready(function () {
+
+            $('select').select2({
+                tags : true,
+                theme: 'bootstrap'
+            });
 
             $('#gambarUtama').filemanager('image', {prefix: domain});
 
@@ -175,7 +203,7 @@
                         success: function (s) {
                             if (s.isSuccess) {
                                 //location.reload();
-                                window.location = "<?= url('/berita')?>";
+                                window.location = "<?= url('/backend/berita')?>";
                             } else {
                                 $('body').waitMe('hide');
                                 var errorMessagesCount = s.message.length;

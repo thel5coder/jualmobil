@@ -10,6 +10,7 @@ namespace App\Repositories\Actions;
 
 
 use App\Models\JmBerita;
+use App\Models\JmGrupBeritaKategori;
 use App\Repositories\Contracts\IBeritaRepository;
 use App\Repositories\Contracts\Pagination\PaginationParam;
 use App\Repositories\Contracts\Pagination\PaginationResult;
@@ -60,7 +61,7 @@ class BeritaRepository implements IBeritaRepository
     {
         return JmBerita::join('users','users.id','=','jm_berita.user_id')
                 ->select('jm_berita.id','jm_berita.judul','jm_berita.slug','jm_berita.deskripsi_singkat','jm_berita.images','jm_berita.created_at','users.name')
-                ->get();
+                ->paginate(4);
     }
 
     public function paginationData(PaginationParam $param)
@@ -151,7 +152,8 @@ class BeritaRepository implements IBeritaRepository
             ->select('jm_berita.*','users.name','users.image')
             ->orderBy('jm_berita.id','desc')
             ->where('users.id', '=', $userId)
-            ->take(2);
+            ->take(2)
+            ->get();
     }
 
     public function otherBerita()
@@ -166,4 +168,16 @@ class BeritaRepository implements IBeritaRepository
         $setStatus->status = $input['status'];
         return $setStatus->save();
     }
+
+    public function showToBanner()
+    {
+        return JmBerita::orderBy('id','desc')->take(4)->get();
+    }
+
+    public function showPopularBerita()
+    {
+        return JmBerita::orderBy('views','desc')->take(6)->get();
+    }
+
+
 }

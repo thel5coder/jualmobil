@@ -131,6 +131,7 @@
             $('select').select2({
                 theme: 'bootstrap'
             });
+
             $('#gambarUtama').filemanager('image', {prefix: domain});
 
             $('#formBerita').validate({

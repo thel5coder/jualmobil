@@ -10,26 +10,40 @@
 <body class="wp-automobile single-post">
 <div class="wrapper">
     @include('partials.header')
-    <div class="cs-subheader">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="cs-subheader-text">
-                        <h2>Blog Medium</h2>
-                        <div class="breadcrumbs">
-                            <ul>
-                                <li><a href="#">Home</a></li>
-                                <li class="active"><a href="#">Latest Blog</a></li>
-                                <li><a href="#">Contact us</a></li>
-                            </ul>
+    <div class="main-section">
+        <div class="page-section" style="background: rgba(237, 240, 245, 1); padding-top:70px; padding-bottom:70px;">
+            <div class="container">
+                <div class="row">
+                    <div class="section-fullwidth col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <!--Element Section Start-->
+                            <div class="cs-auto-listing cs-auto-box">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="cs-element-title">
+                                        <h2>Berita Terbaru</h2>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <ul class="cs-auto-box-slider row">
+                                        @foreach($beritaBanner as $banner)
+                                            <li class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                <div class="cs-media"><span></span>
+                                                    <figure><a href="#"> <img src="{{$banner->images}}" alt=""
+                                                                              class="img-responsive"> </a></figure>
+                                                    <div class="caption-text"><a href="#"><h2> {{$banner->judul}} </h2>
+                                                        </a></div>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Element Section End-->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Main Start -->
-    <div class="main-section">
         <div class="page-section" style="padding-top:20px;">
             <div class="container">
                 <div class="row">
@@ -55,8 +69,8 @@
                                                 </div>
                                                 <ul class="cs-auto-categories">
                                                     @foreach($kategori[$dataBerita->id] as $dataKategori)
-
-                                                        <li> <a href="#" class="cs-color">{{$dataKategori->kategori}}</a></li>
+                                                        <li><a href="#" class="cs-color">{{$dataKategori->kategori}}</a>
+                                                        </li>
                                                     @endforeach
                                                 </ul>
 
@@ -70,6 +84,7 @@
                                         </div>
                                     </div>
                                 @endforeach
+                                {!! $berita->render() !!}
                             </div>
                         </div>
                     </div>
@@ -81,22 +96,26 @@
                             </div>
                         </div>
                         <div class="widget widget-recent-posts">
-                            <h6>Recent Posts</h6>
-                            <ul>
-                                <li>
-
-                                    <div class="cs-media">
-                                        <figure><a href="#"><img src="assets/extra-images/recent-widget-1.jpg" alt=""/></a>
-                                        </figure>
-                                    </div>
-                                    <div class="cs-text">
-                                        <a href="#">Nissan Rogue SV AWD Review: best So Roguish What Price
-                                            Supercar-dom?</a>
-                                        <span><i class="icon-clock5"></i>3 Days Ago</span>
-                                    </div>
-                                </li>
-                            </ul>
-                            <a href="#." class="cs-view-blog">View all Blogs</a>
+                            <h6>Berita Terpopuler</h6>
+                            <br>
+                            @foreach($popularBerita as $popular)
+                                <ul>
+                                    <li>
+                                        <div class="cs-media">
+                                            <a href="#">
+                                                <img src="{{$popular->images}}" alt=""
+                                                     class="img-circle img-responsive" width="41" height="42"/>
+                                            </a>
+                                        </div>
+                                        <div class="cs-text">
+                                            <a href="#">{{$popular->judul}}</a>
+                                            <span><i class="icon-clock5"></i>{{$popular->created_at->diffForHumans()}}</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            @endforeach
+                            <br>
+                            <a href="{{route('berita')}}" class="cs-view-blog">View all Blogs</a>
                         </div>
                     </aside>
                 </div>
@@ -109,7 +128,7 @@
                         <div class="cs-ad" style="text-align:center; padding:55px 0 32px;">
                             <div class="cs-media">
                                 <figure>
-                                    <img src="assets/extra-images/cs-ad-img.jpg" alt=""/>
+                                    <img src="public/extra-images/cs-ad-img.jpg" alt=""/>
                                 </figure>
                             </div>
                         </div>
