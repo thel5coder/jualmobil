@@ -62,7 +62,7 @@
                                         <li><a data-toggle="tab" href="#menu3">Spesifikasi</a></li>
                                     </ul>
                                     <div class="tab-content">
-
+                                        
                                     </div>
                                 </div>
                                 <!--Tabs End-->
@@ -137,9 +137,9 @@
                         </div>
                         <div class="widget widget-tags">
                             <h6>Tag Cloud</h6>
-                            @foreach($tagKategori as $tagKategoriCloud)
-                            <a href="{{  route('kategoriSlug', ['kategori' => $tagKategoriCloud->slug_kategori]) }}">{{$tagKategoriCloud->kategori}}</a>
-                                @endforeach
+                            @foreach($kategori as $tagKategori)
+                                <a href="{{route('kategoriSlug',['kategori' => $tagKategori ])}}">{{$tagKategori->kategori}}</a>
+                            @endforeach
                         </div>
                     </aside>
                 </div>

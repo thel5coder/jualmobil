@@ -10,6 +10,7 @@ namespace App\Services;
 
 
 use App\Repositories\Contracts\IKategoriRepository;
+use App\Services\Response\ServiceResponseDto;
 
 class KategoriService extends BaseService
 {
@@ -24,4 +25,5 @@ class KategoriService extends BaseService
     {
         return $this->getAllObject($this->kategoriRepository);
     }
+
 }

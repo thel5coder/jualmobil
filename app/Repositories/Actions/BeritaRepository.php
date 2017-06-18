@@ -52,7 +52,7 @@ class BeritaRepository implements IBeritaRepository
     public function read($slug)
     {
         return JmBerita::join('users','users.id','=','jm_berita.user_id')
-            ->select('jm_berita.*','users.name','users.image')
+            ->select('jm_berita.*','users.name','users.image','users.email')
             ->where('slug', '=', $slug)
             ->first();
     }
@@ -61,7 +61,9 @@ class BeritaRepository implements IBeritaRepository
     {
         return JmBerita::join('users','users.id','=','jm_berita.user_id')
                 ->select('jm_berita.id','jm_berita.judul','jm_berita.slug','jm_berita.deskripsi_singkat','jm_berita.images','jm_berita.created_at','users.name')
-                ->paginate(4);
+                ->where('status','!=','moderasi')
+                ->take(3)
+                ->get();
     }
 
     public function paginationData(PaginationParam $param)
@@ -152,16 +154,17 @@ class BeritaRepository implements IBeritaRepository
             ->select('jm_berita.*','users.name','users.image')
             ->orderBy('jm_berita.id','desc')
             ->where('users.id', '=', $userId)
+            ->where('status','!=','moderasi')
             ->take(2)
             ->get();
     }
 
     public function otherBerita()
     {
-        return JmBerita::orderBy('id','desc')->take(3)->get();
+        return JmBerita::orderBy('id','desc')->where('status','!=','moderasi')->take(3)->get();
     }
 
-  public function setStatusBerita($input)
+    public function setStatusBerita($input)
     {
         $setStatus = JmBerita::find($input['id']);
         $setStatus->alasan_penolakan = $input['alasan'];
@@ -171,13 +174,41 @@ class BeritaRepository implements IBeritaRepository
 
     public function showToBanner()
     {
-        return JmBerita::orderBy('id','desc')->take(4)->get();
+        return JmBerita::orderBy('id','desc')->where('status','!=','moderasi')->take(4)->get();
     }
 
     public function showPopularBerita()
     {
-        return JmBerita::orderBy('views','desc')->take(6)->get();
+        return JmBerita::orderBy('views','desc')->where('status','!=','moderasi')->take(6)->get();
     }
 
+    public function GetUserPost($userId)
+    {
+        return JmBerita::join('users','users.id','=','jm_berita.user_id')
+            ->select('users.name','jm_berita.judul')
+            ->where('jm_berita.user_id','=',$userId)
+            ->get();
+    }
 
+    public function showBySlugKategori($slug){
+        return JmBerita::join('users','users.id','=','jm_berita.user_id')
+            ->join('jm_grup_kategori_berita','jm_grup_kategori_berita.berita_id','=','jm_berita.id')
+            ->join('jm_kategori_berita','jm_kategori_berita.id','=','jm_grup_kategori_berita.kategori_id')
+            ->select('jm_berita.id','jm_berita.judul','jm_berita.slug','jm_berita.deskripsi_singkat','jm_berita.images','jm_berita.created_at','users.name')
+            ->where('status','!=','moderasi')
+            ->where('jm_kategori_berita.slug_kategori','=',$slug)
+            ->paginate(4);
+    }
+
+    public function showBeritaByKategori($kategori)
+    {
+        return JmBerita::join('users','users.id','=','jm_berita.user_id')
+            ->join('jm_grup_kategori_berita','jm_grup_kategori_berita.berita_id','=','jm_berita.id')
+            ->join('jm_kategori_berita','jm_kategori_berita.id','=','jm_grup_kategori_berita.kategori_id')
+            ->select('jm_berita.id','jm_berita.judul','jm_berita.slug','jm_berita.deskripsi_singkat','jm_berita.images','jm_berita.created_at','users.name')
+            ->where('status','!=','moderasi')
+            ->where('jm_kategori_berita.kategori','=',$kategori)
+            ->take(3)
+            ->get();
+    }
 }

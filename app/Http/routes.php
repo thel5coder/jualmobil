@@ -23,6 +23,7 @@ Route::get('/user-confirmation/{token}/{id}', ['uses' => 'UserController@confirm
 
 Route::get('berita',            ['uses' => 'BeritaController@showAll', 'as' => 'berita']);
 Route::get('berita/{slug}',     ['uses' => 'BeritaController@show' ,'as' => 'beritaSlug']);
+Route::get('berita/kategori/{kategori}', ['uses' => 'BeritaController@showByKategoriSlug' ,'as'=> 'kategoriSlug']);
 
 Route::get('iklan',             ['uses' => 'ListingMobilController@showAll' , 'as' => 'iklan']);
 Route::get('iklan/{id}',        ['uses' => 'ListingMobilController@show' , 'as' => 'iklanId']);
@@ -49,7 +50,7 @@ Route::group(['middleware' => 'auth','prefix'=>'backend'], function () {
 
     Route::get('/berita',            ['uses' => 'BeritaController@index' , 'as' => 'beritaBackend']);
     Route::post('/berita',                  ['uses' => 'BeritaController@pagination' , 'as' => 'paginationBerita']);
-    Route::get('/berita/read/{slug}',         ['uses' => 'BeritaController@read' , 'as' => 'readBerita']);
+    Route::get('/berita/read/{slug}',       ['uses' => 'BeritaController@read' , 'as' => 'readBerita']);
     Route::get('/berita/create',            ['uses' => 'BeritaController@create' , 'as' => 'formBerita']);
     Route::post('/berita/create',           ['uses' => 'BeritaController@store' , 'as' => 'postBerita']);
     Route::get('/berita/edit/{slug}',       ['uses' => 'BeritaController@edit' , 'as' => 'berita.edit']);

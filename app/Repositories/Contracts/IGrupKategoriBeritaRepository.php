@@ -12,4 +12,5 @@ namespace App\Repositories\Contracts;
 interface IGrupKategoriBeritaRepository extends IBaseRepository
 {
     public function showGrupKategoriBerita($beritaId);
+    public function showByKategoriSlug($slug);
 }

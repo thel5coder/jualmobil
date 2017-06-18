@@ -12,9 +12,13 @@
                 <div class="cs-main-nav pull-right">
                     <nav class="main-navigation">
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Cari Mobil</a></li>
-                            <li><a href="#">Pasang Iklan</a>
+                            <li><a href="{{url('/')}}">Home</a></li>
+                            <li><a href="{{route('iklan')}}">Cari Mobil</a></li>
+                            @if(auth()->check())
+                                <li><a href="{{route('formBerita')}}">Pasang Iklan</a>
+                            @else
+                                <li><a href="{{route('login')}}">Pasang Iklan</a>
+                            @endif
                             <li><a href="{{route('berita')}}">Berita</a></li>
                             <li class="cs-user-option">
                                 <div class="cs-login">
@@ -38,7 +42,7 @@
                                         </div>
                                     @else
                                         <a href="{{route('login')}}" class="cs-bgcolor btn-form" aria-hidden="true"><i
-                                                    class="icon-plus"></i> Sell Car</a>
+                                                    class="icon-plus"></i> Pasang Iklan </a>
                                     @endif
                                 </div>
                             </li>

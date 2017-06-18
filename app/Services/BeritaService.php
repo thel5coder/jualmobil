@@ -73,7 +73,17 @@ class BeritaService extends BaseService
             'images' => $input['images']
         ];
 
-        if (!$this->beritaRepository->update($param)) {
+        if ($this->beritaRepository->update($param)) {
+            for ($i = 0; $i < count($input['kategori']); $i++) {
+                $param = [
+                    'beritaId' => $input['id'],
+                    'kategoriId' => $input['kategori'][$i]
+                ];
+                $this->grupKategoriBeritaRepository->create($param);
+            }
+        }
+        else
+        {
             $message = ['gagal merubah data'];
             $response->addErrorMessage($message);
         }
@@ -86,6 +96,24 @@ class BeritaService extends BaseService
         $response = new ServiceResponseDto();
 
         $berita = $this->beritaRepository->showAll();
+        $datakategori = array();
+        foreach ($berita as $dataBerita) {
+            $datakategori[$dataBerita->id] = $this->grupKategoriBeritaRepository->showGrupKategoriBerita($dataBerita->id);
+        }
+        $result = [
+            'berita' => $berita,
+            'kategori' => $datakategori
+        ];
+
+        $response->setResult($result);
+
+        return $response;
+    }
+
+    public function showAllBySlugKategori($slug){
+        $response = new ServiceResponseDto();
+
+        $berita = $this->beritaRepository->showBySlugKategori($slug);
         $datakategori = array();
         foreach ($berita as $dataBerita) {
             $datakategori[$dataBerita->id] = $this->grupKategoriBeritaRepository->showGrupKategoriBerita($dataBerita->id);
@@ -148,7 +176,14 @@ class BeritaService extends BaseService
     public function delete($id)
     {
         $response = new ServiceResponseDto();
-        if (!$this->beritaRepository->delete($id)) {
+        if ($this->deleteObject($this->beritaRepository,$id)->isSuccess()) {
+            if ( ! $this->deleteObject($this->grupKategoriBeritaRepository,$id)->isSuccess())
+            {
+                $message = ['gagal mengahpus grup kategori iklan'];
+                $response->addErrorMessage($message);
+            }
+        }
+        else{
             $message = ['gagal menghapus data'];
             $response->addErrorMessage($message);
         }
@@ -170,7 +205,7 @@ class BeritaService extends BaseService
             'status' => $input['status']
         ];
         $response->setResult($this->beritaRepository->setStatusBerita($param));
-        Event::fire(new  ResultModerationBerita($input['slug'], auth()->user()->name, auth()->user()->email, $alasan));
+        Event::fire(new  ResultModerationBerita($input['slug'], $input['name'], $input['email'], $alasan));
         return $response;
     }
 
@@ -190,6 +225,14 @@ class BeritaService extends BaseService
         $response->setResult($this->beritaRepository->showPopularBerita());
 
         return $response;
+    }
 
+    public function showBeritaByKategori($kategori)
+    {
+        $response = new ServiceResponseDto();
+
+        $response->setResult($this->beritaRepository->showBeritaByKategori($kategori));
+
+        return $response;
     }
 }

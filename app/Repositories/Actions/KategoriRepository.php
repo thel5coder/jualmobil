@@ -9,6 +9,7 @@
 namespace App\Repositories\Actions;
 
 use App\Models\JmKategori;
+use App\Models\JmGrupBeritaKategori;
 use App\Repositories\Contracts\IKategoriRepository;
 use App\Repositories\Contracts\Pagination\PaginationParam;
 
@@ -44,4 +45,6 @@ class KategoriRepository implements IKategoriRepository
     {
         // TODO: Implement paginationData() method.
     }
+
+
 }

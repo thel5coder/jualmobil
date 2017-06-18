@@ -1,8 +1,4 @@
 @extends('main')
-@section('customstyle')
-    <link href="{{asset('public/plugins/select2/css/select2.css')}}" rel="stylesheet"/>
-    <link href="{{asset('public/css/select2-bootstrap.css')}}" rel="stylesheet">
-@stop
 @section('content')
     <div class="main-section">
         <div class="page-section"
@@ -19,7 +15,7 @@
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="cs-user-section-title">
-                                            <h4>Update Berita</h4>
+                                            <h4>Review Berita - <em>{{$dataBerita->name}}</em> {{$dataBerita->id}}</h4>
                                         </div>
                                     </div>
                                     <br>
@@ -30,15 +26,13 @@
                                             </div>
                                             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                                                 <div class="cs-field">
-                                                    <input type="text" name="judul" id="judul"
-                                                           value="{{$dataBerita->judul}}">
+                                                    <h6>{{$dataBerita->judul}}</h6>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="cs-field-holder">
                                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                                 <label>Gambar Utama</label> <br>
-                                                <em>* klik gambar untuk merubah</em>
                                             </div>
                                             <div class="col-lg-4 col-md-4">
                                                 <div class="cs-upload-img">
@@ -46,21 +40,15 @@
                                                         @if($dataBerita->images == '')
                                                             <span class="input-group-btn">
                                                                  <img src="https://dummyimage.com/1020x400/f23d52/fafafa.png&text=Edit+Featured+Image"
-                                                                      id="gambarUtama" data-input="thumbnail2"
-                                                                      data-preview="gambarUtama"
                                                                       style="margin-top:15px;max-height:100px;">
                                                            </span>
                                                         @else
                                                             <span class="input-group-btn">
                                                                  <img src="{{$dataBerita->images}}"
                                                                       alt="{{$dataBerita->judul}}"
-                                                                      id="gambarUtama" data-input="thumbnail2"
-                                                                      data-preview="gambarUtama"
                                                                       style="margin-top:15px;max-height:100px;">
                                                            </span>
                                                         @endif
-                                                        <input id="thumbnail2" type="hidden" name="filepath"
-                                                               value="{{$dataBerita->images}}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -72,14 +60,11 @@
                                             </div>
                                             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                                                 <div class="cs-field">
-                                                    <select name="kategoriBeritaId[]" id="kategoriBerita" multiple>
-                                                        @foreach($dataKategori as $kategori)
-                                                            <option value="{{$kategori->id}}"
-                                                            @foreach($kategoriSelectedBerita as $selected)
-                                                                @if($kategori->kategori == $selected->kategori) {{'selected'}} @endif
-                                                             @endforeach> {{$kategori->kategori}}</option>
+                                                    <ul>
+                                                        @foreach($kategori as $dataKategoriBerita)
+                                                            <li>{{$dataKategoriBerita->kategori}}</li>
                                                         @endforeach
-                                                    </select>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -90,8 +75,7 @@
                                             </div>
                                             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                                                 <div class="cs-field">
-                                                    <textarea name="deskripsiSingkat"
-                                                              id="deskripsiSingkat">{{$dataBerita->deskripsi_singkat}}</textarea>
+                                                    <p>{{$dataBerita->deskripsi_singkat}}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,21 +84,33 @@
                                                 <label>Deskripsi</label>
                                             </div>
                                             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                                                <textarea id="content"
-                                                          name="deskripsi">{{$dataBerita->deskripsi}}</textarea>
+                                                {!! $dataBerita->deskripsi !!}
                                             </div>
                                         </div>
                                         <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
                                         <input type="hidden" id="id" value="{{$dataBerita->id}}">
-                                        <div class="cs-field-holder">
-                                            <div class="col-lg-4 col-md-4 col-sm-12 col-md-12">
-                                                <div class="cs-field">
-                                                    <div class="cs-btn-submit">
-                                                        <input type="submit" value="Update & Simpan">
+                                        <input type="hidden" id="slug" value="{{$dataBerita->slug}}">
+                                        <input type="hidden" id="email" value="{{$dataBerita->email}}">
+                                        <input type="hidden" id="name" value="{{$dataBerita->name}}">
+                                        @if(auth()->check() && auth()->user()->tipe_user == 'admin' && $dataBerita->status == 'moderasi')
+                                            <div class="cs-field-holder">
+                                                @if(auth()->user()->id == 4)
+                                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                        <a class="btn btn-primary" id="btnAccept"
+                                                           title="Aktifkan Berita Ini"><i class="fa fa-check"></i></a>
+                                                        <a class="btn btn-danger" id="btnRejct" title="Tolak Betia Ini"><i
+                                                                    class="fa fa-close"></i></a>
+                                                        @if(auth()->user()->id == $dataBerita->user_id)
+                                                            <a class="btn btn-warning" title="Hapus Beita Ini ?!"
+                                                               onclick="deleteBerita('{{base64_encode($dataBerita->id)}}')"
+                                                               id="tombolDelete"><i class="icon-trash-o"></i></a>
+                                                        @endif
                                                     </div>
-                                                </div>
+                                                @endif
                                             </div>
-                                        </div>
+                                        @else
+                                            <h6>Berita Sudah Direview</h6>
+                                        @endif
                                     </form>
                                 </div>
                             </div>
@@ -142,64 +138,29 @@
     </div>
 @stop
 @section('customscript')
-    <script type="text/javascript" src="{{asset('public/plugins/select2/js/select2.js')}}"></script>
     <script type="text/javascript">
-        var domain = "jualmobil";
         $(document).ready(function () {
 
-            $('select').select2({
-                tags: true,
-                theme: 'bootstrap'
-            });
-
-            $('#gambarUtama').filemanager('image', {prefix: domain});
-
-            $('#formUpdateBerita').validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "",
-                rules: false,
-                messages: false,
-
-                invalidHandler: function (event, validator) { //display error alert on form submit
-
-                },
-
-                highlight: function (element) { // hightlight error inputs
-                    $(element)
-                            .closest('.form-group').addClass('has-error'); // set error class to the control group
-                },
-
-                success: function (label) {
-                    label.closest('.form-group').removeClass('has-error');
-                    label.remove();
-                },
-
-                errorPlacement: function (error, element) {
-                    if (element.attr("name") == "tnc") { // insert checkbox errors after the container
-                        error.insertAfter($('#register_tnc_error'));
-                    } else if (element.closest('.input-icon').size() === 1) {
-                        error.insertAfter(element.closest('.input-icon'));
-                    } else {
-                        error.insertAfter(element);
-                    }
-                },
-
-                submitHandler: function (form) {
-                    runWaitMe('body', 'roundBounce', 'Merubah Data...');
-                    var content = CKEDITOR.instances.content.getData();
+            $('#btnAccept').click(function () {
+                swal({
+                    title: 'Aktifkan Iklan ',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aktfkan!'
+                }).then(function () {
+                    runWaitMe('body', 'roundBounce', 'Set Aktif Data...');
                     $.ajax({
-                        url: "<?= route('berita.update')?>",
-                        method: "POST",
+                        url: "<?= url('backend/berita/setstatusberita')?>",
+                        method: 'POST',
                         data: {
                             _token: $('#token').val(),
-                            id: $('#id').val(),
-                            judul: $('#judul').val(),
-                            images: $('#thumbnail2').val(),
-                            kategori : $('#kategoriBerita').select2().val(),
-                            deskripsiSingkat: $('#deskripsiSingkat').val(),
-                            deskripsi: content
+                            id: " <?= $dataBerita->id ?> ",
+                            status: 'aktif',
+                            slug: $('#slug').val(),
+                            email : $('#email').val(),
+                            name : $('#name').val()
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrow) {
                             $('body').waitMe('hide');
@@ -207,8 +168,7 @@
                         },
                         success: function (s) {
                             if (s.isSuccess) {
-                                //location.reload();
-                                window.location = "<?= url('/backend/berita')?>";
+                                window.location.reload()
                             } else {
                                 $('body').waitMe('hide');
                                 var errorMessagesCount = s.message.length;
@@ -217,9 +177,86 @@
                                 }
                             }
                         }
-                    })
-                }
+                    });
+                });
             });
+
+            $('#btnRejct').click(function () {
+                swal({
+                    title: 'Reject Iklan Ini ?! ',
+                    text: "Tulis alasan mengapa iklan ditolak",
+                    type: 'warning',
+                    input: 'textarea',
+                    showCancelButton: true,
+                    confirmButtonText: 'Kirim',
+                    showLoaderOnConfirm: true,
+                }).then(function (input) {
+                    runWaitMe('body', 'roundBounce', 'Set reject Berita...');
+                    $.ajax({
+                        url: "<?= url('backend/berita/setstatusberita')?>",
+                        method: "POST",
+                        data: {
+                            _token: $('#token').val(),
+                            id: " <?= $dataBerita->id ?> ",
+                            alasan: input,
+                            status: 'nonaktif',
+                            slug: $('#slug').val(),
+                            email : $('#email').val(),
+                            name : $('#name').val()
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrow) {
+                            $('body').waitMe('hide');
+                            notificationMessage(errorThrow, 'error');
+                        },
+                        success: function (s) {
+                            if (s.isSuccess) {
+                                window.location.reload()
+                            } else {
+                                $('body').waitMe('hide');
+                                var errorMessagesCount = s.message.length;
+                                for (var i = 0; i < errorMessagesCount; i++) {
+                                    notificationMessage(s.message[i], 'error');
+                                }
+                            }
+                        }
+                    });
+                });
+            });
+
         });
+        function deleteBerita(id) {
+            swal({
+                title: 'Konfirmasi ',
+                text: "Yakin ingin menghapus iklan ini?!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus!'
+            }).then(function () {
+                runWaitMe('body', 'roundBounce', 'Mengapus Data...');
+                $.ajax({
+                    url: "<?= url('backend/berita/delete')?>/" + id,
+                    method: 'GET',
+                    error: function (XMLHttpRequest, textStatus, errorThrow) {
+                        $('body').waitMe('hide');
+                        notificationMessage(errorThrow, 'error');
+                    },
+                    success: function (s) {
+                        if (s.isSuccess) {
+                            window.location = "<?= route('beritaBackend') ?>"
+                        } else {
+                            $('body').waitMe('hide');
+                            var errorMessagesCount = s.message.length;
+                            for (var i = 0; i < errorMessagesCount; i++) {
+                                notificationMessage(s.message[i], 'error');
+                            }
+                        }
+                    }
+                });
+            });
+
+            return false;
+        }
     </script>
 @stop
