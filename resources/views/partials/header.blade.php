@@ -4,7 +4,7 @@
             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                 <div class="cs-logo">
                     <div class="cs-media">
-                        <figure><a href="#s"><img src="{{asset('public/images/cs-logo.png')}}" alt=""/></a></figure>
+                        <figure><a href="{{url('/')}}"><img src="{{asset('public/images/cs-logo.png')}}" alt=""/></a></figure>
                     </div>
                 </div>
             </div>
@@ -16,8 +16,6 @@
                             <li><a href="{{route('iklan')}}">Cari Mobil</a></li>
                             @if(auth()->check())
                                 <li><a href="{{route('formBerita')}}">Pasang Iklan</a>
-                            @else
-                                <li><a href="{{route('login')}}">Pasang Iklan</a>
                             @endif
                             <li><a href="{{route('berita')}}">Berita</a></li>
                             <li class="cs-user-option">

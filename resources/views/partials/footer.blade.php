@@ -18,12 +18,14 @@
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="widget widget-categores">
                         <div class="widget-section-title">
-                            <h6 style="color:#fff !important">Berita Mobil</h6>
+                            <h6 style="color:#fff !important">Kategori Berita Mobil</h6>
                         </div>
                         <ul>
-                            <li><a href="#">Berita Mobil</a></li>
-                            <li><a href="#">Review Mobil</a></li>
-                            <li><a href="#">Tips Mobil</a></li>
+                            <li><a href="{{route('kategoriSlug', ['kategori' => 'berita'])}}">Berita Mobil</a></li>
+                            <li><a href="{{route('kategoriSlug', ['kategori' => 'review'])}}">Review Mobil</a></li>
+                            <li><a href="{{route('kategoriSlug', ['kategori' => 'tips'])}}">Tips Mobil</a></li>
+                            <li><a href="{{route('kategoriSlug', ['kategori' => 'galeri'])}}">Galeri Mobil</a></li>
+                            <li><a href="{{route('kategoriSlug', ['kategori' => 'spesifikasi'])}}">Spesifikasi Mobil</a></li>
                         </ul>
                     </div>
                 </div>
