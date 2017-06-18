@@ -46,14 +46,10 @@
             <div class="container">
                 <div class="row">
 
+
                     <div class="section-content col-lg-9 col-md-9 col-sm-12 col-xs-12">
                         <div class="row">
-                            <div class="col-lg-12 col-md-12 co-sm-12 col-xs-12"><!--Element Section Start-->
-                                <div class="cs-section-title">
-                                    <h3 style="text-transform:uppercase !important;">Kategori Berita</h3>
-                                </div>
-                                <!--Tabs Start-->
-
+                            <div class="col-lg-12 col-md-12 co-sm-12 col-xs-12">
                                 <div class="cs-tabs full-width">
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a data-toggle="tab" href="#home">Review</a></li>
@@ -62,7 +58,119 @@
                                         <li><a data-toggle="tab" href="#menu3">Spesifikasi</a></li>
                                     </ul>
                                     <div class="tab-content">
-
+                                        <div id="home" class="tab-pane fade in active">
+                                            <div class="row">
+                                                @foreach($kategoriReview as $review)
+                                                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
+                                                        <div class="auto-listing auto-grid">
+                                                            <div class="cs-media">
+                                                                <figure><img src="{{$review->images}}" alt="#"/>
+                                                                </figure>
+                                                            </div>
+                                                            <div class="auto-text"><span
+                                                                        class="cs-categories">{{$review->name}}</span>
+                                                                <div class="post-title">
+                                                                    <h6>
+                                                                        <a href="{{route('beritaSlug' , [ 'slug' => $review->slug] )}}">{{$review->judul}}</a>
+                                                                    </h6>
+                                                                    <div class="auto-price">
+                                                                        <em>{{ str_limit($review->deskripsi_singkat,100,'more...')  }}</em>
+                                                                    </div>
+                                                                </div>
+                                                                <a href="{{route('beritaSlug' , [ 'slug' => $review->slug] )}}"
+                                                                   class="View-btn">View Detail<i
+                                                                            class=" icon-arrow-long-right"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <div id="menu1" class="tab-pane fade">
+                                            <div class="row">
+                                                @foreach($kategoriGaleri as $galeri)
+                                                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
+                                                        <div class="auto-listing auto-grid">
+                                                            <div class="cs-media">
+                                                                <figure>
+                                                                    <img src="{{ $galeri->images }}" alt="#"/></figure>
+                                                            </div>
+                                                            <div class="auto-text"><span
+                                                                        class="cs-categories">{{ $galeri->user }}</span>
+                                                                <div class="post-title">
+                                                                    <h6>
+                                                                        <a href="{{route('beritaSlug' , [ 'slug' => $galeri->slug] )}}">{{ $galeri->judul }}</a>
+                                                                    </h6>
+                                                                    <div class="auto-price">
+                                                                        <em>{{  str_limit($galeri->deskripsi_singkat , 100 , ' more...') }}</em>
+                                                                    </div>
+                                                                </div>
+                                                                <a href="{{route('beritaSlug' , [ 'slug' => $galeri->slug] )}}"
+                                                                   class="View-btn">View Detail<i
+                                                                            class=" icon-arrow-long-right"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <div id="menu2" class="tab-pane fade">
+                                            <div class="row">
+                                                @foreach($kategoriTips as $tips)
+                                                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
+                                                        <div class="auto-listing auto-grid">
+                                                            <div class="cs-media">
+                                                                <figure><img src="{{$tips->images}}" alt="#"/></figure>
+                                                            </div>
+                                                            <div class="auto-text"><span
+                                                                        class="cs-categories">{{ $tips->name }}</span>
+                                                                <div class="post-title">
+                                                                    <h6>
+                                                                        <a href="{{route('beritaSlug' , [ 'slug' => $tips->slug] )}}">{{ $tips->judul }}</a>
+                                                                    </h6>
+                                                                    <div class="auto-price">
+                                                                        <em>{{ str_limit($tips->deskripsi_singkat ,100 ,' more...') }}</em>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="cs-checkbox">
+                                                                </div>
+                                                                <a href="{{ route('beritaSlug' , [ 'slug' => $tips->slug] )}}"
+                                                                   class="View-btn">View Detail<i
+                                                                            class=" icon-arrow-long-right"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <div id="menu3" class="tab-pane fade">
+                                            <div class="row">
+                                                @foreach( $kategoriSpesifikasi as $spesifikasi )
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="auto-listing auto-grid">
+                                                            <div class="cs-media">
+                                                                <figure><img src="{{$spesifikasi->images}}" alt="#"/>
+                                                                </figure>
+                                                            </div>
+                                                            <div class="auto-text"><span
+                                                                        class="cs-categories">{{ $spesifikasi->name }}</span>
+                                                                <div class="post-title">
+                                                                    <h6>
+                                                                        <a href="{{ route('beritaSlug' , ['slug' => $spesifikasi->slug ]) }}"></a> {{$spesifikasi->judul}}
+                                                                    </h6>
+                                                                    <div class="auto-price">
+                                                                        <em>{{ str_limit($spesifikasi->deskripsi_singkat,100,' more...') }}</em>
+                                                                    </div>
+                                                                </div>
+                                                                <a href="{{ route('beritaSlug' , ['slug' => $spesifikasi->slug ]) }}"
+                                                                   class="View-btn">View Detail<i
+                                                                            class=" icon-arrow-long-right"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!--Tabs End-->
@@ -137,9 +245,9 @@
                         </div>
                         <div class="widget widget-tags">
                             <h6>Tag Cloud</h6>
-                            @foreach($tagKategori as $tagKategoriCloud)
-                            <a href="{{  route('kategoriSlug', ['kategori' => $tagKategoriCloud->slug_kategori]) }}">{{$tagKategoriCloud->kategori}}</a>
-                                @endforeach
+                            @foreach($tagKategori as $Kategori)
+                                <a href="{{route('kategoriSlug',['kategori' => $Kategori ])}}">{{$Kategori->kategori}}</a>
+                            @endforeach
                         </div>
                     </aside>
                 </div>
