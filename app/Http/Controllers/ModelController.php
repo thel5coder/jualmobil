@@ -23,7 +23,8 @@ class ModelController extends Controller
     public function create()
     {
         $dataMerks = $this->merkService->showAll()->getResult();
-        return view('tambahmodel',compact('dataMerks'));
+        $dataModels = $this->modelService->showWithPaginate()->getResult();
+        return view('tambahmodel',compact('dataMerks','dataModels'));
     }
 
     public function store()
@@ -39,4 +40,9 @@ class ModelController extends Controller
         return response()->json($result->getResult());
     }
 
+    public function delete($id)
+    {
+        $result = $this->modelService->delete($id);
+        return $this->getJsonResponse($result);
+    }
 }

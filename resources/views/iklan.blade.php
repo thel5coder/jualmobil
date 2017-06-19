@@ -226,16 +226,18 @@
                                             @foreach($dataImageIklan[$iklan->id] as $image)
                                                 @if($image->images != "" )
                                                 <figure>
-                                                    <img src="{{$image->images}}" alt="#" width="255" height="220"/>
+                                                    <a href="{{ route('iklanId',[ 'id' => base64_encode($iklan->id)]) }}">
+                                                        <img src="{{$image->images}}" alt="#" width="255" height="220"/>
+                                                    </a>
                                                 </figure>
                                                 @endif
                                             @endforeach
                                         </div>
                                         <div class="auto-text">
-                                            <span class="cs-categories"><a href="#">{{$iklan->name}}</a></span>
+                                            <span class="cs-categories">{{$iklan->name}}</span>
                                             <div class="post-title">
-                                                <h4><a href="#">{{$iklan->judul}}</a></h4>
-                                                <h6><a href="#">{{$iklan->judul}}</a></h6>
+                                                <h4><a href="{{ route('iklanId',[ 'id' => base64_encode($iklan->id)]) }}">{{$iklan->judul}}</a></h4>
+                                                <h6><a href="{{ route('iklanId',[ 'id' => base64_encode($iklan->id)]) }}">{{$iklan->judul}}</a></h6>
                                                 <div class="auto-price"><span class="cs-color">$30,000</span> <em>MSRP
                                                         $33,000</em></div>
                                             </div>
@@ -244,7 +246,7 @@
                                                 <li>Transmisi<span>{{$iklan->transmisi}}</span></li>
                                                 <li>Bahan Bakar<span>{{$iklan->bahan_bakar}}</span></li>
                                             </ul>
-                                            <a href="#" class="View-btn">View Detail<i
+                                            <a href="{{ route('iklanId',[ 'id' => base64_encode($iklan->id)]) }}" class="View-btn">View Detail<i
                                                         class=" icon-arrow-long-right"></i></a>
                                         </div>
                                     </div>
@@ -253,16 +255,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <nav>
                                     <ul class="pagination">
-                                        <li><a href="#" aria-label="Previous"><span aria-hidden="true"><i
-                                                            class="icon-angle-left"></i></span></a></li>
-                                        <li><a class="active">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#" aria-label="Next"><span aria-hidden="true"><i
-                                                            class="icon-angle-right"></i></span></a>
-                                        </li>
+                                       {!! $dataIklan->render() !!}
                                     </ul>
                                 </nav>
                             </div>

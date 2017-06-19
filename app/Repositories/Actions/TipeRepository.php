@@ -31,7 +31,7 @@ class TipeRepository implements ITipeRepository
 
     public function delete($id)
     {
-        return JmTipe::find($id)->delete();
+        return JmTipe::where('id','=',$id)->delete();
     }
 
     public function read($id)
@@ -54,4 +54,19 @@ class TipeRepository implements ITipeRepository
         $result = JmTipe::where('model_id','=',$modelId)->get();
         return $result;
     }
+
+    public function deleteByModel($modelId)
+    {
+        return JmTipe::where('model_id','=',$modelId)->delete();
+    }
+
+    public function showWithPaginate()
+    {
+        return JmTipe::join('jm_model','jm_model.id','=','jm_tipe.model_id')
+                ->join('jm_merk','jm_merk.id','=','jm_model.merk_id')
+                ->select('jm_tipe.*','jm_model.model','jm_merk.merk')
+                ->orderBy('id','desc')
+                ->paginate(4);
+    }
+
 }

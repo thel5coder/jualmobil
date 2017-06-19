@@ -30,7 +30,7 @@ class MerkRepository implements IMerkRepository
 
     public function delete($id)
     {
-        return JmLokasi::find($id)->delete();
+        return JmMerk::find($id)->delete();
     }
 
     public function read($id)
@@ -40,11 +40,33 @@ class MerkRepository implements IMerkRepository
 
     public function showAll()
     {
-        return JmMerk::orderBy('merk','ASC')->get();
+        return JmMerk::orderBy('merk','asc')->get();
     }
 
     public function paginationData(\App\Repositories\Contracts\Pagination\PaginationParam $param)
     {
         // TODO: Implement paginationData() method.
     }
+
+    public function showMerkWithPaginate()
+    {
+        return JmMerk::orderBy('merk','desc')->paginate(6);
+    }
+
+    public function cekModelByMerkId($merkId)
+    {
+        return JmMerk::join('jm_model','jm_model.merk_id','=','jm_merk.id')
+            ->where('jm_model.merk_id','=',$merkId)
+            ->get();
+    }
+
+
+    public function deleteModelByMerkId($merkId)
+    {
+        return JmMerk::join('jm_model','jm_model.merk_id','=','jm_merk.id')
+                ->where('jm_model.merk_id','=',$merkId)
+                ->delete();
+    }
+
+
 }

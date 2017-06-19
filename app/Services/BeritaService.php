@@ -115,6 +115,7 @@ class BeritaService extends BaseService
 
         $berita = $this->beritaRepository->showBySlugKategori($slug);
         $datakategori = array();
+
         foreach ($berita as $dataBerita) {
             $datakategori[$dataBerita->id] = $this->grupKategoriBeritaRepository->showGrupKategoriBerita($dataBerita->id);
         }
@@ -233,6 +234,24 @@ class BeritaService extends BaseService
 
         $response->setResult($this->beritaRepository->showBeritaByKategori($kategori));
 
+        return $response;
+    }
+
+    public function showBeritaToHome()
+    {
+        $response = new ServiceResponseDto();
+        $berita = $this->beritaRepository->showBeritaToHome();
+        $datakategori = array();
+
+        foreach ($berita as $dataBerita) {
+            $datakategori[$dataBerita->id] = $this->grupKategoriBeritaRepository->showGrupKategoriBerita($dataBerita->id);
+        }
+        $result = [
+            'berita' => $berita,
+            'kategori' => $datakategori
+        ];
+
+        $response->setResult($result);
         return $response;
     }
 }

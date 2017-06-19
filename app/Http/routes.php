@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
 Route::get('/login',    ['uses' => 'UserController@login', 'as' => 'login']);
 Route::post('/login',   ['uses' => 'UserController@doLogin', 'as' => 'doLogin']);
 Route::get('/logout',   ['uses' => 'UserController@logout', 'as' => 'logout']);
@@ -46,7 +44,7 @@ Route::group(['middleware' => 'auth','prefix'=>'backend'], function () {
     Route::get('/listing/gettipe/{modelId}',    ['uses' => 'TipeController@ShowByModelId' ,'as' => 'gettipe.id']);
     Route::get('/listing/getprovinsi',          ['uses' => 'ProvinsiController@showAll' ,'as' => 'getprovinsi']);
     Route::get('/listing/getkota/{provinsiId}', ['uses' => 'KotaController@ShowByProvinsiId','as' => 'getkota.id']);
-    Route::post('/listing/setstatusiklan',      ['uses' => 'ListingMobilController@setStatusIklan', 'as' => 'setReject']);
+    Route::post('/listing/setstatusiklan',      ['uses' => 'ListingMobilController@setStatusIklan', 'as' => 'setStatusIklan']);
 
     Route::get('/berita',            ['uses' => 'BeritaController@index' , 'as' => 'beritaBackend']);
     Route::post('/berita',                  ['uses' => 'BeritaController@pagination' , 'as' => 'paginationBerita']);
@@ -58,24 +56,21 @@ Route::group(['middleware' => 'auth','prefix'=>'backend'], function () {
     Route::get('/berita/delete/{id}',       ['uses' => 'BeritaController@destroy','as' => 'berita.delete']);
     Route::post('/berita/setstatusberita',  ['uses' => 'BeritaController@setStatusBerita', 'as' => 'setStatus']);
 
-    Route::get('/merk', ['uses' => 'MerkController@index' , 'as' => 'merk']);
-    Route::get('/merk/create',      ['uses' => 'MerkController@create' ,'as' => 'formMerk']);
+    Route::get('/merk',             ['uses' => 'MerkController@index' , 'as' => 'formMerk']);
     Route::post('/merk/create',     ['uses' => 'MerkController@store' , 'as' => 'postMerk']);
-    Route::get('/merk/edit/{id}' ,  ['uses' => 'MerkController@edit', 'as' => 'edit.merk']);
-    Route::post('merk/update/{id}', ['uses' => 'MerkController@update' , 'as' => 'merk.update']);
-    Route::get('/merk/delete/{id}', ['uses' => 'MerkController@destroy', 'as' => 'delete.merk']);
+    Route::get('/merk/delete/{id}', ['uses' => 'MerkController@delete', 'as' => 'delete.merk']);
 
-    Route::get('/model/create', ['uses' => 'ModelController@create' , 'as'  => 'formModel']);
-    Route::post('/model/create', ['uses' => 'ModelController@store' , 'as' => 'postModel']);
-    Route::get('/model/edit/{id}', ['uses' => 'ModelController@edit' , 'as' => 'model.edit']);
-    Route::post('/model/update/{id}', ['uses' => 'ModelController@update', 'as' => 'model.update']);
-    Route::get('/model/delete/{id}', ['uses' => 'ModelController@destroy' , 'as' => 'model.delete']);
+    Route::get('/model',             ['uses' => 'ModelController@create' , 'as'  => 'formModel']);
+    Route::post('/model/create',     ['uses' => 'ModelController@store' , 'as' => 'postModel']);
+    Route::get('/model/delete/{id}', ['uses' => 'ModelController@delete' , 'as' => 'model.delete']);
 
-    Route::get('/tipe/create', ['uses' => 'TipeController@create' , 'as' => 'formTipe']);
-    Route::post('/tipe/create',['uses' => 'TipeController@store' , 'as' => 'postTipe']);
-    Route::get('/tipe/edit/{id}', ['uses' => 'TipeController@edit', 'as' => 'tipe.edit']);
-    Route::post('/tipe/update/{id}', ['uses' => 'TipeController@update' ,'as' => 'tipe.update']);
-    Route::get('/tipe/delete/{id}', ['uses' => 'TipeController@destry' , 'as' => 'tipe.delete']);
+    Route::get('/tipe',             ['uses' => 'TipeController@create' , 'as' => 'formTipe']);
+    Route::post('/tipe/store',      ['uses' => 'TipeController@store' , 'as' => 'postTipe']);
+    Route::get('/tipe/delete/{id}', ['uses' => 'TipeController@delete' , 'as' => 'tipe.delete']);
+
+    Route::get('/kategori',['uses' => 'KategoriController@index' , 'as' => 'kategori']);
+    Route::post('/kategori/store',['uses' => 'KategoriController@store' , 'as' => 'addkategori']);
+    Route::get('/kategori/delete/{id}',['uses' => 'KategoriController@delete' , 'as' => 'deleteKategori']);
 
     Route::post('/komentar/create', ['uses' => 'KomentarController@create' , 'as' => 'komentar']);
 });

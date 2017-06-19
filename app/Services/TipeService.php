@@ -12,7 +12,7 @@ use App\Repositories\Contracts\IModelRepository;
 use App\Repositories\Contracts\ITipeRepository;
 use App\Services\Response\ServiceResponseDto;
 
-class TipeService
+class TipeService extends  BaseService
 {
     protected $tipeRepository;
 
@@ -42,6 +42,24 @@ class TipeService
             ];
         }
         $response->setResult($param);
+
+        return $response;
+    }
+
+    public function showWithPaginate()
+    {
+        $response = new ServiceResponseDto();
+
+        $response->setResult($this->tipeRepository->showWithPaginate());
+
+        return $response;
+    }
+
+    public function delete($id)
+    {
+        $response = new ServiceResponseDto();
+
+        $this->tipeRepository->delete($id);
 
         return $response;
     }

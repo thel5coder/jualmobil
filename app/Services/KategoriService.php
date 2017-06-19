@@ -26,4 +26,35 @@ class KategoriService extends BaseService
         return $this->getAllObject($this->kategoriRepository);
     }
 
+    public function showAllWithPaginate()
+    {
+        $response = new ServiceResponseDto();
+
+        $response->setResult($this->kategoriRepository->showAllWithPaginate());
+
+        return $response;
+    }
+
+    public function create($input)
+    {
+        $response = new ServiceResponseDto();
+        $slug = $this->generateSlug($input['kategori']);
+        $param = [
+            'slug_kategori' => $slug,
+            'kategori' => $input['kategori']
+        ];
+
+        $this->kategoriRepository->create($param);
+
+        return $response;
+    }
+
+    public function delete($id)
+    {
+        $response = new ServiceResponseDto();
+
+        $this->kategoriRepository->delete($id);
+
+        return $response;
+    }
 }

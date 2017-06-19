@@ -18,7 +18,10 @@ class KategoriRepository implements IKategoriRepository
 
     public function create($input)
     {
-
+        $create = new JmKategori();
+        $create->slug_kategori = $input['slug_kategori'];
+        $create->kategori = $input['kategori'];
+        return $create->save();
     }
 
     public function update($input)
@@ -28,7 +31,7 @@ class KategoriRepository implements IKategoriRepository
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+       return JmKategori::find($id)->delete();
     }
 
     public function read($id)
@@ -44,6 +47,11 @@ class KategoriRepository implements IKategoriRepository
     public function paginationData(PaginationParam $param)
     {
         // TODO: Implement paginationData() method.
+    }
+
+    public function showAllWithPaginate()
+    {
+       return JmKategori::orderBy('id','desc')->paginate(4);
     }
 
 

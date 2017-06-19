@@ -58,9 +58,44 @@
                                     </div>
                                 </form>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="cs-user-section-title">
+                                        <h4>Daftar Model</h4>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <table class="table table-responsive table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Model</th>
+                                            <th>Merk</th>
+                                            <th>Dibuat</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($dataModels as $model)
+                                            <tr>
+                                                <td>{{$model->model}}</td>
+                                                <td>{{$model->merk}}</td>
+                                                <td>{{$model->created_at->diffForHumans()}}</td>
+                                                <td>
+                                                    <a class="btn btn-danger" onclick="deleteModel({{$model->id}})"> <i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {!! $dataModels->render() !!}
+                            </div>
                         </div>
                     </div>
                 </div>
+                <br>
+
             </div>
         </div>
         <div class="page-section" style="background:#19171a;">
@@ -82,7 +117,40 @@
 @stop
 @section('customscript')
     <script type="text/javascript">
-        $(document).ready(function(){
+        function deleteModel(id) {
+            swal({
+                title: 'Konfirmasi ',
+                text: "Yakin ingin menghapus iklan ini?!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus!'
+            }).then(function () {
+                runWaitMe('body', 'roundBounce', 'Mengapus Data...');
+                $.ajax({
+                    url: "<?= url('backend/model/delete/')?>/" + id,
+                    method: 'GET',
+                    error: function (XMLHttpRequest, textStatus, errorThrow) {
+                        $('body').waitMe('hide');
+                        notificationMessage(errorThrow, 'error');
+                    },
+                    success: function (s) {
+                        if (s.isSuccess) {
+                            window.location.reload()
+                        } else {
+                            $('body').waitMe('hide');
+                            var errorMessagesCount = s.message.length;
+                            for (var i = 0; i < errorMessagesCount; i++) {
+                                notificationMessage(s.message[i], 'error');
+                            }
+                        }
+                    }
+                });
+            });
+            return false;
+        }
+        $(document).ready(function () {
             $('#formModel').validate({
                 errorElement: 'span', //default input error message container
                 errorClass: 'help-block', // default input error message class

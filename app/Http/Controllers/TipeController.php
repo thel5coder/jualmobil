@@ -22,7 +22,8 @@ class TipeController extends Controller
     public function create()
     {
         $dataModels = $this->modelService->showAll()->getResult();
-        return view('tambahtipe',compact('dataModels'));
+        $dataTipe = $this->tipeService->showWithPaginate()->getResult();
+        return view('tambahtipe',compact('dataModels','dataTipe'));
     }
 
     public function store()
@@ -36,5 +37,12 @@ class TipeController extends Controller
         $result = $this->tipeService->ShowByModelId($modelId);
 
         return response()->json($result->getResult());
+    }
+
+    public function delete($id)
+    {
+        $result = $this->tipeService->delete($id);
+
+        return $this->getJsonResponse($result);
     }
 }

@@ -18,10 +18,12 @@ class MerkController extends Controller
         $this->merkService = $merkService;
     }
 
-    public function create()
+    public function index()
     {
-        return view('tambahmerk');
+        $merk = $this->merkService->showMerkWithPaginate()->getResult();
+        return view('merk')->with('dataMerk',$merk);
     }
+
     public function store()
     {
         $result = $this->merkService->create(Input::all());
@@ -31,6 +33,13 @@ class MerkController extends Controller
     public function showAll()
     {
         $result = $this->merkService->showAll();
+
+        return $this->getJsonResponse($result);
+    }
+
+    public function delete($id)
+    {
+        $result = $this->merkService->delete($id);
 
         return $this->getJsonResponse($result);
     }

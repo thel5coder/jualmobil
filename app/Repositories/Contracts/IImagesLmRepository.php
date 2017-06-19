@@ -11,4 +11,5 @@ namespace App\Repositories\Contracts;
 interface IImagesLmRepository extends IBaseRepository
 {
     public function showImagesByListingId($listingID);
+    public function showImagesFirstByListingId($listingId);
 }

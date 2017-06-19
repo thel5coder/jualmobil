@@ -12,4 +12,6 @@ namespace App\Repositories\Contracts;
 interface ITipeRepository extends IBaseRepository
 {
     public function ShowModelById($modelId);
+    public function deleteByModel($modelId);
+    public function showWithPaginate();
 }

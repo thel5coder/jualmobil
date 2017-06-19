@@ -13,4 +13,5 @@ interface IListingMobilRepository extends IBaseRepository
 {
     public function showByUserId($userId);
     public function setStatusIklanMobil($input);
+    public function showToHome();
 }

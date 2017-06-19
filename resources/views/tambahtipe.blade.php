@@ -58,6 +58,35 @@
                                     </div>
                                 </form>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <table class="table table-responsive table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>Tipe</th>
+                                            <th>Model</th>
+                                            <th>Merk</th>
+                                            <th>Dibuat</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($dataTipe as $tipe)
+                                            <tr>
+                                                <td>{{$tipe->tipe}}</td>
+                                                <td>{{$tipe->model}}</td>
+                                                <td>{{$tipe->merk}}</td>
+                                                <td>{{$tipe->created_at->diffForHumans()}}</td>
+                                                <td>
+                                                    <button class="btn btn-danger" onclick="deleteTipe({{$tipe->id}})"> <i class="fa fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {!! $dataTipe->render() !!}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -82,6 +111,39 @@
 @stop
 @section('customscript')
     <script type="text/javascript">
+        function deleteTipe(id) {
+            swal({
+                title: 'Konfirmasi ',
+                text: "Yakin ingin menghapus iklan ini?!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus!'
+            }).then(function () {
+                runWaitMe('body', 'roundBounce', 'Mengapus Data...');
+                $.ajax({
+                    url: "<?= url('backend/tipe/delete/')?>/" + id,
+                    method: 'GET',
+                    error: function (XMLHttpRequest, textStatus, errorThrow) {
+                        $('body').waitMe('hide');
+                        notificationMessage(errorThrow, 'error');
+                    },
+                    success: function (s) {
+                        if (s.isSuccess) {
+                            window.location.reload()
+                        } else {
+                            $('body').waitMe('hide');
+                            var errorMessagesCount = s.message.length;
+                            for (var i = 0; i < errorMessagesCount; i++) {
+                                notificationMessage(s.message[i], 'error');
+                            }
+                        }
+                    }
+                });
+            });
+            return false;
+        }
         $(document).ready(function () {
             $('#formTipe').validate({
                 errorElement: 'span', //default input error message container

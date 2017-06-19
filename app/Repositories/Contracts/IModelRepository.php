@@ -10,4 +10,6 @@ namespace App\Repositories\Contracts;
 interface IModelRepository extends IBaseRepository
 {
     public function ShowByMerkId($merkId);
+    public function deleteByMerk($merkId);
+    public function showWithPaginate();
 }

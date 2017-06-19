@@ -70,6 +70,10 @@ class ListingMobilController extends Controller
     public function read($id)
     {
         $data = $this->listingService->read(base64_decode($id))->getResult();
+        if(Auth::check() && auth()->user()->tipe_user == "admin")
+        {
+            return view('detailiklanadmin')->with('iklan',$data['iklan'])->with('imageIklan',$data['gambar']);
+        }
         return view('detailiklan')->with('iklan',$data['iklan'])->with('imageIklan',$data['gambar']);
     }
 
@@ -86,9 +90,10 @@ class ListingMobilController extends Controller
         return view('iklan')->with('dataIklan',$data['iklan'])->with('dataImageIklan',$data['gambarIklan']);
     }
 
-    public function show()
+    public function show($id)
     {
-
+        $data = $this->listingService->read(base64_decode($id))->getResult();
+        return view('detailiklan')->with('iklan',$data['iklan'])->with('imageIklan',$data['gambar']);
     }
 
     public function edit($id)

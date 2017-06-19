@@ -15,7 +15,7 @@
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="cs-user-section-title">
-                                            <h4>Review Berita - <em>{{$dataBerita->name}}</em> {{$dataBerita->id}}</h4>
+                                            <h4>Review Berita - <em>{{$dataBerita->name}}</em></h4>
                                         </div>
                                     </div>
                                     <br>

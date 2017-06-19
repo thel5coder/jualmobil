@@ -54,5 +54,9 @@ class ImagesLmRepository implements IImagesLmRepository
         return JmImagesLM::where('listing_mobile_id','=',$listingID)->orderBy('listing_mobile_id','asc')->get();
     }
 
+    public function showImagesFirstByListingId($listingId)
+    {
+        return JmImagesLM::where('listing_mobile_id','=',$listingId)->where('images','!=','')->orderBy('listing_mobile_id','asc')->first();
+    }
 
 }

@@ -51,10 +51,23 @@
                                         </ul>
                                         <div class="detail-btn">
                                             <div class="cs-button-style">
-                                                <a class="btn-compare" href="#"><i class="icon-flow-tree"></i>
-                                                    Compare</a>
-                                                <a class="btn-shortlist" href="#"><i class="icon-heart-o"></i>
-                                                    shortlist</a>
+                                                @if(auth()->user()->tipe_user == 'admin')
+                                                    @if($iklan->status == 'moderasi')
+                                                        <button class="btn btn-compare" onclick="rejectIklan()"><i
+                                                                    class="fa fa-close"></i>
+                                                            Tolak
+                                                        </button>
+                                                        <button class="btn btn-shortlist" onclick="acceptIklan()"><i
+                                                                    class="fa fa-check"></i>
+                                                            Aktifkan
+                                                        </button>
+                                                    @endif
+                                                @else
+                                                    <a class="btn-compare" href="#"><i class="icon-flow-tree"></i>
+                                                        Compare</a>
+                                                    <a class="btn-shortlist" href="#"><i class="icon-heart-o"></i>
+                                                        shortlist</a>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -211,6 +224,36 @@
                                                         </ul>
                                                     </div>
                                                 </li>
+                                                @if(auth()->check())
+                                                    @if(auth()->user()->tipe_user == "admin" )
+                                                        @if($iklan->status == 'moderasi')
+                                                            <li class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                                <button type="button" class="btn btn-primary"
+                                                                        onclick="acceptIklan()"><i
+                                                                            class="fa fa-check"></i> Aktifkan
+                                                                </button>
+                                                                <button type="button" class="btn btn-danger"
+                                                                        onclick="rejectIklan()"><i
+                                                                            class="fa fa-close"></i> Tolak
+                                                                </button>
+                                                            </li>
+                                                            <input type="hidden" name="_token" id="token"
+                                                                   value="{{csrf_token()}}">
+                                                            <input type="hidden" name="id" value="{{$iklan->id}}"
+                                                                   id="id">
+                                                            <input type="hidden" value="{{$iklan->email}}" id="email">
+                                                            <input type="hidden" value="{{$iklan->name}}" id="name">
+                                                        @else
+                                                            @if($iklan->status == 'nonaktif')
+                                                                <strong>Iklan <span
+                                                                            class="label label-danger">{{$iklan->status}}</span></strong>
+                                                            @else
+                                                                <strong>Iklan <span
+                                                                            class="label label-success">{{$iklan->status}}</span></strong>
+                                                            @endif
+                                                        @endif
+                                                    @endif
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>
@@ -384,6 +427,84 @@
         $('#bungaPerBulan').val(Math.round(bungaPerBulan));
         $('#pokok').val(Math.round(pokok));
         $('#total').val(Math.round(total));
+    }
+    function rejectIklan() {
+        swal({
+            title: 'Reject Iklan Ini ?! ',
+            text: "Tulis alasan mengapa iklan ditolak",
+            type: 'warning',
+            input: 'textarea',
+            showCancelButton: true,
+            confirmButtonText: 'Kirim',
+            showLoaderOnConfirm: true,
+        }).then(function (input) {
+            runWaitMe('body', 'roundBounce', 'Set reject Data...');
+            $.ajax({
+                url: "<?= route('setStatusIklan')?>",
+                method: "POST",
+                data: {
+                    _token: $('#token').val(),
+                    id: $('#id').val(),
+                    alasan: input,
+                    status: 'nonaktif',
+                    name: $('#name').val(),
+                    email: $('#email').val()
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrow) {
+                    $('body').waitMe('hide');
+                    notificationMessage(errorThrow, 'error');
+                },
+                success: function (s) {
+                    if (s.isSuccess) {
+                        window.location.reload()
+                    } else {
+                        $('body').waitMe('hide');
+                        var errorMessagesCount = s.message.length;
+                        for (var i = 0; i < errorMessagesCount; i++) {
+                            notificationMessage(s.message[i], 'error');
+                        }
+                    }
+                }
+            });
+        });
+    }
+    function acceptIklan() {
+        swal({
+            title: 'Aktifkan Iklan ',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aktfkan!'
+        }).then(function () {
+            runWaitMe('body', 'roundBounce', 'Set Aktif Data...');
+            $.ajax({
+                url: "<?= route('setStatusIklan')?>",
+                method: 'POST',
+                data: {
+                    _token: $('#token').val(),
+                    id: $('#id').val(),
+                    status: 'aktif',
+                    name: $('#name').val(),
+                    email: $('#email').val()
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrow) {
+                    $('body').waitMe('hide');
+                    notificationMessage(errorThrow, 'error');
+                },
+                success: function (s) {
+                    if (s.isSuccess) {
+                        window.location.reload()
+                    } else {
+                        $('body').waitMe('hide');
+                        var errorMessagesCount = s.message.length;
+                        for (var i = 0; i < errorMessagesCount; i++) {
+                            notificationMessage(s.message[i], 'error');
+                        }
+                    }
+                }
+            });
+        });
     }
 </script>
 </body>

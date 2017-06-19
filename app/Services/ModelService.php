@@ -10,15 +10,17 @@ namespace App\Services;
 
 
 use App\Repositories\Contracts\IModelRepository;
+use App\Repositories\Contracts\ITipeRepository;
 use App\Services\Response\ServiceResponseDto;
 
 class ModelService extends BaseService
 {
-    protected $modelRepository;
+    protected $modelRepository,$tipeRepository;
 
-    public function __construct(IModelRepository $modelRepository)
+    public function __construct(IModelRepository $modelRepository, ITipeRepository $tipeRepository)
     {
         $this->modelRepository = $modelRepository;
+        $this->tipeRepository = $tipeRepository;
     }
 
     public function create($input)
@@ -57,4 +59,37 @@ class ModelService extends BaseService
     {
         return $this->getAllObject($this->modelRepository);
     }
+
+    public function showWithPaginate()
+    {
+        $response = new ServiceResponseDto();
+
+        $response->setResult($this->modelRepository->showWithPaginate());
+
+        return $response;
+    }
+
+    public function delete($id)
+    {
+        $response = new ServiceResponseDto();
+
+        if( $this->tipeRepository->deleteByModel($id) )
+        {
+            if( !$this->modelRepository->delete($id) )
+            {
+                $message = ['gagal menghapus model setelah menghapus tipe'];
+                $response->addErrorMessage($message);
+            }
+        }
+        else{
+            if( !$this->modelRepository->delete($id) )
+            {
+                $message = ['gagal menghapus model '];
+                $response->addErrorMessage($message);
+            }
+        }
+
+        return $response;
+    }
+
 }

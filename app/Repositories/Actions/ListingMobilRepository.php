@@ -78,8 +78,8 @@ class ListingMobilRepository implements IListingMobilRepository
                 'jm_listing_mobil.plat_nomor', 'jm_listing_mobil.kilo_meter', 'jm_listing_mobil.bahan_bakar', 'jm_listing_mobil.transmisi',
                 'jm_listing_mobil.tahun', 'jm_listing_mobil.warna', 'jm_listing_mobil.harga', 'jm_listing_mobil.deskripsi',
                 'jm_listing_mobil.provinsi', 'jm_listing_mobil.kota', 'jm_listing_mobil.status',
-                'jm_merk.merk', 'jm_model.model', 'jm_tipe.tipe','jm_listing_mobil.merk_id','jm_listing_mobil.model_id','jm_listing_mobil.tipe_id',
-                'users.name','users.phone','users.in_wa','users.pin_bbm','users.facebook'
+                'jm_merk.merk', 'jm_model.model', 'jm_tipe.tipe', 'jm_listing_mobil.merk_id', 'jm_listing_mobil.model_id', 'jm_listing_mobil.tipe_id',
+                'users.name', 'users.phone', 'users.in_wa', 'users.pin_bbm', 'users.facebook' ,'users.email'
             )
             ->where('jm_listing_mobil.id', '=', $id)
             ->first();
@@ -87,9 +87,11 @@ class ListingMobilRepository implements IListingMobilRepository
 
     public function showAll()
     {
-        return JmListingMobil::join('users','users.id','=','jm_listing_mobil.user_id')
-        ->select('jm_listing_mobil.*','users.name')
-        ->orderBy('jm_listing_mobil.id', 'asc')->paginate(6);
+        return JmListingMobil::join('users', 'users.id', '=', 'jm_listing_mobil.user_id')
+            ->select('jm_listing_mobil.*', 'users.name')
+            ->where('status','!=','moderasi')
+            ->where('status','!=','nonaktif')
+            ->orderBy('jm_listing_mobil.id', 'asc')->paginate(6);
     }
 
     public function paginationData(PaginationParam $param)
@@ -202,7 +204,7 @@ class ListingMobilRepository implements IListingMobilRepository
 
     public function showByUserId($userId)
     {
-        return JmListingMobil::where('user_id', '=', $userId)->orderBy('id', 'asc')->paginate('5');
+        return JmListingMobil::where('user_id', '=', $userId)->where('status','!=','nonaktif')->where('status','!=','moderasi')->orderBy('id', 'asc')->paginate('5');
     }
 
     public function setStatusIklanMobil($input)
@@ -212,5 +214,16 @@ class ListingMobilRepository implements IListingMobilRepository
         $setReject->status = $input['status'];
         return $setReject->save();
     }
+
+    public function showToHome()
+    {
+        return JmListingMobil::join('users', 'users.id', '=', 'jm_listing_mobil.user_id')
+            ->select('jm_listing_mobil.*', 'users.name')
+            ->where('status', '!=', 'moderasi')
+            ->where('status','!=','nonaktif')
+            ->orderBy(DB::raw('RAND()'))
+            ->first();
+    }
+
 
 }

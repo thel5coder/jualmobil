@@ -54,4 +54,17 @@ class ModelRepository implements IModelRepository
     {
         return JmModel::where('merk_id','=',$merkId)->get();
     }
+
+    public function deleteByMerk($merkId)
+    {
+        return JmModel::where('merk_id','=',$merkId)->delete();
+    }
+
+    public function showWithPaginate()
+    {
+        return JmModel::join('jm_merk','jm_merk.id','=','jm_model.merk_id')
+            ->select('jm_merk.merk','jm_model.*')
+            ->orderBy('id','desc')->paginate(5);
+    }
+
 }

@@ -11,5 +11,5 @@ namespace App\Repositories\Contracts;
 
 interface IKategoriRepository extends IBaseRepository
 {
-
+    public function showAllWithPaginate();
 }

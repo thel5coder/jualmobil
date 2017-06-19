@@ -26,29 +26,22 @@
                                         </ul>
                                     </div>
                                 </div>
-                                {{--@for($i=9;$i<;$i--)--}}
-                                {{--{{$listingImage[$i][0]}}--}}
-                                {{--@endfor--}}
                                 <ul class="cs-featurelisted-car">
                                     @foreach($listingcars as $listingcar)
                                         <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="cs-media">
                                                 <figure>
-                                                    <a href="#">
                                                         @for($i=$listingcar->id;$i<=$listingcar->id;$i++)
                                                             <img src="{{$listingImage[$i][0]['images']}}" alt=""
                                                                  width="111"
                                                                  height="60"/>
                                                         @endfor
-                                                    </a>
                                                 </figure>
                                             </div>
                                             <div class="cs-text">
-                                                <span class="cs-featured">Featured</span>
-                                                <h6><a href="#">{{$listingcar->judul}}</a></h6>
+                                                <h6>{{$listingcar->judul}}</h6>
                                                 <div class="post-options">
                                                     <span>Uploaded <em>{{$listingcar->created_at->diffForHumans()}}</em></span>
-                                                    <span><a href="#"> Total Views  <em>59</em></a></span>
                                                 </div>
                                                 <div class="cs-post-types">
                                                     <div class="cs-post-list">
