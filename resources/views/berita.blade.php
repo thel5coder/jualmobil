@@ -9,7 +9,7 @@
 </head>
 <body class="wp-automobile single-post">
 <div class="wrapper">
-    @include('partials.header')
+    @include('partials.headerwithmegamenu')
     <div class="main-section-berita">
         {{--//banner--}}
         <div class="page-section" style="background: rgba(237, 240, 245, 1); padding-top:70px; padding-bottom:70px;">
@@ -173,8 +173,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--Tabs End-->
-                                <!--Element Section End--></div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="cs-seprator"></div>
@@ -206,7 +205,6 @@
                                                     </li>
                                                 @endforeach
                                             </ul>
-
                                             <p>{{$dataBerita->deskripsi_singkat}}</p>
                                             <div class="post-detail">
                                                     <span class="post-author"><i class="icon-user4"></i> <a
@@ -244,9 +242,9 @@
                             <a href="{{route('berita')}}" class="cs-view-blog">View all Blogs</a>
                         </div>
                         <div class="widget widget-tags">
-                            <h6>Tag Cloud</h6>
+                            <h6>Kategori Berita</h6>
                             @foreach($tagKategori as $Kategori)
-                                <a href="{{route('kategoriSlug',['kategori' => $Kategori ])}}">{{$Kategori->kategori}}</a>
+                                <a href="{{route('kategoriSlug',['kategori' => $Kategori->slug_kategori ])}}">{{$Kategori->kategori}}</a>
                             @endforeach
                         </div>
                     </aside>

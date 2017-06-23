@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('new', function (){
+    return view('berita.index');
+});
+
 Route::get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
 Route::get('/login',    ['uses' => 'UserController@login', 'as' => 'login']);
 Route::post('/login',   ['uses' => 'UserController@doLogin', 'as' => 'doLogin']);

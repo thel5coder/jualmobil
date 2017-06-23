@@ -61,13 +61,13 @@
                             <ul>
                                 <li>
                                     <div class="cs-media">
-                                        <a href="#">
+                                        <a href="{{route('beritaSlug',['slug' => $popular->slug])}}">
                                             <img src="{{$popular->images}}" alt=""
                                                  class="img-circle img-responsive" width="41" height="42"/>
                                         </a>
                                     </div>
                                     <div class="cs-text">
-                                        <a href="#">{{$popular->judul}}</a>
+                                        <a href="{{route('beritaSlug',['slug' => $popular->slug])}}">{{$popular->judul}}</a>
                                         <span><i class="icon-clock5"></i>{{$popular->created_at->diffForHumans()}}</span>
                                     </div>
                                 </li>

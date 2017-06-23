@@ -21,6 +21,8 @@ interface IBeritaRepository extends IBaseRepository
     public function showPopularBerita();
     public function GetUserPost($userId);
     public function showBySlugKategori($slug);
-    public function showBeritaByKategori($kategori);
+    public function showBeritaByKategori($kategori,$take);
     public function showBeritaToHome();
+    public function showToMegaMenu();
+    public function showAllWithPaginate($paginate);
 }

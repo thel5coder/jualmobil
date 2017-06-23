@@ -1,3 +1,5 @@
+<script src="{{asset('public/scripts/jquery.js')}}"></script>
+<script src="{{asset('public/scripts/bootstrap.min.js')}}"></script>
 <script src="{{asset('public/scripts/responsive.menu.js')}}"></script>
 <script src="{{asset('public/scripts/chosen.select.js')}}"></script>
 <script src="{{asset('public/scripts/slick.js')}}"></script>
@@ -13,6 +15,7 @@
 <script src="{{asset('public/vendor/unisharp/laravel-ckeditor/skins/kama/skin.js')}}"></script>
 <script src="{{url('/public/vendor/unisharp/laravel-ckeditor/adapters/jquery.js')}}"></script>
 <script src="{{asset('public/vendor/laravel-filemanager/js/lfm.js')}}"></script>
+<script src="{{asset('public/scripts/megamenu.js')}}"></script>
 <script>
     var url = "<?= url('/')?>";
 </script>

@@ -46,31 +46,7 @@
                         <div class="cs-blog-detail-text">
                             {!! $dataBerita->deskripsi !!}
                         </div>
-                        <div class="cs-blog-related-post">
-                            <h3>Related post</h3>
-                            <div class="row">
-                                @foreach($relatedPost as $post)
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="blog-medium">
-                                            <div class="cs-media">
-                                                <a href="#">
-                                                    <img src="{{$post->images}}" alt="{{$post->judul}}"
-                                                         style="width: 240px;"/>
-                                                </a>
-                                            </div>
-                                            <div class="cs-text">
-                                                <h4><a href="#">{{$post->judul}}</a></h4>
 
-                                                <p>{{  $post->deskripsi_singkat }}</p>
-                                                <a href="" class="cs-color">Lihat Selegkapnya <i
-                                                            class="icon icon-arrow-bold-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                @endforeach
-                            </div>
-                        </div>
                         <div class="cs-comments">
                             @if($dataKomentar !== "")
                                 <h3>{{count($dataKomentar)}} Komentar</h3>

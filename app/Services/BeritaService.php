@@ -81,9 +81,7 @@ class BeritaService extends BaseService
                 ];
                 $this->grupKategoriBeritaRepository->create($param);
             }
-        }
-        else
-        {
+        } else {
             $message = ['gagal merubah data'];
             $response->addErrorMessage($message);
         }
@@ -110,7 +108,8 @@ class BeritaService extends BaseService
         return $response;
     }
 
-    public function showAllBySlugKategori($slug){
+    public function showAllBySlugKategori($slug)
+    {
         $response = new ServiceResponseDto();
 
         $berita = $this->beritaRepository->showBySlugKategori($slug);
@@ -132,12 +131,7 @@ class BeritaService extends BaseService
     public function showBerita()
     {
         $response = new ServiceResponseDto();
-
-        if (auth()->user()->tipe_user == 'admin') {
-            $response->setResult($this->beritaRepository->showAll());
-        } else {
-            $response->setResult($this->beritaRepository->showByUser(auth()->user()->id));
-        }
+        $response->setResult($this->beritaRepository->showByUser(auth()->user()->id));
         return $response;
     }
 
@@ -177,14 +171,12 @@ class BeritaService extends BaseService
     public function delete($id)
     {
         $response = new ServiceResponseDto();
-        if ($this->deleteObject($this->beritaRepository,$id)->isSuccess()) {
-            if ( ! $this->deleteObject($this->grupKategoriBeritaRepository,$id)->isSuccess())
-            {
+        if ($this->deleteObject($this->beritaRepository, $id)->isSuccess()) {
+            if (!$this->deleteObject($this->grupKategoriBeritaRepository, $id)->isSuccess()) {
                 $message = ['gagal mengahpus grup kategori iklan'];
                 $response->addErrorMessage($message);
             }
-        }
-        else{
+        } else {
             $message = ['gagal menghapus data'];
             $response->addErrorMessage($message);
         }
@@ -228,11 +220,11 @@ class BeritaService extends BaseService
         return $response;
     }
 
-    public function showBeritaByKategori($kategori)
+    public function showBeritaByKategori($kategori, $take)
     {
         $response = new ServiceResponseDto();
 
-        $response->setResult($this->beritaRepository->showBeritaByKategori($kategori));
+        $response->setResult($this->beritaRepository->showBeritaByKategori($kategori, $take));
 
         return $response;
     }

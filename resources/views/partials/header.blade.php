@@ -1,23 +1,23 @@
-<header id="header">
+<header id="header" class="">
     <div class="container">
         <div class="row">
             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                 <div class="cs-logo">
                     <div class="cs-media">
-                        <figure><a href="{{url('/')}}"><img src="{{asset('public/images/cs-logo.png')}}" alt=""/></a></figure>
+                        <figure><a href="{{url('/')}}"><img src="{{asset('public/image/mobiltren1.jpg')}}" alt="" style="width: 147px; height: 46px"/></a></figure>
                     </div>
                 </div>
             </div>
             <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
                 <div class="cs-main-nav pull-right">
-                    <nav class="main-navigation">
+                    <nav class="main-navigation megamenu">
                         <ul>
                             <li><a href="{{url('/')}}">Home</a></li>
                             <li><a href="{{route('iklan')}}">Cari Mobil</a></li>
                             @if(auth()->check())
                                 <li><a href="{{route('formBerita')}}">Pasang Iklan</a>
                             @endif
-                            <li><a href="{{route('berita')}}">Berita</a></li>
+                            <li><a href="{{route('berita')}}" target="_blank">Berita</a></li>
                             <li class="cs-user-option">
                                 <div class="cs-login">
                                     @if(auth()->check())

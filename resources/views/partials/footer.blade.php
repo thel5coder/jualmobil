@@ -76,15 +76,8 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="copyright-text">
-                        <p>Powered by <a href="#" class="cs-color">ChimpStudio.</a> Built with Automobile</p>
+                        <p>Powered by <a href="#" class="cs-color">FilosTeam.</a></p>
                     </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="cs-back-to-top">
-                        <address>
-                            <i class="icon-phone"></i> <a href="#">+0 (123) 456-789-10</a>
-                        </address>
-                        <a class="btn-to-top cs-bgcolor" href=""><i class="icon-keyboard_arrow_up"></i></a> </div>
                 </div>
             </div>
         </div>

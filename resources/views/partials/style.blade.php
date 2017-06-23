@@ -13,11 +13,12 @@
 <link href="{{asset('public/css/jquery.bootgrid.css')}}" rel="stylesheet" >
 <link href="{{asset('public/css/sweetalert2.min.css')}}" rel="stylesheet">
 
+
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-<script src="{{asset('public/scripts/jquery.js')}}"></script>
+
 <script src="{{asset('public/scripts/modernizr.js')}}"></script>
-<script src="{{asset('public/scripts/bootstrap.min.js')}}"></script>
+<link rel="stylesheet" href="{{asset('public/css/megamenu.css')}}">
 @yield('customstyle')
